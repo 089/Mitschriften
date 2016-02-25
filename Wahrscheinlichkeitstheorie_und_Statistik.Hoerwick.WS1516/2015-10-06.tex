@@ -1,0 +1,87 @@
+% Vorlesung vom 06.10.2015
+\renewcommand{\ldate}{2015-10-06}
+
+\section{Relative Häufigkeit}\index{Häufigkeit!relative}
+
+\subsection{Relative Häufigkeit am Beispiel des Reißnagelversuchs}\index{Reißnagelversuch}
+Ein Reißnagel wurde 300 mal geworfen. Er kann grundsätzlich in den zwei Positionen 1 und 0 landen (Abb. \ref{fig:reissnagelversuch1}). Die absoluten Häufigkeiten sind: 1 kommt 124 mal, 0 kommt 176 mal vor. Die relative Häufigkeit von 1 beträgt $ \frac{124}{300}=0.413=41,3\% $, die von 0 beträgt $ \frac{176}{300}=0.586=58,6\% $.
+
+\includegraphicsdeluxe{reissnagelversuch1.jpg}{Reißnagelversuch}{Der Reißnagel kann auf seinem Kopf landen (1) oder eben nicht (0)}{fig:reissnagelversuch1}
+
+\subsection{Relative Häufigkeit allgemein}
+Einzelexperiment mit Ergebnismenge $ \Omega $ wird n mal wiederholt. Dadurch entsteht ein Datenvektor\index{Datenvektor} $ (\omega_1, \omega_2, ..., \omega_n), \omega_i \in \Omega $. \profnote{Dieser Datenvektor steht fest und kann nachträglich nicht mehr geändert werden.} Jedem Ereignis A von $ \Omega $ können wir eine relative Häufigkeit zuordnen: $ r(A) = |\{ j : 1\leq j\leq n \textrm{ und } \omega_j \in A \}| \cdot \frac{1}{n} $. 
+\profnote{Die relative Häufigkeit von A $ \approx $ Wahrscheinlichkeit von A.}
+
+Für diese relative Häufigkeit gilt: 
+\begin{enumerate}
+\item $ 0\leq r(A)\leq 1 $
+\item $ r(\Omega) = 1 $
+\item $ r(A+B) = r(A) + r(B) $
+\end{enumerate}
+
+\subsection{Beispiel}
+$ \Omega = \{ 1,2,3,4,5,6 \}, n=10, \textrm{Datenvektor: } (5,1,1,6,2,3,4,2,1,5), \textrm{Ereignisse: } A=\{ 1,2 \}, B=\{ 3,4 \}, A\cap B=\emptyset $\\
+$ r(A) = 5 \cdot \frac{1}{10} = \frac{5}{10} $ und $ r(B)=2\cdot \frac{1}{10}=\frac{2}{10} $\\
+$ r(A\cup B) = \frac{7}{10} $
+
+\subsection{Stabilisierung}\index{Stabilisierung}
+Angenommen Datenvektor sehr lang ($ n = 10 000 $), Ereignis $A \subset \Omega $. Man berechnet die $ r_k(A) $ indem man die ersten k Daten berücksichtigt, also: $ r_{10}(A), r_{11}(A), r_{12}(A), ..., r_{10 000}(A) $ \\
+$ r_k(A) = | \{ j : 1\leq j \leq k \textrm{ und } \omega_j \in A \} | \cdot \frac{1}{k} $
+
+\includegraphicsdeluxe{stabilisierung.jpg}{Stabilisierung}{Das Diagramm zeigt beispielhaft, was unter Stabilisierung gemeint ist.}{fig:}
+
+\subsection{Empirisches Gesetz}\index{Empirisches Gesetz}
+Von der Stabilisierung der relativen Häufigkeit von A. Für $ k\rightarrow \infty $ läuft $r_k(A) $ gegen einen festen Wert $ P(A) $.
+
+\subsection{Übung 4.2 (Buch) - Lotto 6 aus 49} 
+Die ersten 2058 Ziehungen enthielten 198 mal die 13 und 248 mal die 43 ($ \Omega=\{(a_1 < a_2 < a_3 < a_4 < a_5 < a_6) : 1\leq a_i\leq 49 \} $). Der Datenvektor hat die Länge $ n = 2058 $. \\
+$ A_{13}: $ "13 wird gezogen", $ r(A_{13}) = \frac{198}{2058} = 0.096 $\\
+$ A_{43}: $ "43 wird gezogen", $ r(A_{43}) = \frac{248}{2058} = 0.120 $\\
+Wie groß ist die relative Häufigkeit einer Zahl, wenn jede Zahl gleich oft gezogen wird?\\
+Gezogene Kugeln: $ 6 \cdot 2058 $\\
+Jede gleich oft: $ \frac{6\cdot 2058}{49}=252 \Rightarrow r(A_k)=\frac{252}{2058}=\frac{6}{49} $
+
+\section{Deskriptive Statistik}\index{Statistik!deskriptive}
+
+\subsection{Stabdiagramm}\index{Stabdiagramm}
+\profnote{Beispiel aus dem Buch (Seite 24)}Bundestagswahl mit $ n = 43 371 190 $ gültigen Zweitstimmen. Dabei entsteht das folgende Stabdiagramm (Abb. \ref{fig:stabdiagramm1}).
+
+\includegraphicsdeluxe{stabdiagramm1.png}{Stabdiagramm Stimmenverteilung}{Aufteilung der Parteien in $ \% $ (Quelle: Stochastik für Einsteiger, Norbert Henze, Vieweg/Teubner)}{fig:stabdiagramm1}
+
+\subsection{Histogramm}\index{Histogramm}
+\includegraphicsdeluxe{histogramm1.jpg}{Beispiel für ein Histogramm}{Rechteckfläche $ = $ relative Häufigkeit, Höhe $ \times $ Breite $ = $ relative Häufigkeit, Höhe $ = \frac{\textrm{relative Häufigkeit}}{\textrm{Breite}} $ }{fig:histogramm1}
+
+Bei 1000 Glühbirnen wurde die Lebensdauer getestet (Abb. \ref{fig:histogramm1}).\\ % \profnote{Die Glühbirnen sind ja jetzt verboten. Ich habe im Internet auch einen ganzen Karton bestellt.}
+\begin{tabular}{|c|c|c|c|c|}
+\hline Stunden & ausgefallene Glühbirnen & relative Häufigkeit & Höhe \\ 
+\hline 0-50 & 20 & 0.02 & 0.0004 \\ 
+\hline 50-200 & 80 & 0.08 & 0.00053 \\ 
+\hline 200-400 & 120 & 0.12 & 0.0006 \\ 
+\hline 400-600 & 180 & 0.18 & 0.0009 \\ 
+\hline 600-800 & 500 & 0.5 & 0.0025 \\ 
+\hline 800-1000 & 100 & 0.1 & 0.0005 \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Lagemaße}
+$ x_1, ..., x_n $ Zahlen. Suche Zahl l für die "grobe Lage".\\
+Forderung: $ l(x_1+a, x_2+a, ..., x_n+a) = l(x_1, ..., x_n) + a $\\
+arithmetisches Mittel: $ \overline{x} = \frac{1}{n}(x_1+x_2+...+x_n) $ Forderung erfüllt!
+\paragraph{Aufgabe} Für welches $t\in \R$ ist $ \sum_{i=1}^{n}(x_i-t)^2 $ minimal? Für $t=\overline{x}$! Wegen: $ f(t)=\sum_{i=1}^{n}(x_i-t)^2 $\\
+$ f'(t) = -\sum_{i=1}^{n}2(x_i-t) = 0 $ und $ \sum_{i=1}^{n}(x_i-t) = 0 $\\
+$ \sum_{i=1}^{n} x_i = n\cdot t $\\
+$ t = \frac{\sum_{i=1}^{n}x_i}{n} = \overline{x} $
+
+\subsection{Gewichtetes Mittel}
+\begin{tabular}{|c|c|c|c|c|}
+\hline Werte & $ a_1 $ & $ a_2 $ & ... & $ a_n $ \\ 
+\hline Gewichte & $ g_1 $ & $ g_2 $ & ... & $ g_n $ \\ 
+\hline 
+\end{tabular} 
+$ \overline{x} = \frac{\sum_{i=1}^{n}g_i a_i}{\sum_{i=1}^{n} g_i} $
+
+\paragraph{Beispiel Schulnoten}
+Noten: 2,4,6,3,4,2,5, Gewichte: 1,5,1,3,3,5,1\\
+Endnote $= \frac{1\cdot 2+ 5\cdot 4 + 1\cdot 6+ 3\cdot 3 + 3\cdot 4+ 5\cdot 2 + 1\cdot 5}{1+5+1+3+3+5+1} = 3.37 $
+
+% \profnote{Hoffentlich bekommt die Deutschlehrerin das mit den gewichteten Noten hin. Eventuell muss sie die Mathelehrerin fragen. Und für die schriftliche Bewertung fragt dann die Mathe- die Deutschlehrerin.}

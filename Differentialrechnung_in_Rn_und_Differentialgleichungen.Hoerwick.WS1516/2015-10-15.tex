@@ -1,0 +1,104 @@
+% Vorlesung vom 15.10.2015
+\renewcommand{\ldate}{2015-10-15}
+
+\subsection{Beispiel zur Wiederholung}
+$f(x,y) = x^2y+\sin(xy)$\\
+$f_x = 2xy+\cos(xy) \cdot y$\\
+$f_{x,y}= 2x+[-\sin(xy)]\cdot y + \cos(xy)]$\\
+$f_y = x^2 + \cos(xy) \cdot x$\\
+$f_{y,x} = 2x+[-y \sin(xy) \cdot x + \cos(xy)]$\\
+Hier $ f_{x,y} = f_{y,x} $
+
+\subsection{Allgemein gilt}
+$f:\R^2 \rightarrow \R$
+Sind $f_{x,y} $ und $f_{y,x}$ stetig, so ist $f_{x,y}=f_{y,x}$\\
+
+\begin{proof}
+\includegraphicsdeluxe{beweis1.jpg}{Beweis $ f_{y,x} = f_{x,y} $}{Beweis $f_{y,x} = f_{x,y}$ }{fig:beweis1}
+
+Wir berechnen: $\int_B f_{x,y} $ und $\int_B f_{y,x} $ \\
+
+1.) $\int_B f_{x,y} = \int_{a_1}^{b_1} ( \int_{a_2}^{b_2} f_{x,y} dy) dx $
+$= \int_{a_1}^{b_1} f_x(x,y) |_{y=a_2}^{y=b_2} dx $
+$= \int_{a_1}^{b_1} f_x(x b_2) - f_x(x, a_2) dx $
+$= f(x b_2) - f(x a_2) |_{x=a_1}^{x=b_1} $\\
+$= [f(b_1, b_2) - f(b_1, a_2)] - [f(a_1, b_2)-f(a_1,a_2)]$\\
+
+2. $\int_B f_{y,x} = \int_{a_2}^{b_2} ( \int_{a_1}^{b_1} f_{y,x} dx) dy $
+$= \int_{a_2}^{b_2} f_y(x,y) |_{x=a_1}^{x=b_1} dy $
+$= \int_{a_2}^{b_2} f_y(b_1 y) - f_y(a_1 y) dy $
+$= f(b_1 y) - f(a_1 y) |_{y=a_2}^{y=b_2} $
+$= [f(b_1, b_2) - f(a_1, b_2)] - [f(b_1, a_2)-f(a_1,a_2)]$
+
+$\Rightarrow \int_B f_{x,y} = \int_B f_{y,x}$ \underline{für jedes B}\\
+$ \Rightarrow f_{y,x} = f_{x,y} $ (vgl. Abb. \ref{fig:beweis1})
+\end{proof}
+
+\subsection{Test}
+$ f(x,y) = y\cdot e^x + \sin(xy^2) $\\
+$ f_x= y\cdot e^x + \cos{xy^2} \cdot y^2$\\
+$ f_{x,y} = e^x + [-\sin(xy^2)\cdot 2yx\cdot y^2 + \cos(xy^2)2y]$\\
+$ f_y = e^x + \cos(xy^2) \cdot 2yx$\\
+$ f_{y,x} = e^x + 2y[-\sin(xy^2) \cdot y^2 x + \cos(xy^2)] $\\
+
+\section{Extremwertaufgaben mit zwei Variablen}
+$ f(x,y): $ Wir suchen ein relatives Maximum oder relatives Minimum. Eine notwendige Bedingung hierfür ist eine horizontale Tangentialeben, d.h. $ \frac{\delta f}{\delta x} = 0 $ \underline{und} $ \frac{\delta f}{\delta y} = 0 $. 
+
+\begin{satz}[Rezept]
+f hat bei $ (x_0,y_0)$ einen relativen Extremwert, wenn: 
+\begin{enumerate}
+\item $f_x(x_0,y_0) = 0$ und $f_y(x_0,y_0) = 0$
+\item $\Delta = f_{x,x}(x_0,y_0)\cdot f_{y,y}(x_0,y_0)\cdot f_{x,y}(x_0,y_0)^2 > 0 $
+	\begin{itemize}
+	\item $f_{x,x}(x_0,y_0) < 0$ relatives Maximum 
+	\item $f_{x,x}(x_0,y_0) > 0$ relatives Minimum
+	\end{itemize}
+	Ist $\Delta < 0$, so haben wir einen Sattelpunkt.\\
+	Ist $\Delta = 0$, so ist keine Entscheidung möglich. 
+\end{enumerate}
+\end{satz}
+
+\subsection{Beispiel}
+$ f(x,y)= x y - 27(\frac{1}{x} - \frac{1}{y}) = x y - 27 x^{-1} + 27 y^{-1}$. 
+Gibt es Extremwerte und wenn: Handelt es sich um ein Minimum oder ein Maximum?\\
+
+$f_x = y + 27 x^{-2}$\\
+$f_y = x - 27 y^{-2}$\\
+$f_{xx} = -54 x^{-3}$\\
+$f_{yy} = 54 y^{-3}$\\
+$f_{xy} = 1$\\
+$f_{yx} = 1$\\
+Kritische Punkte: $f_x=0$ und $f_y=0$\\
+$I: y+27x^{-2}=0$\\
+$II: y-27x^{-2}=0 \Rightarrow x = 27 y ^{-2} $ in I\\
+$I: y+27(27 y^{-2})^{-2} = 0 $\\
+$y+27 \cdot 27^{-2} y^4 = 0 $\\
+$y+27^{-1} y^4 = 0 \Rightarrow y \neq 0$\\
+$1+27^{-1} y^3=0$\\
+$y^3=(-1)27 \Rightarrow y=-3$\\
+
+in II: $x-27 (-3^{-2}) = 0$\\
+$x-27 (\frac{1}{-3}^{-2}) = 0$\\
+$x - \frac{27}{9} = 0 \Rightarrow x=3$\\
+Also $(x_0,y_0)=(3,-3)$\\
+
+Jetzt müssen wir das Delta $\Delta$ ausrechnen: 
+$ f_{x,x}(3,-3) \cdot f_{y,y}(3,-3) - f_{x,y}(3,-3)^2$
+$ = (-54\cdot 3^{-3}) \cdot (54(-3)^{-3}) -1 $
+$ = (-\frac{54}{27}) (-\frac{54}{27}) - 1 $
+$ = (-2)(-2)-1 = 3 < 0 $\\
+
+Jetzt müssen wir $f_{x,x}$ anschauen: 
+$ f_{x,x}(3,-3) = -2 < 0$\\
+$\Rightarrow $ relatives Maximum bei (3,-3) 
+% \profnote{Jetzt sind wir so schnell, aber aufhören können wir noch nicht.}
+
+\section{Abbildungen des Typs $\R \rightarrow \R^n$}
+\includegraphicsdeluxe{punktbewegung1.jpg}{Punktbewegung im Raum}{Die Bewegung eines Punktes im Raum}{fig:punktbewegung1}
+$ f(t) = \left( \begin{array}{c}  x(t)\\  y(t)\\ z(t) \end{array} \right)$ mit $\R \rightarrow \R^3$, t als Parameter. Das stellt die Bewegung eines Punktes im Raum dar. Es handelt sich um die Parameterdarstellung einer Kurve im $\R^3$. Es wird nicht nur die Kurve gegeben, sondern wie ein Punkt die Kurve durchläuft (Abb. \ref{fig:punktbewegung1}). 
+
+\subsection{Beispiel}
+\begin{enumerate}
+\item $ f(t) = \left( \begin{array}{c} t^2 + t\\ t^3 \end{array} \right)$
+\item $ f(t) = \left( \begin{array}{c} R \cos(t)\\ R \sin(t) \end{array} \right) $ t Winkel, R Radius Kreis
+\end{enumerate}

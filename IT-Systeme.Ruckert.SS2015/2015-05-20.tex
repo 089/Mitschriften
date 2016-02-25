@@ -1,0 +1,108 @@
+% Vorlesung vom 20.05.2015
+\renewcommand{\ldate}{2015-05-20}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+\section{Synchronisierung von Threads}
+
+\subsection{Vorteile und Eigenschaften}
+\begin{itemize}
+\item gemeinsamer Speicher (Adressraum)
+\item getrennte Register
+\item getrennter Stack
+\end{itemize}
+
+\subsection{Wiederholung}
+Der Wechsel zwischen Threads passiert mit SAVE (Alles kommt in den Stack; auf der obersten Position bleibt die Adresse der Daten) und UNSAVE (Nimmt die Adresse und holt die Daten vom Thread). Threadwechsel sind im Vergleich zu Prozesswechseln billig. 
+
+\paragraph{Problem:} buffered IO. Der eine Thread speichert, liest und kopiert der andere verarbeitet in den Lesephasen:\\ 
+\resizebox{\linewidth}{!}{\input{pics/\ldate_threads_buffered_io}}
+
+\subsection{Synchronisierung}
+
+\subsubsection{Einfachster Fall:} Zwei Threads mit einem gemeinsamen Buffer:
+\input{pics/\ldate_threads_gemeinsamer_buffer.tex}
+
+\paragraph{Synchronisation mit einer Semaphore} ("Licht", "Ampel")
+\begin{lstlisting}
+***
+\end{lstlisting}
+
+\paragraph{Sequentiell inkonsistent:} 
+
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{pics/\ldate_sequ_inkonsistenz.jpg}
+\caption{Beispiel zur sequentiellen Inkonsistenz}
+\label{fig:sequ_inkonsistenz}
+\end{figure}
+
+Zur Abhilfe gibt es den Befehl SYNC. SYNC 3 bis SYNC 7 sind \textbf{privileged} (Abb. \ref{fig:sequ_inkonsistenz}). 
+
+\begin{tabular}{|c|c|}
+\hline SYNC & Bezeichnung \\ 
+\hline 0 & drain pipeline \\ 
+\hline 1 & finish all stores before starting following stores \\ 
+\hline 2 & finish all loads before starting following loads \\ 
+\hline 3 & beides; 1 und 2 \\ 
+\hline 4 & Power Save Mode (z.B. bei Wartezyklen) \\ 
+\hline 5 & empty WriteBuffers and caches to memory \\ 
+\hline 6 & clear TLB (Translation Lookasside Buffers, d.h. Cache für page tables) \\ 
+\hline 7 & Clear all caches \\ 
+\hline 
+\end{tabular} 
+
+\subsubsection{Double Buffering (Abb. \ref{fig:double_buffering}) und Buffer Swapping (Abb. \ref{fig:buffer_swapping})}
+
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{pics/\ldate_double_buffering.jpg}
+\caption{Double Buffering}
+\label{fig:double_buffering}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{pics/\ldate_buffer_swapping.jpg}
+\caption{Buffer Swapping}
+\label{fig:buffer_swapping}
+\end{figure}
+
+\begin{lstlisting}
+
+	% Semaphore,Adresse von Buffer, Adresse von anderer Semaphore
+S1	OCTA 	1,Buffer1,S2
+S2	OCTA 	0,Buffer2,S1
+
+Consumer:
+tmp IS $0
+buffer IS $1
+S GREG 0
+
+	LDA s,S1	Initialisieren
+
+1H	LDO tmp,s,0
+		BZ tmp,1B
+		SYNC 2
+		LDO buffer,s,8
+		%.... Use Buffer/lesen
+	
+		STCO 0,s,0	Release
+		LDO s,s,16	Buffer swap
+\end{lstlisting}
+
+Diese Synchronisation erfordert, dass der Thread, der den Speicher freigibt, bestimmt, wem der Speicher als nächstes gehört. Falls unklar ist welcher Thread als nächstes Zugriff braucht macht man folgendes. Dabei steht die 0 für \glqq Ressource ist frei verfügbar\grqq und 1 für \glqq Ressource wird gerade verwendet\grqq:
+
+\begin{lstlisting}
+S	OCTA	0
+\end{lstlisting}
+
+\paragraph{Naive Lösung} Eine naive Lösung könnte wie folgt aussehen, allerdings gibt es ein \textbf{Problem:} Beide wollen auf die Liste zugreifen. Es kann also passieren, dass beide gleichzeitig auf S zugreifen. Man braucht daher eine Operation die in einem Schritt (ununterbrechbar) ein OCTA liest, vergleicht und schreibt. Das ist bei MMIX die CSWAP \$X,\$Y,\$Z Instruktion. 
+
+\begin{lstlisting}
+***
+1H	LDO	$0,S	Warte bis S=0
+	BNZ $0,1B
+	SYNC 2
+	STCO 1,S
+	... 
+	Use Release
+	SYNC 1
+	STCO 0,	Release
+\end{lstlisting}

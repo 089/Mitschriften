@@ -1,0 +1,126 @@
+% Vorlesung vom 19.11.2015
+\renewcommand{\ldate}{2015-11-19}
+
+\subsection{Lot auf eine Kurve}
+\includegraphicsdeluxe{Hoehenlinienplan1.jpg}{Höhenlinienplan}{Höhenlinienplan: 0-er (rot)}{fig:Hoehenlinienplan1}
+$f(x,y) = 0$, $f: \begin{cases}
+\R^2 \rightarrow \R \\
+(x,y) \rightarrow f(x,y)
+\end{cases}$ ist ein \glqq Funktionsgebirge\grqq. Die Kurve $f(x,y)=0$ ist die 0-er Höhenlinie (Abb. \ref{fig:Hoehenlinienplan1}). Der Ableitungsvektor in P (Gradient) zeigt in Richtung des steilsten Anstieg. Das ist senkrecht zur Höhenlinie. Das Lot ist also der Gradient. Lot im Punkt (x,y) ist $ \rbr{\frac{\df}{\dx},\frac{\df}{\dy}}$ (rechts in Abb. \ref{fig:Hoehenlinienplan1}).
+
+\subsection{Ellipse}
+$f(x,y)=0$; $\frac{x^2}{a^2} + \frac{y^2}{b^2} - 1 = 0$; grad f $=\rbr{\frac{2x}{a^2}, \frac{2y}{b^2}}$ \profnote{grad ist der Gradient. }\\
+Lot mit 45\grad:
+$\frac{2x}{a^2} = \frac{2y}{b^2} \Rightarrow \frac{x}{a^2} = \frac{y}{b^2} \Rightarrow \frac{x^2}{a^4} = \frac{y^2}{b^4}$ (setzen wir unten ein)
+
+$\frac{x^2}{a^2} + \frac{y^2}{b^2} -1 = 0 $
+$\Rightarrow \frac{x^2}{a^4} \cdot a^2 + \frac{y^2}{b^2} -1 = 0 $
+$\Rightarrow \frac{y^2}{b^4} \cdot a^2 + \frac{y^2}{b^2} = 1 $
+$\Rightarrow y^2 \rbr{\frac{a^2}{b^4} + \frac{1}{b^2}} = 1 $
+$\Rightarrow y^2 \frac{a^2 + b^2}{b^4} = 1 $
+$\Rightarrow y^2 = \frac{b^4}{a^2 + b^2} $
+
+z.B.: $a=3, b=2$, 
+$y^2 = \frac{16}{9 + 4} $
+$=\frac{16}{13} \Rightarrow y=1.1094$
+
+$\frac{x}{a^2} = \frac{y}{b^2} $
+$\Rightarrow x=\frac{a^2}{b^2} \cdot y$
+$=\frac{9}{4} \cdot 1.1094 $
+\underline{$=2.496$}
+
+\subsubsection{andere Berechnungsmethode}
+
+\textbf{Parameterdarstellung:} $(a \cos \varphi, b \sin \varphi)$
+
+\textbf{Tangentenvektor:} $(- a \sin \varphi, b \cos \varphi)$
+
+\textbf{Lotvektor:} $(b \cos \varphi, a \sin \varphi)$
+
+\textbf{45\grad:} $b\cos \varphi = a\sin \varphi$ 
+$\Rightarrow \frac{b}{a} $
+$=\frac{\sin \varphi}{\cos \varphi}$
+$=\tan \varphi$
+
+Für $b=2, a=3: \frac{2}{3}=\tan \varphi \Rightarrow \varphi=33,69\gradi$
+
+einsetzen: $(a \cos \varphi, b\sin \varphi)$
+$=(3\cos 33.69\gradi, 2\sin 33.69\gradi)$
+$=(2.496, 1.109)$
+
+\subsection{Implizite Darstellung von Flächen im $\R^3$}
+\includegraphicsdeluxe{ImplDarstVonFlaeR31.jpg}{Implizite Darstellung von Flächen im $\R^3$}{Implizite Darstellung von Flächen im $\R^3$}{fig:ImplDarstVonFlaeR31}
+
+$f(x,y,z)=0$. Kugel um 0 mit dem Radius R: $x^2+y^2+z^2=R^2$.
+
+\textbf{Drehellipsoid:} $\frac{x^2}{a^2} + \frac{z^2}{b^2} = 1$ (Abb. \ref{fig:ImplDarstVonFlaeR31})
+
+\textbf{Rotation um Z-Achse:} $ \frac{r^2}{a^2} + \frac{z^2}{b^2} = 1; r^2=x^2+y^2$ 
+$\Rightarrow \frac{x^2+y^2}{a^2} + \frac{z^2}{b^2} = 1$
+
+\textbf{Lot in einem Flächenpunkt:}
+$F: f(x,y,z) = 0, f:\R^3 \rightarrow \R$. Fläche F ist die \glqq 0-er Niveaufläche\grqq.
+
+Bewegt man sich im Flächenpunkt P in Richtung grad(f), so wächst die Funktion am stärksten. Der Gradient in P ist also das Lot auf die Fläche in P (Abb. \ref{fig:ImplDarstVonFlaeR31}).
+
+\subsection{Beispiel}
+
+\textbf{Kugel:} $x^2+y^2+z^2-R^2 = 0 \Rightarrow grad(f) = (2x,2y,2z)$
+
+\textbf{Drehellipsoid} $\frac{x^2}{a^2} + \frac{y^2}{a^2} + \frac{z^2}{b^2} -1 = 0$
+$\Rightarrow grad(f) = \rbr{\frac{2x}{a^2}, \frac{2y}{a^2}, \frac{2z}{b^2}}$
+
+\section{Die komplexen Zahlen}
+\includegraphicsdeluxe{DieKomplZahlen1.jpg}{Komplexen Zahlen}{Menge der komplexen Zahlen. Menge M und Menge $\C$ (rot)}{fig:DieKomplZahlen1} 
+Wir starten mit den reellen Zahlen $(\R,+,\cdot)$. $(M,+,\cdot)$ sei eine Erweiterung von $(\R,+,\cdot)$ (vgl. Abb. \ref{fig:DieKomplZahlen1}). In $(M,+,\cdot)$ sollen die üblichen Rechenregeln gelten. Das heißt, die Körperaxiome sollen gelten:
+
+\begin{itemize}\profnote{Einschub}
+\item $(M,+)$ kommutative Gruppe, 0 neutral
+\item $(M^*,\cdot)$ kommutative Gruppe, 1 neutral
+\item das Distributivgesetz muss gelten: $a(b+c) = ab+ac$
+\end{itemize}
+
+Wir nehmen an, es gibt ein $i\in M$ mit $i^2=-1$.
+
+\begin{defi}
+Wir definieren.: $\C = \cbr{x\in M: x=a+b\cdot i; a,b\in \R}$
+\end{defi}
+
+$(a+b i) + (c+d i) = (a+c) + (b+d)i \in \C$
+
+$(a+b i) \cdot (c+d i) = (a c + a d i + b c i - b d)$ \profnote{Erinnerung: $i^2=-1$}
+$=(ac-bd) + (ad+bc)i \in \C$
+
+$\Rightarrow \C$ ist abgeschlossen bezüglich $+$ und $\cdot, \R \subset \C$. Die Darstellung $a+b i$ ist eindeutig. 
+\begin{proof}
+$a + bi = c + di$\\
+$a-c = di-bi = (d-b)i$\\
+angenommen: $d-b\neq 0 \Rightarrow i=\frac{a-c}{d-b}$ (!) \profnote{(!) Da schlägt der Blitz ein.}
+
+Also: $d=b$ und $a=c$
+\end{proof}
+
+\begin{defi}
+Wir definieren: $\C = \cbr{x\in M: x=a+b\cdot i; a,b\in \R}$
+
+\textbf{$+$}: $(a,b)+(c,d)=(a+c,b+d)$
+
+\textbf{$\cdot$}: $(a,b)\cdot (c,d)=(a c - bd,ad+bc)$
+\end{defi}
+
+Die reellen Zahlen sind in $\C$ eingebettet. 
+$x\in \R \leftrightarrow (x,0) \in \C$
+
+$(x,0) + (y,0) = (x+y,0)$
+
+$(x,0) \cdot (y,0) = (xy,0+0)$\\
+
+In $(\C,+,\cdot)$ gelten die Körperaxiome:
+\begin{itemize}
+\item assoziativ: $a+(b+c)=(a+b)+c$, $a\cdot (b\cdot c)=(a\cdot b)\cdot c$
+\item kommutativ: $a+b=b+a$, $a\cdot b=b\cdot a$
+\item distributiv: $a (b+c)= ab+ac$
+\end{itemize}
+
+$(0,0)$ ist neutrales Element bezüglich der Addition, $(1,0)$ bezüglich der Multiplikation. Inverses Element bezüglich der Addition: $(a,b)+(-a,-b)=(0,0)$. Inverses Element bezüglich der Multiplikation: $(a,b)\cdot (\frac{a}{a^2+b^2},\frac{-b}{a^2+b^2})=(1,0)$. 
+Schreibweisen: $x+(-y) = x-y$ und $x\cdot y^{-1} = \frac{x}{y}$

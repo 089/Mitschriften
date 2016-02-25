@@ -1,0 +1,132 @@
+% Vorlesung vom 20.11.2015
+\renewcommand{\ldate}{2015-11-20}
+
+\begin{defi}
+$i=(0,1)$\\
+$i^2 = (0,1)\cdot (0,1)$
+$=(-1,0)$
+$\widehat{=} -1$
+
+Die komplexe Zahl $(a,0)$ bezeichnen wir auch als a. 
+$(a,b)=(a,0)+\underbrace{(b,0)\cdot (0,1)}_{(0,b)}$
+$=a+bi$
+
+$(a,b)=a+bi$ Darstellung ist eindeutig. 
+\end{defi}
+
+\subsection{Zahlenebene}
+\includegraphicsdeluxe{Zahlenebene1.jpg}{Zahlenebene}{Zahlenebene: Addition $\Leftrightarrow$ Vektoraddition und $(-i)^2=-1 \Leftrightarrow (0,-1)(0,-1)=(-1,0)$}{fig:Zahlenebene1}
+Die Addition komplexer Zahlen entspricht der Vektoraddition (Abb. \ref{fig:Zahlenebene1}). Spiegeln an der x-Achse (\textbf{konjugieren}): 
+$(a,b) \rightarrow (a,-b) =(a,b)$ und $a+bi \rightarrow a-bi$. Es gilt also: $z=\bar z \Leftrightarrow z\in \R$.
+
+*** ist ein Automorphismus, d.h. \marginpar{*** ist der Überstrich (vgl. Ziffer 2). Es lässt sich leider derzeit nicht anders darstellen. }
+\begin{enumerate}
+\item *** ist bijektiv
+\item $\overline{x+y} = \bar x + \bar y$
+\item $\overline{x\cdot y} = \bar x \cdot  \bar y$
+\end{enumerate}
+
+\begin{proof}[von 3.)]
+$\overline{(x_1,x_2) \cdot (y_1,y_2)}$
+$=\overline{x_1 y_1 - x_2 y_2, x_1 y_2+x_2 y_1}$
+$=(x_1 y_1 - x_2 y_2, x_1 y_2+x_2 y_1)$
+
+$\overline{(x_1,x_2)} \cdot \overline{(y_1,y_2)}$
+$=(x_1,-x_2)(y_1,-y_2)$
+$=(x_1 y_1 - x_2 y_2, x_1 y_2+x_2 y_1)$
+\end{proof}
+
+Damit gilt z.B.:
+
+$\overline{x+z^2 y + y^4} $
+$=\bar x + \bar z^2 \bar y + \bar y^4$
+
+Polynom mit reellen Koeffizienten: $ax^4 + bx^4 + cx + d$ x Variable, $a,b,c,d\in \R$. Ist $x_0$ eine Nullstelle, dann auch $\overline{x_0}$: 
+$\overline{a x_0^4 + b x_0^2 + c x_0 + d} = \bar 0$
+$\Leftrightarrow a \overline{x_0^4} + b \overline{x_0^2} + c \overline{x_0} + d$
+
+Es gilt:
+\begin{enumerate} 
+\item $z + \bar z \in \R$
+\item $z \cdot \bar z \in \R$
+\end{enumerate}
+
+\profnote{$(a,b) = z, a=\textrm{Re } z, b=\textrm{Im } z$}
+\begin{proof}
+(1) $\overline{z+\bar z} = \bar z + \bar{\bar z}=\bar z + z$\\
+(2) $\overline{z\cdot \bar z} = \bar z \cdot  \bar{\bar z}=\bar z \cdot  z$
+\end{proof}
+
+Es gilt:
+(1) Re z $=\frac{1}{2} (z+\bar z)$\\
+(2) Im z $=\frac{1}{2} \cdot i \cdot (\bar z - z)$ \profnote{$z=z_1 + i z_2$}
+
+\begin{proof}
+(2) $\frac{1}{2} \cdot i \cdot (z_1 - i z_2 - z_1 - i z_2)$
+$=\frac{1}{2} \cdot i (-2i z_2)$
+$=(-1)(-1) z_2$
+$=z_2$
+\end{proof}
+
+\subsection{$\sin, \cos, e$-Funktion im Komplexen}
+\includegraphicsdeluxe{EinheitskreisSinCosKomplex1.jpg}{$\sin, \cos, e$-Funktion im Komplexen}{$\sin, \cos, e$-Funktion im Komplexen am Beispiel des Einheitskreises.}{fig:EinheitskreisSinCosKomplex1}
+Reihendarstellung: (vgl. Abb. \ref{fig:EinheitskreisSinCosKomplex1}) \profnote{Setze einfach $x\in \C$}
+$e^x$
+$=\sum_{k=0}^{\infty} \frac{x^k}{k!}$
+$=1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!}+ ...$
+
+$\cos x$
+$=1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \frac{x^8}{8!} - ...$
+
+$\sin x$
+$=x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} - ...$
+
+Es gelten die üblichen Rechenregeln z.B. $e^{x+y} = e^x e^y$.
+\renewcommand{\locpl}{i\varphi}
+
+(1) $\varphi \in \R : e^{\locpl}$
+$=1+\locpl$
+$-\frac{\varphi^2}{2!}$
+$-\frac{i \varphi^3}{3!}$
+$+\frac{\varphi^4}{4!}$
+$+\frac{i \varphi^5}{5!}$
+$-\frac{\varphi^6}{6!}$
+$-\frac{i \varphi^7}{7!}$
+$+\frac{\varphi^8}{8!}$
+$+...$\\
+
+(2) $\cos \varphi + i \sin \varphi$
+$=\rbr{1 - \frac{\varphi^2}{2!} + \frac{\varphi^4}{4!} - \frac{\varphi^6}{6!} + ...}$
+$+\rbr{\locpl - \frac{i \varphi^3}{3!} + \frac{i \varphi^5}{5!} - \frac{i \varphi^7}{7!} + ... }$
+
+$=\rbr{1 + i \varphi - \frac{\varphi^2}{2!} - \frac{i \varphi^3}{3!} + \frac{\varphi^4}{4!} + \frac{i \varphi^5}{5!} - \frac{\varphi^6}{6!} - \frac{i \varphi^7}{7!} + ...}$
+
+Es gilt $(1) = (2)$, also: $ e^{\locpl} = \cos \varphi + i \sin \varphi, \varphi \in \R$ (Eulersche Formel).\index{Formel!Eulersche}\index{Eulersche Formel}
+
+$(\cos\varphi,\sin\varphi) = \cos\varphi + i\sin\varphi = e^{\locpl}$
+\includegraphicsdeluxe{GeomIntrp1.jpg}{Geometrische Interpretation}{Geometrische Interpretation}{fig:GeomIntrp1}
+Geometrische Interpretation von $+$ und $\cdot$ (vgl. auch Abb. \ref{fig:GeomIntrp1}).\\
+$+$: Vektoraddition\\
+$\cdot$: $z\cdot s$
+$=r_1 \cdot e^{\locpl_1} \cdot r_2 \cdot e^{\locpl_2}$
+$= r_1\cdot r_2\cdot e^{\locpl_1 + \locpl_2}$
+$= r_1\cdot r_2\cdot e^{i(\varphi_1 + \varphi_2)}$, also Radien multiplizieren und Winkel addieren. 
+
+$\abs{z}$
+$=\abs{(z_1,z_2)}$
+$=r$
+$=\sqrt{z_1^2 + z_2^2}$. Die Multiplikation mit einer komplexen Zahl ist eine Drehstreckung. 
+
+\subsection{Die n-ten Wurzeln von 1}
+\includegraphicsdeluxe{WurzelAchtEck1.jpg}{Die n-ten Wurzeln von 1}{Die n-ten Wurzeln von 1 am Beispiel eines Einheitskreises und einem 8-Eck.}{fig:WurzelAchtEck1}
+Für welche komplexen Zahlen gilt $z^n=1$? Es muss gelten: $\abs{z}=1$, z auf Einheitskreis. 
+$(e^{\locpl})^n = 1 \Rightarrow e^{\locpl n} = 1$
+
+$\varphi n $ Vielfaches von $2\pi$
+$\Leftrightarrow \varphi n = k\cdot 2\pi$
+$\Leftrightarrow \varphi = k \cdot \frac{2\pi}{n}$
+
+$1 \cdot \frac{2\pi}{n}, 2 \cdot \frac{2\pi}{n}, 3 \cdot \frac{2\pi}{n}, ..., n \cdot \frac{2\pi}{n} = 2\pi$ sind alle. Das sind die passenden Winkel. Regelmäßiges 8-Eck auf dem Einheitskreis (Abb. \ref{fig:WurzelAchtEck1}).
+
+\paragraph{Allgemein}
+1 hat genau n n-te Wurzeln, ein regelmäßiges n-Eck auf dem Einheitskreis. Jede komplexe Zahl z hat genau n-te Wurzeln (regelmäßiges n-Eck auf Kreis um 0 mit Radius R, verdreht).  

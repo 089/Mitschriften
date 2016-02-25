@@ -1,0 +1,51 @@
+% Vorlesung vom 02.10.2015
+\renewcommand{\ldate}{2015-10-02}	% define lessiondate
+
+\subsection{Beispiel} Linearisiere
+$ f(x,y,z) = x  \sin y + y  \cos z$ bei (0.5, 1, 0.9)\\
+$ f(0.5, 1, 0.9) = 0.5 \sin 1 + 1  \cos 0.9 = 1.042 $ \profnote{In der Mathematik gilt: Wenn man sich nicht sicher ist, immer den Winkel im Bogenmaß eingeben.}\\
+$ \frac{\delta f}{\delta x} = \sin(y) \widehat{=} \sin(1) = 0.841 $ \\
+$ \frac{\delta f}{\delta y} = x \cos(y) + \cos(z) \widehat{=} 0.5 \cos 1 + \cos 0.9 = 0.892 $ \\
+$ \frac{\delta f}{\delta z} = -y \sin z \widehat{=} -1 \sin 0.9 = -0.783$ \\
+\textbf{Test:} $ f(0.5+dx,1+dy,0.9+dz) \approx 1.042+0.841 dx + 0.892 dy - 0.783 dz$ z.B.: $ f(0.5+0.1,1+0.1,0.9-0.1) \approx ... = 1.293$. Der exakte Wert: $ f(0.6, 1.1, 0.8) = 1.301...$
+
+\subsection{Anwendung der Linearisierung - Die Fehlerrechnung}
+Gegeben ist $ f(x_1, ..., x_n)$. Die Größen $ x_1, ..., x_n $ werden gemessen, wobei $x_1 = \overline{x_1} + w_1$ (wahrer Wert, Messwert und Fehler), ..., $x_n = \overline{x_n} + w_n$.\\
+Wahres Ergebnis: $ e = f(x_1, ..., x_n) $\\
+Fehlerhaftes Ergebnis: $ \overline{e} = f(\overline{x_1}, ..., \overline{x_n}) $\\ 
+$ \Rightarrow e = f(\overline{x_1}+w_1, ..., \overline{x_n}+w_n) $. Wir linearisieren an der Messstelle: $ e = f(\overline{x_1}, ..., \overline{x_n}) + \frac{\delta f}{\delta x_1} (\overline{x_1},...,\overline{x_n}) w_1 + ... + (\overline{x_1},...,\overline{x_n}) w_n $. Die Fehler $w_1, ..., w_n$ kennt man nicht. Gegeben sind die maximalen Fehler der Messwerte: $x_i = \overline{x_i} \pm \Delta x_i$. Der maximale Fehler des Ergebnisses ist: 
+\[
+\abs{\frac{\delta f}{\delta x_1} (\overline{x_1},...,\overline{x_n}) \Delta x_1 } + ... + \abs{\frac{\delta f}{\delta x_n} (\overline{x_1},...,\overline{x_n}) \Delta x_n}
+\]
+
+\subsection{Beispiel}
+$ f(x_1,x_2,x_3,x_4) = x_1^2  \sin(x_2) + x_3 x_4  \cos x_2 $\\
+$x_1 = 10m \pm 5cm$\\
+$x_2=40^\circ \pm 1^\circ \widehat{=} 0.01745 rad$\\
+$x_3=12m \pm 6cm$\\
+$x_4=7m\pm 4cm$\\
+$f(10m,40^\circ,12m,7m) = 128.6m^2$\profnote{Je nach Rundungsgenauigkeit können die Ergebnisse leicht abweichen.}\\
+$\frac{\delta f}{\delta x_1} = 2x_1 \sin x_2 \widehat{=} 2 \cdot 10 \sin 40^\circ = 12.86$\\
+$\frac{\delta f}{\delta x_2} = x_1^2 \cos x_2 - x_3 x_4 \sin x_2 \widehat{=} 22.61$\\
+$\frac{\delta f}{\delta x_3} = x_4 \cos x_2 \widehat{=} 5.36$\\
+$\frac{\delta f}{\delta x_4} = x_3 \cos x_2 \widehat{=} 9.19$\\
+maximaler Fehler $= |12.85 \cdot 0.05|+|22.61 \cdot 0.01745|+|5.36 \cdot 0.06|+|9.19 \cdot 0.04| = 0.64 + 0.39 + 0.32 + 0.37 = (\textrm{von } \Delta x_1 \Delta x_2 \Delta x_3 \textrm{ und }\Delta x_4) = 1.73 $
+
+\subsection{Die Richtungsableitung}
+Wir betrachten $ f: \R^n \rightarrow \R$. Wir wollen nun die Richtungsableitung des Vektors $ v \in \R^n, |v| = 1 $ aufstellen (Abb. \ref{fig:richtungsableitung1}). 
+Dazu betrachten wir die Funktion entlang der Geraden g (Abb. \ref{fig:richtungsableitung2}) und erhalten: $ f_v(x_1,...,x_n) = \lim\limits_{h\rightarrow 0} \frac{f((x_1,...,x_n)+h(v_1,...,v_n)) - f(x_1,...,x_n)}{h} $
+
+\includegraphicsdeluxe{richtungsableitung1.jpg}{Richtungsableitung im Raum}{Der rote Vektor v liegt auf der Geraden g und im Raum $ \R^n $}{fig:richtungsableitung1}
+
+\includegraphicsdeluxe{richtungsableitung2.jpg}{Richtungsableitung entlang der Geraden g}{Wir betrachten die Funktion entlang g.}{fig:richtungsableitung2}
+
+\subsection{Beispiel} 
+$ f: \R^3 \rightarrow \R, (x_1,x_2,x_3) \rightarrow x_1 x_2 + 2x_3\\
+\tilde{v}=(1,2,2), |\tilde{v}|=\sqrt{1^2+2^2+2^2}=3, v=\frac{1}{3}(1,2,2)=(\frac{1}{3},\frac{2}{3},\frac{2}{3})\\
+f_v(x_1,x_2,x_3)=\lim\limits_{h\rightarrow 0} \frac{f((x_1,x_2,x_3)+h(v_1,v_2,v_3)) - f(x_1,x_2,x_3)}{h}= 
+\lim\limits_{h\rightarrow 0} \frac{f((x_1+\frac{1}{3} h,x_2+\frac{2}{3} h,x_3+\frac{2}{3} h)) - f(x_1,x_2,x_3)}{h}= 
+\lim\limits_{h\rightarrow 0} \frac{f((x_1+\frac{1}{3} h,x_2+\frac{2}{3} h,x_3+\frac{2}{3} h)) - x_1 x_2 - 2x_3}{h}= 
+\lim\limits_{h\rightarrow 0} \frac{x_1 x_2 + x_1 \frac{2}{3} h + \frac{1}{3} h x_2 + \frac{2}{9} h^2 + 2x_3 + \frac{4}{3} h - x_1 x_2 - 2x_3}{h}=
+\lim\limits_{h\rightarrow 0} \frac{2}{3} x_1 + \frac{1}{3} x_2 + \frac{2}{9} h + \frac{4}{3} = \frac{2}{3} x_1 + \frac{1}{3} x_2 + \frac{4}{3} \Rightarrow 
+f_v(x_1,x_2,x_3) = \frac{2}{3} x_1 + \frac{1}{3} x_2 + \frac{4}{3}  $
+

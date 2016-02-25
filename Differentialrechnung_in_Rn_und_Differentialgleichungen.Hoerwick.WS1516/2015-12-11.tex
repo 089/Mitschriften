@@ -1,0 +1,155 @@
+% Vorlesung vom 11.12.2015
+\renewcommand{\ldate}{2015-12-11}
+
+\subsection{Runge-Kutta-Verfahren}
+\includegraphicsdeluxe{RungeKuttaVerfahren1.jpg}{Runge-Kutta-Verfahren}{Runge-Kutta-Verfahren}{fig:RungeKuttaVerfahren1}
+Das Runge-Kutta-Verfahren ist ein Verfahren zur näherungsweisen Lösung von Anfangswertproblemen in der numerischen Mathematik (Abb. \ref{fig:RungeKuttaVerfahren1}).
+
+$ K_1 = f(x_{n}, y_{n})$ mit $y'=f(x,y)$ und Schrittweite h
+
+$ K_2 = f(x_{n} + \frac{h}{2}, y_{n} + \frac{h}{2} \cdot K_1)$
+
+$ K_3 = f(x_{n} + \frac{h}{2}, y_{n} + \frac{h}{2} \cdot K_2)$
+
+$ K_4 = f(x_{n} + h, y_{n} + h \cdot K_3)$
+
+$y_{n+1} = y_n + h (\frac{K_1}{6} + \frac{K_2}{3} + \frac{K_3}{3} + \frac{K_4}{6})$ (gewichtetes Mittel der Steigungen) 
+
+\section{Lineare DGL-Systeme}
+Wir haben eine quadratische Matrix A und einen Vektor b. Die Werte von A sind \underline{Funktionen} von x. 
+
+$A = \vektor{a_{11} & ... & a_{1n}\\\vdots\\a_{n1} &  ... & a_{nn}}$,
+$a_{i,j} : \begin{cases} \R \rightarrow \R\\x\rightarrow a_{i,j}(x) \end{cases}$
+
+$b=\vektor{b_1\\\vdots\\b_n} b_i : \begin{cases} \R \rightarrow \R\\x\rightarrow b_{i}(x) \end{cases}$
+
+$y' = Ay + b$
+
+$\vektor{y_1'\\\vdots\\y_n'} = \vektor{a_{11} &  ... &  a_{1n}\\\vdots\\a_{n1} &  ... &  a_{nn}} \vektor{y_1\\\vdots\\y_n} + \vektor{b_1\\\vdots\\b_n} \Rightarrow $ lineares DGL-System
+
+\textbf{Lösung:} $\varphi: \R \rightarrow \R^n$,
+$ \varphi = \vektor{\varphi_1\\\vdots\\\varphi_n}$,
+$ \varphi' = \vektor{\varphi_1'\\\vdots\\\varphi_n'}$,
+
+$\varphi = A \varphi + b$ ist homogen, wenn b=0.
+
+\begin{satz}
+$y' = ay$ sei ein homogenes DGL-System. 
+$L_h$ sei die Menge aller Lösungen. 
+$L_h = \cbr{\varphi : \R \rightarrow \R^n | \varphi' = A \varphi}$
+
+$L_h$ ist ein n-dimensionaler Vektorraum über $\R$. 
+
+Sind $\varphi_1, ..., \varphi_k$ Lösungen, so sind äquivalent:
+\begin{enumerate}
+\item $\varphi_1, ..., \varphi_k$ sind linear unabhängig. 
+\item Es gibt ein $x_0 \in \R $ mit $\varphi_1(x_0), ..., \varphi_k(x_0)$ sind linear unabhängig ($\varphi_1(x_0)$ sind k Vektoren aus $\R^n $).
+\item Für jedes $x\in\R $ sind $\varphi_1(x), ..., \varphi_k(x)$ 
+\end{enumerate}
+ohne Beweis.
+\end{satz}
+
+\begin{defi}
+Seien $\varphi_1, ..., \varphi_n$ linear unabhängige Lösungen ($\Rightarrow$ Alle Lösungen, weil es eine Basis ist: 
+$ c_1 \varphi_1 + ... + c_n \varphi_n, c_i\in\R$). $\varphi_1, ..., \varphi_n$ heißt Lösungsfundamentalsystem. \\
+
+\textbf{Lösungsmatrix:}
+
+$\Phi = (\varphi_1, ..., \varphi_n)$
+$=\rbr{
+\begin{array}{cccc}
+\varphi_{11} & \varphi_{12} & ... & \varphi_{1n} \\ 
+\varphi_{21} & \varphi_{22} & ... & \varphi_{2n} \\ 
+\vdots & \vdots & \vdots & \vdots \\ 
+\varphi_{n1} & \varphi_{n2} & ... & \varphi_{nn}
+\end{array} 
+}
+$
+
+\textbf{alle Lösungen:}
+
+$\Phi \vektor{c_1\\\vdots\\c_n}$
+$=c_1 \varphi_1 + ... c_n \varphi_n$
+
+$\Phi' = (\varphi_1', ..., \varphi_n')$
+
+$\Phi' = A \Phi$
+
+\end{defi}
+
+\subsection{Beispiel}
+$ y_1' = -\omega y_2, \omega \in \R$
+
+$ y_1' = \omega y_1$
+
+$\vektor{y_1'\\y_2'}$
+$=\vektor{0 &  -\omega\\\omega & 0} \vektor{y_1\\y_2}$
+
+$y' = A\cdot y$
+
+$\varphi_1(x) = \vektor{\cos \omega x\\\sin \omega x},$
+$\varphi_2(x) = \vektor{-\sin \omega x\\\cos \omega x}$ sind 2 linear unabhängige Lösungen.
+
+\textbf{Test:} 
+
+$\varphi_1'(x) = \vektor{-\omega \sin \omega x\\\omega \cos \omega x} \checkmark$
+
+$A \cdot \varphi_1 $
+$=\vektor{0 & -\omega\\\omega & 0} \vektor{\cos \omega x\\\sin \omega x} $
+$=\vektor{-\omega \sin \omega x\\\omega \cos \omega x} \checkmark$
+
+analog $\varphi_2$
+
+\textbf{Sind $\varphi_1, \varphi_2$ linear unabhängig?}
+
+Setze ein x ein, z.B. $x=0$
+
+$\varphi_2(0) = \vektor{1\\0}, \varphi_2(0) = \vektor{0\\1}$
+
+$\vektor{1\\0}, \vektor{0\\1}$ sind linear unabhängig. 
+
+\textbf{Alle Lösungen: }
+
+$c_1 \varphi_1 + c_2 \varphi_2, c_1, c_2 \in \R$
+
+\begin{satz}
+$y' = Ay+b$ sei ein inhomogenes DGL-System. 
+
+Sei $L_h$ die Lösungsmenge des zugehörigen homogenen Systems und $L_I$ ide Lösungsmenge des inhomogenen Systems. 
+Für beliebiges $\psi_0 \in L_I$ gilt: $L_I = \psi_0 + L_h$\\
+
+ohne Beweis
+\end{satz}
+
+\begin{satz}
+$y' = Ay+b$ Sei $\Phi$ ein Lösungsfundamentalsystem für $y' = ay$. Man erhält eine Lösung $\psi(x)$
+von $y'Ay + b$ durch den Ansatz $ \psi (x) = \Phi \cdot u(x)$. Dieser Ansatz bzw. dieses Verfahren heißt Variation der Konstanten. $\Phi \cdot c$ ist die Gesamtlösung des homogenen Systems. 
+
+Damit ergibt sich: 
+
+$\Phi(x) \cdot u'(x) = b(x)$
+
+$u'(x) = \Phi^{-1}(x) \cdot b(x)$
+
+$u(x) = \int_{x_0}^{x} \Phi^{-1} \cdot b(t) dt + $ konstanter Vektor.
+\end{satz}
+
+\profnote{Das von x lassen wir im Beweis weg.}
+\begin{proof}
+$\psi = \Phi \cdot u$
+
+$\psi' = \Phi' \cdot u + $
+\color{red}
+\underline{$\Phi \cdot u'$}
+\color{black}
+auch: $\psi' = A\psi + b $
+$=\underbrace{A \Phi}_{\Phi'} u + b$
+$=\Phi' u + $
+\color{red}
+\underline{$b$}
+\color{black}
+
+$\Rightarrow \Phi u' = b$
+$\Rightarrow u' = \Phi^{-1} b$
+$\Rightarrow u = \int_{x_0}^{x} \Phi^{-1} (t) \cdot b(t) dt + $ konstanter Vektor. 
+\end{proof}

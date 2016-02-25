@@ -1,0 +1,82 @@
+% Vorlesung vom 09.10.2015
+\renewcommand{\ldate}{2015-10-09}
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{beispiel2.jpg}{Dreiecksfläche}{Berechnung der Dreiecksfläche unterhalb von g(x) mit Hilfe der Querschnitte.}{fig:beispiel2} % Nr. 
+$ f(x,y)= xy^2$\\
+$ \int_B f(x,y) = ? $\\
+$ g(x) = \frac{2}{5} x $\\
+
+$ \int_B f(x,y) $
+$ = \int_0^5 ( \int_0^{g(x)} f(x,y) dy ) dx $
+$ = \int_0^5 ( \int_0^{\frac{2}{5}x} (xy^2) dy ) dx $
+$ = \int_0^5 ( (x\cdot \frac{1}{3} y^3) |_{y=0}^{y=\frac{2}{5}x} ) dx $
+$ = \int_0^5 (x \cdot \frac{1}{3} (\frac{2}{5}^3)) dx $
+$ = \int_0^5 (x^4\cdot \frac{8}{375}) dx $
+$ = \frac{8}{375} \cdot \frac{1}{5} x^5 |_0^5 = \frac{8}{375 \cdot 5} \cdot 3125 = 13,33 ... $\\
+Andere Reihenfolge (blaue Querschnitte):\\
+$ g(x) = \frac{2}{5} x$\\
+$ y= \frac{2}{5} x \Rightarrow x=\frac{5}{2} y $\\
+$ \int_B f = \int_0^2 ( \int_{\frac{5}{2} y}^5 (f(x,y)dx)dy) $
+$ = \int_0^2 ( \int_{\frac{5}{2} y}^5 (xy^2)dx)dy $
+$ = \int_0^2 ( \frac{1}{2} x^2 y^2) |_{\frac{5}{2}y}^{x=5} dy $
+$ = \int_0^2 (\frac{1}{2}\cdot 25 y^2 - \frac{1}{2} y^2 (\frac{5}{2}y)^2) dy $
+$ = \int_0^2 (\frac{25}{2} y^2 - \frac{25}{8} y^4)dy $
+$ = \frac{25}{2}\cdot \frac{1}{3} y^3 - \frac{25}{8}\cdot \frac{1}{5}y^5 |_0^2 $
+$ = \frac{25}{6}\cdot 8 - \frac{5}{8}\cdot 32 = 13,33...$
+
+\section{Flächenberechnung und Volumenberechnung}
+
+\subsection{Flächenberechnung}
+\includegraphicsdeluxe{flaechenberechnung1.jpg}{Berechnung einer Fläche}{Näherungsweise bekommen wir den Flächeninhalt der Fläche F, wenn wir die Summe der Streifen/Rechtecke aus der Länge der Zwischenstellen $ z_i $ und der Breite $ \Delta x $ berechnen.}{fig:flaechenberechnung1}
+
+$ F \approx \sum_{i=1}^{n} l(z_i)\cdot \Delta x \rightarrow \int_a^b l(x) dx $ 
+
+\subsection{Volumenberechnung}
+\includegraphicsdeluxe{volumenberechnung1.jpg}{Berechnung des Volumens eines dreidimensionalen Körpers}{Irgendein Körper im $ \R^3 $. Und wir berechnen sein Volumen.}{fig:volumenberechnung1}
+
+Körper im $ \R^3 $. Wie ist das Volumen? \\
+$ V \approx \sum_{i=1}^{n} q(z_i) \cdot \Delta x \rightarrow \int_a^b q(x) dx $ 
+
+\subsection{Beispiel Kugelvolumen}
+\includegraphicsdeluxe{volumenberechnungKugel.jpg}{Berechnung Kugelvolumen}{Berechnung des Kugelvolumens mit Hilfe der Streifensummen und des dazugehörigen Integrals.}{fig:volumenberechnungKugel}
+
+Radius R\\
+$ r^2 + x^2 = R^2 $\\
+$ q(x) = r^2 \pi $\\
+$ q(x)= (R^2 - x^2)\pi $\\
+
+$ \frac{1}{2} V = \int_0^R ((R^2 - x^2)\pi)dx $
+$ = \pi \int_0^R (R^2 - x^2) dx $
+$ = \pi [R^2 x - \frac{1}{3} x^3]_{x=0}^{R} $
+$ = \pi [R^3 - \frac{1}{3} R^3] = \pi \frac{2}{3} R^3 $
+$ \Rightarrow V = \frac{4}{3} R^3 \pi $
+
+\subsection{Beispiel aus der Wahscheinlichkeitsrechnung}
+\includegraphicsdeluxe{wahrscheinlichkeitsberechnung.jpg}{Beispiel Wahrscheinlichkeitsberechnung}{Dem Bereich B wird eine Wahrscheinlichkeit zugeordnet. }{fig:wahrscheinlichkeitsberechnung}
+
+$ f: \R^3 \rightarrow \R $ ist Dichte, wenn: 
+\begin{itemize}
+\item $ f(x,y) \geq 0 $
+\item $ \int_{\R^2} f(x,y) = 1 $
+\end{itemize}
+
+Dem Bereich wird eine Wahrscheinlichkeit zugeordnet: $ P(B) = \int_B f(x,y) $
+
+\section{Höhere partielle Ableitungen}
+
+$ f: \R^2 \rightarrow \R $\\
+$ (x,y) \rightarrow f(x,y) = x^2y + sin(xy) $\\
+$ f_x $ partielle Ableitung nach x\\
+$ f_{x,y} $ erst nach x, dann nach y ableiten. \\
+
+Die verschiedenen Ableitung der o.g. Funktion:
+\begin{itemize}
+\item $ f_x = 2xy + \cos(xy) y $
+\item $ f_{y} = x^2 + \cos(xy) x $
+\item $ f_{x,x} = 2y - y \sin(xy) y$
+\item $ f_{y,y} = -x \sin(xy) x $
+\item $ f_{x,y} = 2x + [-x \sin(xy) y + \cos(xy)] $
+\item $ f_{y,x} = 2x + [-y \sin(xy) x + \cos(xy)] $
+\end{itemize}
+Es fällt auf, dass hier gilt: $ f_{x,y} = f_{y,x} $

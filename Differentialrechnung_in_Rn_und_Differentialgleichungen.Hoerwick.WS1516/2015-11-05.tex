@@ -1,0 +1,106 @@
+% Vorlesung vom 05.11.2015
+\renewcommand{\ldate}{2015-11-05}
+
+\subsection{Bogenlänge in Polarkoordinaten}
+\includegraphicsdeluxe{BogenlInPolKoord1.jpg}{Bogenlänge in Polarkoordinaten}{Bogenlänge in Polarkoordinaten}{fig:BogenlInPolKoord1}
+
+$\sum_{i=1}^{n} \frac{2r(\varphi_i) \pi}{2\pi} \cdot \DPH$, 
+$\int_{\alpha}^{\beta} r(\varphi) dy$ ist \textbf{falsch!}
+
+\paragraph{Formel für die Bogenlänge}
+$\int_{t=a}^{t=b} \abs{f'(t)} dt $
+$= \int_{a}^{b} \sqrt{\dot x (t)^2 + \dot y (t)^2} dt$
+
+Polarkoordinaten: $ x(\varphi) = r(\varphi) \cos \varphi$
+$y(\varphi) = r(\varphi) \sin \varphi$
+
+$\rbr{\frac{dx}{d\varphi}}^2 $
+$+ \rbr{\frac{dy}{dp}^2} $
+$=\rbr{ r'(\varphi) \cos \varphi- r(\varphi) \sin \varphi}^2$
+$+ \rbr{ r'(\varphi) \sin \varphi + r(\varphi) \cos \varphi}^2$
+$= ...$
+$= r'(\varphi)^2 + r(\varphi)^2$
+$\Rightarrow $ \textbf{Bogenlänge} 
+$= \int_{\varphi_1}^{\varphi_2} \sqrt{r'(\varphi)^2 + r(\varphi)^2} d\varphi$
+
+\subsection{Beispiel Logarithmische Spirale}
+\includegraphicsdeluxe{LogSpirale1.jpg}{Logarithmische Spirale}{Logarithmische Spirale}{fig:LogSpirale1}
+
+Wir berechnen die Logarithmische Spirale (Abb. \ref{fig:LogSpirale1}): $r(\varphi) = a \cdot e^{b\varphi}$, 
+$a, b > 0$
+$ r'(\varphi) = a b e^{b\varphi}$
+$\int_{\varphi_1}^{\varphi_2} \sqrt{a^2 b^2 e^{2 b \varphi} + a^2 e^{2b\varphi}} d\varphi $
+$=\int_{\varphi_1}^{\varphi_2} a e^{b \varphi} \sqrt{b^2 + 1} d\varphi $
+$=a\sqrt{b^2 + 1} \int_{\varphi_1}^{\varphi_2}  e^{b \varphi } d\varphi $
+$=a\sqrt{b^2 + 1} \sbr{\frac{1}{b} e^{b\varphi}}_{\varphi_1}^{\varphi_2} $
+$=\frac{a}{b} \sqrt{b^2 + 1} \rbr{e^{b\varphi_2} - e^{b\varphi_1}}$
+
+Berechne: 
+$ \lim\limits_{\varphi \rightarrow \infty} \int_{\varphi}^{0} \sqrt{r'(\varphi)^2 + r(\varphi)^2} d\varphi$
+$= \lim\limits_{\varphi \rightarrow \infty} \frac{a}{b} \sqrt{b^2+1} (\underbrace{e^{b\cdot 0}}_{1} - \underbrace{e^{b\varphi})}_{0}$
+$= \frac{a}{b} \sqrt{b^2 + 1} \Rightarrow$ Strecke ist endlich \profnote{Windet sich umendlich am Nullpunkt, aber die Strecke ist dennoch endlich.}
+z.B. $a=b=1 \Rightarrow$ Länge $=\sqrt{2}$
+
+\subsection{Linienintegrale}
+\includegraphicsdeluxe{LinInt1.jpg}{Linienintegral}{Linienintegral}{fig:LinInt1}
+
+\subsubsection{1. Art:} Gegeben ist eine ebene Kurve (Abb. \ref{fig:LinInt1}) in der xy-Ebene durch Parameterdarstellung K(t) und die Funktion $F: \R^2 \rightarrow \R$.
+Gesucht wird der Inhalt der abgewickelten Fläche. 
+
+$\sum_{i=1}^{n} F(K(t_i)) \cdot \abs{K'(t_i)} \cdot \Dt $
+$\overrightarrow{n \rightarrow \infty}  $ 
+$\int_{a}^{b} F(K(t)) \cdot \abs{K'(t)} dt$
+$=\int_{a}^{b} F(K_1(t), K_2(t)) \cdot \sqrt{K'_1(t)^2 + K'_2(t)^2} dt$
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{BogenlaengeAbgF1.jpg}{Bogenlänge}{$F(x,y) =$ Länge des Bogens b im Einheitskreis und die abgewickelte Fläche mit $F=2\pi^2$ (rechts)}{fig:BogenlaengeAbgF1}
+$ K(t) = \vektor{\cos t \\ \sin t} $ (Einheitskreis)
+
+$\int_{0}^{2\pi} F(K(t)) \abs{K'(t)} dt$
+$=\int_{0}^{2\pi} F(\cos t, \sin t) \cdot \abs{- \sin t, \cos t} dt$
+$=\int_{0}^{2\pi} t \cdot 1 dt $
+$=\sbr{\frac{1}{2} t^2}_0^{2\pi}$
+$=\frac{1}{2} 4\pi^2 = 2\pi^2$ (vgl. Abb. \ref{fig:BogenlaengeAbgF1})
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{BspAbgF1.jpg}{Beispiel}{Beispiel und die abgewickelte Fläche (rechts)}{fig:BspAbgF1}
+$F(x,y) = x^2 + y^2$
+$K(t) = \vektor{\cos t \\ \sin t}$
+
+$\int_{0}^{2\pi} F(K(t)) \cdot \abs{K'(t)} dt$
+$=\int_{0}^{2\pi} F(\cos t, \sin t) \cdot \abs{(-\sin t, \cos t)} dt$
+$=\int_{0}^{2\pi} \rbr{\cos^2 t + \sin^2 t} \cdot 1 dt$
+$=\int_{0}^{2\pi} 1 dt$
+$= \sbr{t}_0^{2\pi} $
+$= 2\pi$ (vgl. Abb. \ref{fig:BspAbgF1})
+
+\subsubsection{Linienintegral 2. Art in der Ebene (Arbeitsintegral)}
+\label{sec:linienintegral_arbeitsintegral}
+\includegraphicsdeluxe{ArbeitsintegralEbene1.jpg}{Arbeitsintegral (in der Ebene)}{Arbeitsintegral und rechts ein Kraftvektor}{fig:ArbeitsintegralEbene1}
+Gegeben ist eine Kurve K(t), ein Vektorfeld $F(x,y) = \vektor{F_1(x,y) \\ F_2(x,y)}$ und Kraftvektoren (Abb. \ref{fig:ArbeitsintegralEbene1}). 
+Arbeit ist Kraft mal Weg. 
+
+\profnote{NR: $\abs{\tilde{K'}(t)} $ $=\abs{F(K(t))} \cos \alpha$ }
+Arbeit $\approx \sum_{i=1}^{n} \abs{\tilde{K'}(t)} \cdot \abs{K'(t)} \cdot \Dt$
+$\sum_{i=1}^{n} \abs{F(K(t))} \cdot \cos \alpha \cdot \abs{K'(t)} \cdot \Dt$  \profnote{Wir rechnen mit Vorzeichen}
+mit $\cos \alpha = \frac{F(K(t)) \cdot K'(t)}{\abs{F(K(t))} \cdot \abs{K'(t)}} $
+$= \sum_{i=1}^{n} \abs{F(K(t_i))} \cdot \abs{K'(t_i)} $
+$\cdot \frac{F(K(t_i)) \cdot K'(t_i)}{\abs{F(K(t_i))} \cdot \abs{K'(t_i)} }	 \cdot \Dt $
+$=\sum_{i=1}^{n} F(K(t_i)) \underbrace{\cdot}_{\textrm{Skalarprodukt}} K'(t_i) \cdot \Dt $
+$\overrightarrow{n\rightarrow \infty}$
+$\int_{a}^{b} F(K(t)) \cdot K'(t) dt$ (Arbeitsintegral)
+
+\subsection{Beispiel Arbeitsintegral}
+\includegraphicsdeluxe{Gerade1.jpg}{Arbeitsintegral}{Arbeitsintegral: hier Gerade}{fig:Gerade1}
+Vektorfeld $F(x,y) = \vektor{x^2 y \\ xy^2}$, Kurve $K(t) = \vektor{2t \\ t}$ von $t=0$ bis $t=1$ (Abb. \ref{fig:Gerade1}).
+
+$K'(t) = \vektor{2\\ 1}$
+$F(K(t)) = F \vektor{2t \\ t}$
+$=\vektor{4t^3 \\ 2t^3}$
+
+$\int_{0}^{1} F(K(t)) \cdot K'(t) dt$
+$=\int_{0}^{1} \vektor{4t^3 \\ 2t^3} \cdot \vektor{2\\ 1} dt$
+$=\int_{0}^{1} 8t^3 + 2t^3 dt$
+$=\int_{0}^{1} 10 t^3 dt$
+$=\sbr{10 \cdot \frac{1}{4}}_0^1$
+$=2.5$

@@ -1,0 +1,37 @@
+% Vorlesung vom 03.06.2015
+\renewcommand{\ldate}{2015-06-03}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+\section{Pipelineprozessoren (Superskalar)}
+
+\subsection{Aufbau Pipelineprozessor}
+Bedingte Sprünge (Branch) stellen bei Pipelineprozessoren ein Problem dar. Dafür gibt es die sogenannte \textbf{Branch Prediction}, also das Raten ob der Branch genommen wird. In MMIX gibt es dazu Probable Branches (PBZ statt BZ) mit denen der Assembler auf einen sehr wahrscheinlichen Branch hingewiesen werden könne.  
+\begin{figure}[htbp]
+% Nr. 1 
+% \includegraphics[width=1\textwidth]{pics/\ldate_aufbau_prozessor.jpg}
+\caption{Aufbau Prozessor}
+\label{fig:aufbau_prozessor}
+\end{figure}
+
+\subsection{Beispiel: Quicksort} \marginpar{Am besten in Wikipedia nachlesen.}
+Man hat ein Array $\{7,3,9,2,8,6,5,7,9,1,4\}$ von Daten, die man sortieren will. Die Idee ist, dass man partitioniert, also links die kleinen und rechts die großen Werte sortiert. Rekursiv werden dann die kleinen Werte und die großen Werte sortiert. Um zu entscheiden was groß und was klein ist verwendet man das sogenannte \textbf{Median of Three (Mittlere von drei Werten)}. Im Beispiel ist dies die Zahl 6. 
+\paragraph{Sortieren der drei Elemente} $\{7,3,9,2,8,6,5,7,9,1,4\} \rightarrow \{4,6,9,2,8,3,5,7,9,1,7\}$ Diesen Schmarrn macht man solange bis das Array so aussieht: $\{1,2,3,4,5,6,7,7,8,9,9\}$
+
+\paragraph{Der innerste Loop} 
+
+\begin{lstlisting}
+1H	add i <-- i+1
+start: load Ki	Lade Kex i
+	vergleiche Ki < K
+	if Ki < K goto 1H (oben)
+	
+2H	sub j <-- j-i
+	load Kj
+	verleiche K < Kj
+	if K < Kj goto goto 2H (oben)
+	
+	if i < j tausche Ki und Kj und goto 1H
+
+	sonst fertig
+\end{lstlisting}
+

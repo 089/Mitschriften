@@ -1,0 +1,73 @@
+% Vorlesung vom 16.10.2015
+\renewcommand{\ldate}{2015-10-16}
+
+\subsection{Ellipse}
+\includegraphicsdeluxe{Ellipse.jpg}{Ellipse}{Eine Ellipse mit $a=3$ cm, $b=2$ cm, Punktkoordinaten}{fig:ellipse1}
+Mit $ f(t)= \left( \begin{array}{c} a \cos(t)\\ b \sin(t) \end{array} \right), a,b > 0 $ (Halbachsen) wird eine Ellipse beschrieben (Abb. \ref{fig:ellipse1}). In unserem Beispiel sind $a=3$ cm und $b=2$ cm. 
+
+\subsection{Geschwindigkeitsvektor}
+\includegraphicsdeluxe{Geschwindigkeitsvektor.jpg}{Geschwindigkeitsvektoren}{Geschwindigkeitsvektor links: Richtung, |v| Betrag der Geschwindigkeit. Rechts: Durchschnittsgeschwindigkeitsvektor}{fig:geschwindigkeitsvektor1}
+Wir berechnen den Geschwindigkeitsvektor [$t\widehat{=}$ Zeit]. Der Durchschnittsgeschwindigkeitsvektor berechnet sich durch $ \frac{f(t+h)-f(t)}{h}$, Test: $ f(t)+h\cdot \frac{f(t+h)-f(t)}{h} = f(t+h)$. (Abb. \ref{fig:geschwindigkeitsvektor1})
+
+\paragraph{Momentangeschwindigkeitsvektor} 
+$\lim\limits_{h\rightarrow 0} \frac{f(t+h)-f(t)}{h} \underbrace{=}_{\R^2} $ 
+$\lim\limits_{h\rightarrow 0} \left(
+\begin{array}{c}
+\frac{x(t+h)-x(t)}{h}\\
+\frac{y(t+h)-y(t)}{h}
+\end{array}
+\right) = \left( \begin{array}{c} \dot{x}(t) \\ \dot{y}(t) \end{array}\right) $ mit
+$ \dot{x}(t) = \frac{dx}{dt}, \dot{y}(t) = \frac{dy}{dt} $. Der Ableitungsvektor ist der Geschwindigkeitsvektor. Er ist auch Tangentenvektor an die Kurve. 
+
+\subsection{Beispiele}
+\paragraph{1.} $ f(t) = \left( \begin{array}{c} t^3 + t\\ 2t\\t^2\end{array}\right), f'(t)= \left( \begin{array}{c} 3t^2 + 1\\2\\2t\end{array}\right)$
+\paragraph{2. Kreis} 
+$ f(t) = \left( \begin{array}{c} R \cos(t)\\ R\sin (t)\end{array}\right), $
+$f'(t) = \left( \begin{array}{c} - R \sin(t)\\ R \cos(t)\end{array}\right)$\\
+$R=1: f(t) = \left( \begin{array}{c} \cos(t)\\ \sin (t)\end{array}\right) $
+$f'(1) = \left( \begin{array}{c} - \sin(t)\\ \cos(t)\end{array}\right)$ \\
+$\abs{f'(t)} = \sqrt{\sin^2 (t) + \cos^2(t)}=1 $\\
+Skalarprodukt: 
+$\left( \begin{array}{c} \cos t\\\sin t\end{array}\right) \cdot \left( \begin{array}{c} -\sin t\\ cos t\end{array}\right) $
+$= -\cos t \sin t + \sin t \cos t = 0 \Rightarrow 90^\circ $.
+\includegraphicsdeluxe{geschwindigkeitsvektor_kreis.jpg}{Geschwindigkeitsvektor im Kreis}{Geschwindigkeitsvektor im Kreis}{fig:geschwindigkeitsvektor2}
+
+\paragraph{Ellipse}
+$ f(t)=\left( \begin{array}{c} a \cos t\\ b \sin t \end{array}\right), f'(t)=\left( \begin{array}{c} -a \sin t\\ b \cos t\end{array}\right)$
+
+\subsection{Der Beschleunigungsvektor}
+\includegraphicsdeluxe{beschleunigungsvektor.jpg}{Beschleunigungsvektor}{Der Beschleunigungsvektor}{fig:beschleunigungsvektor1}
+Durchschnittsbeschleunigung (Abb. \ref{fig:beschleunigungsvektor1}) zwischen t und t+h: 
+$ \frac{v(t+h)-v(t)}{h}$\\
+Test: $ v(t)+ h\cdot \frac{v(t+h)-v(t)}{h} = v(t+h)$\\
+Momentanbeschleunigung: 
+$ b(t)=\lim\limits_{h\rightarrow 0} \frac{v(t+h)-v(t)}{h} = v'(t)$\\
+$ b(t)=f''(t)$
+
+\subsection{Merke}
+\begin{enumerate}
+\item Die erste Ableitung $f'(t)$ entspricht dem Geschwindigkeitsvektor $f'(t) = v(t)$.
+\item Die zweite Ableitung $f''(t)$ entspricht dem Beschleunigungsvektor $f''(t)= v'(t)=b(t)$.
+\end{enumerate}
+
+\subsection{Beispiele}
+\paragraph{1.} 
+$ f(t)= \left( \begin{array}{c} 3t^2\\t^3\end{array}\right), v(t)=\left( \begin{array}{c} 6t\\3t^2 \end{array}\right), b(t)=\left( \begin{array}{c} 6\\ 6t\end{array}\right)$
+\paragraph{2. Kreis} 
+\includegraphicsdeluxe{beschleunigung_kreis.jpg}{Beschleunigung im Kreis}{Beschleunigung im Kreis}{fig:beschleunigung_kreis} 
+Jetzt sehen wir uns die Beschleunigung im Kreis an (Abb. \ref{fig:beschleunigung_kreis}).
+
+$f(\varphi) = \left( \begin{array}{c} \cos \varphi\\ \sin \varphi \end{array}\right)$\\
+$v(\varphi) = \left( \begin{array}{c} -\sin \varphi\\ \cos \varphi \end{array}\right), \abs{v}=1 $\\
+$b(\varphi)= \left( \begin{array}{c} -\cos \varphi\\ -\sin \varphi \end{array}\right), \abs{b}=1$\\
+Zentrifuge: $R=5$ m, 2 Umdrehungen pro Sekunde, $\varphi=4\pi t = \varphi(t)$\\
+$f(t)=\left( \begin{array}{c} R\cos \varphi\\ R\cos \varphi \end{array}\right) $
+$= \left( \begin{array}{c} 5 \cos(4\pi t)\\ 5 \sin(4\pi t)\end{array}\right)$\\
+$f'(t) = \left( \begin{array}{c} -5\cdot 4\pi \sin(4\pi t)\\ 5\cdot 4 \pi \cos(4\pi t) \end{array}\right)$\\
+$f''(t) = -80\pi^2 \cdot \underbrace{\left( \begin{array}{c} \cos(4\pi t)\\ \sin(4\pi t) \end{array}\right)}_{\textrm{Länge 1}}$\\
+$\abs{f''(t)}=80\pi^2 = 789 \frac{m}{s^2}$
+\paragraph{Ellipse}
+$ f(\varphi)=\left( \begin{array}{c} a \cos \varphi \\ b \sin \varphi \end{array}\right)$\\
+$ f'(\varphi)= \left( \begin{array}{c} -a \sin \varphi\\ b \cos \varphi\end{array}\right)=v(\varphi)$\\
+$ f''(\varphi)= \left( \begin{array}{c} -a \cos \varphi\\ - \sin \varphi\end{array}\right)=b(\varphi)$
+

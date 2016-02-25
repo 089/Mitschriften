@@ -1,0 +1,93 @@
+% Vorlesung vom 20.10.2015
+\renewcommand{\ldate}{2015-10-20}
+
+\begin{satz}
+\begin{enumerate}
+\item $\abs{Per_k^n \rbr{\textrm{m.W.}}} = n^k $
+\item $\abs{Per_k^n \rbr{\textrm{o.W.}}} = n(n-1)\cdot ...\cdot (n-k+1) = n^{\underline{k}} $
+\item $\abs{Kom_k^n \rbr{\textrm{m.W.}}} = \binom{n+k-1}{k} $ (müssen wir noch beweisen)
+\item $\abs{Kom_k^n \rbr{\textrm{o.W.}}} = \binom n k $
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+Wir zeigen: Es gibt eine bijektive Abbildung $\varphi$ von $Kom_k^n \rbr{\textrm{m.W.}} \rightarrow Kom\binom{n+k-1}{k} \rbr{\textrm{o.W.}}$. 
+Damit gleich viele. Für \textit{rechts} haben wir die Formel. Sei $\rbr{a_1,a_2, ..., a_k}$ aus $Kom_k^n(mW)$.\\
+Also $1\leq a_1\leq a_2\leq a_3\leq ...\leq a_k\leq n$\\
+$1\leq a_1 < a_2+1 < a_3+2 < ... < a_k + k -1 \leq n+k-1$\\
+$\varphi Kom_k^n(mW) \rightarrow_k^{n+k-1}(oW)$\\
+$(a_1,a_2,...,a_k) \rightarrow (a_1, a_2+1, a_3+2,...,a_k+k-1)$\\
+\textbf{$\varphi $ ist injektiv} (verschiedene Tupel haben verschiedene Bilder)\\
+\textbf{$\varphi $ ist surjektiv} geg.: Tupel von rechter Seite: 
+$1 \leq a_1 < a_2 < a_3 < ... < a_k \leq n+k-1$\\
+$1 \leq a_1 \leq a_2 - 1 \leq a_3 - 2 \leq ... \leq a_k - (k-1) \leq n $ (Tupel von links)\\
+$\Rightarrow $ bijektiv $\Rightarrow $ Die gesuchte Anzahl ist nach Ziffer 4 des letzten Satzes: $\binom{n+k-1}{k}$
+\end{proof}
+
+\subsection{Das Stimmzettelproblem}
+Wir haben eine Wahl zwischen zwei Kandidaten A und B. Es gibt n Stimmen, a für A und b für B. $a+b=n$ und $a > b$. Also hat A gewonnen. Die Stimmzettel werden nacheinander ausgezählt. Wie groß ist die Wahrscheinlichkeit (W), dass der Kandidat A während der ganzen Auszählung in Führung liegt?\\
+
+Stimmzettel: 1 für A und -1 für B. $\Omega=\cbr{\rbr{c_1,c_2,...,c_n}: c_i = 1/-1, \textrm{a mal 1, b mal -1}} $ sind die möglichen Auszählungen und kann man auch so schreiben: $\sum_{j=1}^{n} I\cbr{c_j=1} = a, \sum_{j=1}^{n} I\cbr{c_j=-1} = b$ (I ist die Indikatorfunktion). Gleichverteilung auf $\Omega$. Jede Auszählung ist gleich wahrscheinlich. 
+$\Omega = \binom n a = \binom n b $ 
+
+$D = \cbr{\rbr{c_1,...,c_n} \in \Omega : c_1+c_2+...+c_k \geq 1 \textrm{ für } k=1,2,...,n}$. Wir müssen das D zählen. \profnote{Das ist aber gar nicht so leicht.}
+
+$E = \cbr{\rbr{c_1,...,c_n} \in \Omega : c_1=-1}$ erster Stimmzettel für B.
+
+$F = \cbr{\rbr{c_1,...,c_n} \in \Omega : c_1=1 \textrm{ und } c_1+c_2+...+c_k \leq 0 \textrm{ für ein k}}$ erster Stimmzettel für A, aber A nicht immer in Führung. 
+
+$\Omega= \underbrace{D}_{\textrm{A immer in Führung}} + E + \underbrace{F}_{\textrm{A nicht immer vorne}} $
+
+\includegraphicsdeluxe{bijektive_abbildung1.jpg}{Veranschaulichung bijektive Abbildung}{Veranschaulichung der bijektiven Abbildung zwischen E unf F}{fig:bijektive_abbildung1}
+Es ist $\abs{E} = \binom{n-1}{a}$\\
+Es gilt: $\abs{E} = \abs{F}$ (vgl. Abb. \ref{fig:bijektive_abbildung1})
+
+$\Rightarrow \abs{\Omega} = \abs{D} + 2 \abs{E}$\\
+$P(D)= \frac{\abs{D}}{\abs{\Omega}}$
+$= \frac{\abs{\Omega}-2\abs{E}}{\abs{\Omega}}$
+$= 1-2\frac{\abs{E}}{\abs{\Omega}}$
+$= 1-2 \frac{\binom{n-1}{a}}{\binom n a}$
+$= 1-2 \rbr{\frac{(n-1)! a! (n-a)!}{a! (n-1-a)! n!}}$
+$= 1-2 \frac{n-a}{n}$
+$= 1-2 \frac{b}{a+b}$
+$= \frac{a+b-2b}{a+b}$
+$= \frac{a-b}{a+b}$
+
+$P(D)=\frac{a-b}{a+b}$, P(D) ist die Steigung der Geraden vom Startpunkt (0,0) zum Endpunkt (n,a-b) vgl. Abb. \ref{fig:bijektive_abbildung1}, z.B.: $n=100, a=70, b=30, P(D)=\frac{70-30}{100}=\frac{40}{100}=0.4$
+
+\section{Urnenmodell, Teilchen-Fächer-Modell}
+
+\subsection{Urnenmodell}
+In einer Urne sind n Kugeln (bezeichnet mit 1 bis n). Wir ziehen k Kugeln. Wir zählen die Möglichkeiten. 
+
+\begin{enumerate}
+\item \textbf{Mit Reihenfolge, mit Rücklegen:}\\
+	$ \cbr{\rbr{a_1,...,a_k} : 1\leq a_i \leq n}, Per_k^n(mW) = n^k$
+\item \textbf{Mit Reihenfolge, ohne Rücklegen:}\\
+	$ \cbr{\rbr{a_1,...,a_k} : a_i \neq a_j}, Per_k^n(oW) = n(n-1)\cdot ... \cdot (n-k+1)=n^{\underline{k}}$
+\item \textbf{Ohne Reihenfolge, mit Rücklegen:} \\
+	$ \cbr{a_1 \leq a_2 \leq ... \leq a_k}, Kom_k^n(mW) = \binom{n+k-1}{k}$
+\item \textbf{Ohne Reihenfolge, ohne Rücklegen:}\\
+	$ \cbr{a_1 < a_2 < ... < a_k}, Kom_k^n(oW) = \binom{n}{k}$
+\end{enumerate}
+
+\subsection{Teilchen-Fächer-Modell}
+Wir haben n Fächer bezeichnet mit 1 bis n. Wir haben k Kugeln, die wir auf die Fächer verteilen. Wie viele Möglichkeiten gibt es, die Kugeln auf die Fächer zu verteilen? 
+
+\begin{enumerate}
+\item unterscheidbare Kugeln (Farben, Nummern z.B. 1 bis k). Mehrfachbesetzungen sind zugelassen.\\
+$ \cbr{ \rbr{\underbrace{a_1}_{\textrm{Kugel 1 in Fach a2}},a_2, ..., a_k} : 1\leq a_i \leq n}$, $Per_k^n(mW)=n^k$
+
+\item unterscheidbare Kugeln, Mehrfachbesetzung verboten.\\
+$\cbr{\rbr{\underbrace{a_1}_{\textrm{Kugel 1 in Fach a1}},...,a_k}:a_i\neq a_j}$, $Per_k^n(oW)=n(n-1) ... (n-k+1)$
+
+\item Nicht unterscheidbare Kugeln (alle weiß). Mehrfachbesetzung erlaubt.\\
+$ \cbr{\underbrace{a_1}_{\textrm{Kugel im Fach a1}} \leq \underbrace{a_2}_{\textrm{Kugel im Fach a2}} \leq ... \leq a_k : 1\leq a_i \leq n} $,
+$Kom_k^n(mW)=\binom{n+k-1}{k}$
+\includegraphicsdeluxe{urnen1.jpg}{Teilchen-Fächer-Modell}{Fünf Fächer mit nicht unterscheidbaren Kugeln. Die Mehrfachbesetzung ist in diesem Fall erlaubt.}{fig:urnen1}
+
+\item Nicht unterscheidbare Kugeln, Mehrfachbesetzungen verboten.\\
+$\cbr{\underbrace{a_1}_{\textrm{Kugel im Fach a1}} < ... < a_k}$
+$Kom_k^n(oW)=\binom n k $
+\includegraphicsdeluxe{urnen2.jpg}{Teilchen-Fächer-Modell}{Fünf Fächer mit nicht unterscheidbaren Kugeln. Die Mehrfachbesetzung ist in diesem Fall erlaubt.}{fig:urnen2}
+\end{enumerate}

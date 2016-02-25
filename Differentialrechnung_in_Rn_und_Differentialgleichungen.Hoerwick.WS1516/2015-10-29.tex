@@ -1,0 +1,58 @@
+% Vorlesung vom 29.10.2015
+\renewcommand{\ldate}{2015-10-29}
+
+\subsection{Beispiel Krümmung der Schraublinie}
+$f(t) = (R \cos t, R \sin t, v\cdot t)$. Wir brauchen die natürliche Parameterdarstellung und müssen daher eine Transformation machen: 
+$\theta(t) - c = \int_{a}^{t} \abs{f'(s)} ds$ mit $ a=0, c=0$.
+$\theta(t) = \int_{0}^{t} \abs{\rbr{-R \sin s, R \cos s, v}} ds$
+$=\int_{0}^{t} \sqrt{R^2 \sin^2 s + R^2 \cos^2 s + v^2} ds $
+$= \int_{0}^{t} \sqrt{R^2 + v^2} ds $ 
+$= \sbr{\sqrt{R^2 + v^2} s}_0^t$
+$= t \sqrt{R^2 + v^2}$
+$=\theta$\\
+Auflösen nach t: $ t=\frac{\theta}{\sqrt{R^2 + v^2}}$
+
+% define local placeholder
+\renewcommand{\locpl}{\sqrt{R^2 + v^2}}
+
+$\Rightarrow g(\theta) = \rbr{R \cos \frac{\theta}{\sqrt{R^2 + v^2}}, R \sin \frac{\theta}{\sqrt{R^2 + v^2}}, v \frac{\theta}{\sqrt{R^2 + v^2}}}$\\
+$ g'(\theta)=\rbr{-\frac{R}{\locpl} \sin \frac{\theta}{\locpl}, \frac{R}{\locpl} \cos \frac{\theta}{\locpl}, \frac{v}{\locpl} }$\\
+$ g''(\theta)=\rbr{-\frac{R}{\locpl \locpl} \cos \frac{\theta}{\locpl}, -\frac{R}{\locpl \locpl} \sin \frac{\theta}{\locpl}, 0}$\\
+$ = -\frac{R}{\locpl \locpl} \underbrace{\rbr{\cos \frac{\theta}{\locpl}, \sin \frac{\theta}{\locpl}, 0}}_{\textrm{Länge 1}}$\\
+$ \abs{g''(\theta)} = \frac{R}{R^2 + v^2} $ Konstante Krümmung. R Radius Schraubzylinder. 
+Krümmungskreisradius $=\frac{1}{\textrm{Krümmung}}$ 
+$ = \frac{R^2 + v^2 }{R} $
+$ = R + \frac{v^2}{R}$
+
+\subsection{Krümmung einer ebenen Kurve, die als Graph einer Funktion $y=f(x)$ gegeben ist}
+\includegraphicsdeluxe{kruemmungKurveFkn1.jpg}{Krümmung einer ebenen Kurve}{$\Delta \alpha$ ist der Winkel zwischen den beiden Tangenten. s ist die Bogenlänge. }{fig:kruemmungKurveFkn1} 
+Krümmung von f bei x $\approx \frac{\DA}{\Ds}$.
+$s(x) = \int_{a}^{x} \sqrt{1 + f'(t)^2} dt$,
+$ \frac{ds}{dx} = \sqrt{1+f'(x)^2}$,
+$\alpha_1 (x) = \arctan f'(x)$,
+$\alpha_2(s) = \alpha_1(x(s))$
+
+$K(x) = \frac{d \alpha_2 }{ds}$ \profnote{Kettenregel!}
+$= \frac{d\alpha_1}{dx} \cdot \frac{dx}{ds}$\\
+$\frac{d\alpha_1}{dx}$ \profnote{Ableitung von $\arctan x$ ist $\frac{1}{1+x^2}$}
+$= \frac{1}{1+f'(x)^2} \cdot f''(x)$
+
+Ableitung von x nach s, x(s) ist die Umkehrfunktion von s(x). Dafür gibt es eine Formel: 
+$ \frac{dx}{ds} $
+$= \frac{1}{\frac{ds}{dx}} $
+$= \frac{1}{\sqrt{1 + f'(x)^2}}$
+
+Also: $K(x) = \frac{1}{1+f'(x)^2} \cdot f''(x) \cdot \frac{1}{\sqrt{1 + f'(x)^2}} $\\
+
+\paragraph{Formel für die Krümmung bei x}
+$ K(x) = \frac{f''(x)}{\sqrt{1+f'(x)^2}^3} $
+
+\subsection{Ein einfaches Beispiel}
+\includegraphicsdeluxe{beispielKruemmungskreis1.jpg}{Beispiel Krümmungskreis}{Beispiel Krümmungskreis mit dessen Hilfe die Funktion angenähert werden kann. Der Kreisradius beträgt $\frac{1}{2}$ und $f'(1)=2$}{fig:beispielKruemmungskreis1}
+$f(x) = x^2$, $f'(x) = 2x$, $f''(x) = 2$
+$\Rightarrow K(x) = \frac{2}{\sqrt{1+4x^2}^3}$ 
+
+Die Krümmung im Scheitel, also bei 0: 
+$ K(0) = \frac{2}{1} = 2$
+
+Der Krümmungskreisradius ist $\frac{1}{\textrm{Krümmung}}$, also $\frac{1}{2}$ (vgl. Abb. \ref{fig:beispielKruemmungskreis1})

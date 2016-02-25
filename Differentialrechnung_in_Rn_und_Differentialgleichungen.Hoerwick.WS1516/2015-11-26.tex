@@ -1,0 +1,94 @@
+% Vorlesung vom 26.11.2015
+\renewcommand{\ldate}{2015-11-26}
+
+\subsection{Bemerkung}
+\includegraphicsdeluxe{BemerkungEzPerio1.jpg}{Bemerkung zu $e^z$}{Bemerkung: $e^z$ ist periodisch mit Periode $2\pi$}{fig:BemerkungEzPerio1}
+\includegraphicsdeluxe{KomplPolyn1.jpg}{Bemerkung 2}{Bemerkung 2: $f(z) = e^z$, gleicher Funktionswert}{fig:KomplPolyn1}
+$z \in \C, z=z_1 + i z_2$\\
+$e^z $
+$= e^{z_1+i Z_2} $
+$= \underbrace{e^{z_1}}_{\textrm{reelle Zahl (Radius)}} \cdot \underbrace{e^{i Z_2}}_{\cos z_2 + i\sin z_2, \textrm{Einheitskreis zum Winkel} z_2}$ (Abb. \ref{fig:BemerkungEzPerio1} und \ref{fig:KomplPolyn1})
+
+\includegraphicsdeluxe{Bemerkung3.jpg}{Bemerkung 3}{Ich habe vergessen, was die Grafik soll.}{fig:Bemerkung3}
+\underline{$e^{z_1 + i z_2 + 2 \pi i}$}
+$= e^{z_1 + i (z_2 + 2 \pi)}$
+$= e^{z_1} \cdot e^{i (z_2 + 2 \pi)}$
+$=e^{z_1} \cdot e^{i z_2} \cdot \underbrace{e^{i2\pi}}_{=1}$
+\underline{$=e^{z_1 + i z_2}$} (Abb. \ref{fig:fig:Bemerkung3})
+
+\subsection{Polynome in $\C$}
+Sei $P(x) = a_0 + a_1 x^1 +  a_2 x^2 +  a_3 x^3 + ... +  a_n x^n$ mit $a_0, a_1, ..., a_n \in \C$ Koeffizienten und x Variable.
+
+In $\C$ hat jedes Polynom von Grad $\geq$ eine Nullstelle. \profnote{Durch die Nullstellen kann man dividieren.} $x_0$ ist Nullstelle von $P(x)$. 
+$\underbrace{P(x)}_{\textrm{Grad m}}$
+$=\underbrace{Q(x)}_{\textrm{Grad n-1}} \cdot (x - x_0)$
+$\Rightarrow$ In $\C$ zerfällt jedes Polynom in Linearfaktoren: 
+$P(x) = c\cdot (x-c_1)(x-c_2)\cdot ... \cdot (x-c_n)$
+
+Nullstellen $c_1, c_2, ..., c_n$, c Koeffizient vor $x^n$
+
+\subsection{Beispiel}
+$P(x) = x^2 - 2ix - 5 = 0$\\
+$x^2 - 2ix + i^2 = 5 + i^2$\\
+$(x-i)^2 = 4$\\
+$x-i = \pm 2 \Rightarrow x_1 = 2+i, x_2 = -2 + i$
+
+Probe mit $x_1$:
+\begin{enumerate}
+\item $(2+i)^2 - 2i(2+i) - 5 $
+$=4+4i-1-4i+2-5=0 \checkmark$
+\item $(x-x_1)(x-x_2)$
+$=(x-2-i)(x+2-i)$
+$=x^2 + 2x - ix -2x -4 +2i -ix -2i -1$
+$=x^2 -2ix -5 \checkmark$
+\end{enumerate}
+
+\section{Differentialgleichungen (DGL)}\index{DGL}\index{Differenzialgleichung}
+\includegraphicsdeluxe{DGL1.jpg}{Differentialgleichungen}{Differentialgleichungen (DGL)}{fig:DGL1}
+\begin{defi}
+$G \subset \R^2$\\
+$f:
+\begin{cases}
+G \rightarrow \R \textrm{ stetig} \\
+(x,y) \rightarrow f(x,y)
+\end{cases}$
+\end{defi} 
+(Abb. \ref{fig:DGL1})
+
+$y' = f(x,y)$ heißt Differentialgleichung (DGL) erster Ordnung. 
+
+$\varphi$: Intervall $I \rightarrow \R$ heißt Lösung der DGL, wenn 
+$\varphi'(x) = f(x,\varphi(x)), \forall x\in I$ \\
+
+\textbf{Sonderfall:} $y' = f(x) $ f nicht abhängig vom y-Wert. \\
+$\varphi(x) = \int_{x_0}^{x} f(f) dt + c$ ist eine Lösung. 
+$(\varphi'(x) = f(x))$. Es gilt auch \underline{$\varphi(x_0)=c$}\\
+
+\textbf{Allgemein:} Es sei $\varphi(x)$ eine Lösung von $y' = f(x,y)$, mit $\varphi(x_0)=c$ [$\varphi'(x)=f(x,\varphi(x))$].\\
+
+\textbf{Es gilt:} 
+$\int_{x_0}^{x} \varphi'(t) dt + c$
+$=\varphi(x) - \underbrace{\varphi(x_0)}_{=c} + c $
+
+$\Rightarrow \varphi(x) = \int_{x_0}^{x} \varphi'(t) dt + c$ 
+
+$\varphi(x) = f(x,\varphi(x))$
+
+\includegraphicsdeluxe{BerNaeherungFl1.jpg}{Fläche unterhalb der Funktion}{Gesucht ist die exakte Fläche (blau) - Näherung durch Rechteck (rot) - der Funktion $f(t,\varphi(t))$ unterhalb des Graphen.}{fig:BerNaeherungFl1}
+$\varphi(x) = \int_{x_0}^{x} f(t, \varphi(t)) dt + c$. Damit kann man aber die gesuchte Funktion $\varphi(x)$ auch nicht ausrechnen! Wenn $\abs{x-x_0}$ klein ist, so kann man $\varphi(x)$ näherungsweise berechnen (Abb. \ref{fig:BerNaeherungFl1}). 
+
+$\varphi(x) \approx (x-x_0) \cdot f(x_0, \varphi(x_0)) + c$\\
+$\varphi(x) \approx (x-x_0) \cdot f(x_0, c)+c$
+
+\profnote{Jetzt ned mitschreiben. }
+
+\subsection{Geometrische Interpretation}
+\includegraphicsdeluxe{GeomInterpr1.jpg}{Geometrische Interpretation von DGL}{In jedem Punkt gibt es Steigungen, die passen müssen (links). Näherungslösung (rechts).}{fig:GeomInterpr1}
+$y' = f(x,y)$ DGL und $\varphi(x) = f(x,\varphi(x))$
+
+Die DGL gibt in jedem Punkt (x,y) eine Steigung $f(x,y)$ an. Gesucht ist die Funktion $\varphi(x)$, die passt (links in Abb. \ref{fig:GeomInterpr1}). $\varphi(x) = f(x,\varphi(x))$. Es gelte $\varphi(x_0) = c$ (rechts in Abb. \ref{fig:GeomInterpr1}).
+
+Näherungslösung für $\abs{x-x_0}$ klein: 
+$\varphi(x) \approx c + (x-x_0) \cdot \varphi'(x_0)$
+$=c+ f(x_0, \varphi(x_0)) =$
+\underline{$=c + f(x_0,c) \approx \varphi(x)$}

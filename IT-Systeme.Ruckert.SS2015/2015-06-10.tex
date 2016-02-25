@@ -1,0 +1,197 @@
+% Vorlesung vom 10.06.2015
+\renewcommand{\ldate}{2015-06-10}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+\section{Verwaltung des dynamischen Speichers zur Laufzeit}
+Bei Objekten gibt es Konstruktoren und Destruktoren. In Sprachen wie C gibt es malloc, free. Im Assembler gibt es meistens ein Pool Segment (Intel: eXtra Segment). Hier wird ein sogenannter Heap eingerichtet, der Speicher reserviert und freigibt. \\
+Wird ein Programm mit Argumenten gestartet stehen in \$0 die Anzahl der Argumente und in \$1 4...8 die Adresse des ersten Arguments. Die Werte der Argumente selbst stehen im Pool Segment 0x4000...0.
+
+\subsection{Im Poolsegment dynmaisch Speicher anfordern}
+Die Funktion \textbf{malloc}\index{malloc} soll erstellt werden (Parameter: Anzahl BYTE, Rückgabewert: Adresse wo diese BYTE verfügbar sind.):
+\begin{itemize}
+\item Rückgabe wert = erstes OCTA im Poolsegment.
+\item Anzahl BYTES auf erstes OCTA aufaddieren
+\item Anzahl BYTES vorher auf ein Vielfaches von acht aufrunden (wegen Alignment\index{Alignment}).
+\end{itemize}
+
+\begin{lstlisting}
+	LOC #100
+tmp	IS	$0
+Main	SET	tmp+1,22
+	PUSHJ	tmp,Malloc
+	STCO	22,tmp
+	SET	tmp+1,8
+	PUSHJ	tmp,Malloc
+	STCO	8,tmp,0
+	TRAP	0,Halt,0
+	
+	PREFIX :Malloc:		% Version 1
+size	IS	$0
+base	IS	$1
+free	IS	$2
+tmp		IS	$3
+:Malloc SETH	base,#4000
+	LDOU	free,base,0
+	ADD	size,size,7
+	ANDN	size,size,7
+	ADDU	tmp,free,size
+	STOU	tmp,base,0
+	SET	$0,free 
+	POP	1,0	
+\end{lstlisting}
+
+\subsection{Beispielanwendung}
+Wir speichern Nodes die aus zwei OCTA bestehen, einem Zeiger NEXT und einem Wert VALUE. Wir wollen zwei Funktionen New und Old haben. \textbf{Old} hat einen Parameter (Knoten) und fügt den Knoten der Liste mit alten Knoten hinzu. \textbf{New} prüft, ob alte Knoten vorhanden sind und wenn ja, ob diese genutzt werden können. Sonst nutzt man Malloc und reserviert sich so neuen Speicher für ein neuen Knoten (Node). 
+
+\begin{lstlisting}
+	LOC Data_Segment
+	GREG	@
+OldNodes	OCTA	0	% derzeit leer
+
+	LOC #100
+tmp	IS	$0
+NEXT	IS	0
+VALUE 	IS	8
+Main	PUSHJ	tmp,New
+	STCO	22,tmp,VALUE
+	
+	PUSHJ	tmp,New	
+	STCO	8,tmp,VALUE
+	
+	SET	tmp+1,tmp
+	PUSHJ	tmp,Old
+	
+	PUSHJ	tmp,New
+	STCO	200,tmp,VALUE
+	
+	TRAP	0,Halt,0	% Ende Gelaende
+	
+	PREFIX :Malloc:		% Version 1
+size	IS	$0
+base	IS	$1
+free	IS	$2
+tmp		IS	$3
+:Malloc SETH	base,#4000
+	LDOU	free,base,0
+	ADD	size,size,7
+	ANDN	size,size,7
+	ADDU	tmp,free,size
+	STOU	tmp,base,0
+	SET	$0,free 
+	POP	1,0	
+	
+	PREFIX :Old:
+Node	IS	$0	% Parameter
+First	IS	$1
+
+:Old	LDOU	First,:OldNodes % laedt Zeiger auf alten Knoten
+	STOU	First,Node,:NEXT
+	STOU	Node,:OldNodes
+	POP	0,0
+	
+	PREFIX :New:
+rJ	IS	$0
+First	IS	$1	
+tmp	IS	$2
+:New	LDOU	First,:OldNodes
+	BZ	First,1F	% nichts drin
+	
+	LDOU	tmp,First,:NEXT	% laden des Nextpointers vom 1. Knoten
+	STOU	tmp,:OldNodes	% speichern
+	SET	$0,First
+	POP	1,0
+	
+1H	GET	rJ,:rJ
+	SET	tmp+1,16	% Parameter Groesse = 10 uebergeben
+	PUSHJ	tmp,:Malloc
+	PUT	:rJ,rJ
+	SET	$0,tmp
+	POP	1,0
+
+\end{lstlisting}
+
+\subsection{Verschiedene Funktionen auf verketteten Listen}
+
+\subsubsection{Einfügen am Anfang}
+Haben wir bereits betrachtet.
+
+\subsubsection{Löschen am Anfang}
+Haben wir bereits betrachtet.
+
+\subsubsection{Einfügen am Ende}
+
+\paragraph{Version 0}
+\begin{lstlisting}
+:insertEnde LDOU	last,Head,0
+0H	LDOU	tmp,last,:NEXT
+	BZ	tmp,1F
+	
+	SET	last,tmp
+	JMP	0B
+	
+1H	STOU	Node,Last,:NEXT
+	POP	0,0	
+\end{lstlisting}
+
+\paragraph{Version 1}
+\begin{lstlisting}
+:insertEnde SET	last,Head
+0H	LDOU	tmp,last,:NEXT
+	BZ	tmp,1F
+	
+	SET	last,tmp
+	JMP	0B
+	
+1H	STOU	Node,Last,:NEXT
+	POP	0,0	
+\end{lstlisting}
+
+\paragraph{Version 2}
+\begin{lstlisting}
+:insertEnde	LDOU	tmp,Head,:NEXT
+	BZ	tmp,1F
+	
+	SET	Head,tmp
+	JMP	:InsertEnde
+	
+1H	STOU	Node,Head,:NEXT
+	POP	0,0	
+\end{lstlisting}
+
+\paragraph{Version 3}
+\begin{lstlisting}
+Nodes	IS	$0
+Head	IS	$1
+tmp	IS	$2
+
+:InsertEnd	LDOU	tmp,Head,:NEXT
+	BZ	tmp,1F
+	SET	Head,tmp
+	JMP	:InsertEnd
+1H	STOU	Node,Head,:NEXT
+	POP	0,0	
+\end{lstlisting}
+
+\paragraph{Version 4}
+\begin{lstlisting}
+Nodes	IS	$0
+Head	IS	$1
+tmp	IS	$2
+1H	SET	Head,tmp
+:InsertEnd	LDOU	tmp,Head,:NEXT
+	PBNZ	tmp,1B
+	STOU	Node,Head,:NEXT
+	POP	0,0	
+\end{lstlisting}
+
+\paragraph{Version 5 mit Loop doubling}
+\begin{lstlisting}
+Nodes	IS	$0
+Head	IS	$1
+tmp	IS	$2
+1H	SET	Head,tmp
+:InsertEnd	LDOU	tmp,Head,:NEXT
+	PBNZ	tmp,1B
+	STOU	Node,Head,:NEXT
+	POP	0,0	
+\end{lstlisting}

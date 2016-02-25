@@ -1,0 +1,227 @@
+% Vorlesung vom 16.03.2015
+\renewcommand{\ldate}{2015-03-16}	% define lessiondate
+
+\section{Mengen} 
+Mengen\index{Mengen} sind \textbf{ungeordnet} und enthalten \textbf{verschiedene Elemente}: $M=\{4,3,5\}=\{5,4,3\}=\{3,3,4,5\}$. 
+
+\subsection{Mengengleichheit}\index{Mengen!Gleichheit}
+Zwei Mengen A und B sind \textbf{gleich}, wenn sie dieselben Elemente enthalten: $x \in A \Leftrightarrow x \in B$.
+
+\subsection{Leere Menge}\index{Mengen!leere} 
+Man bezeichnet damit die Menge, die keinerlei Elemente enthält. Die Zeichen für die leere Menge sind $\emptyset$ oder $\{\}$. Die leere Menge ist Teilmenge jeder Menge ($\emptyset \subseteq A$).
+
+\subsection{Unendliche Mengen}\index{Mengen!Unendliche}
+Ein Beispiel für unendliche Mengen ist die Menge der natürlichen Zahlen ($\N=\{1,2,3,4,...\}$). Aber auch $M=\{n \in \N : 7 \textrm{ teilt }n\}=\{7,14,21,28,...\}=7 \cdot  \N$
+
+\subsection{Definitionen}
+
+\subsubsection{Teilmenge}\index{Mengen!Teilmenge}
+Eine Menge A heißt Teilmenge einer Menge B, wenn jedes Element von A auch Element von B ist. Formal: $A\subset B\ :\Longleftrightarrow \forall x \left(x \in A \,\rightarrow x \in B \right)$.\\
+\textbf{Beispiel:} $B=\{2,3,4,5\}, A=\{3,4\}, A\subset B, \emptyset \in B$ \includegraphicsdeluxe{teilmenge_wikipedia.png}{A ist eine (echte) Teilmenge von B}{fig:teilmenge_wikipedia} % Nr. 
+
+\subsubsection{Durchschnitt}\index{Mengen!Durchschnitt}
+$A\cap B : \{x : x \in A \und x\in B \}$\\
+\textbf{Beispiel:} $A=\{3,5,6\}, B=\{3,\{5,6\},6,7\}, A\nsubseteq B \Rightarrow A\cap B=\{3,6\}$. Bei mehreren Mengen: $\bigcap_{i\in \N} A_i=A_1\cap A_2\cap A_3\cap ... = \{x : \forall i \in \N:x\in A_i\}$
+\includegraphicsdeluxe{schnittmenge_wikipedia.png}{Schnittmenge von A und B}{fig:schnittmenge_wikipedia} % Nr. 
+
+\subsubsection{Vereinigung}\index{Mengen!Vereinigung}
+$A\cup B : \{x : x \in A \oder x\in B \}$\\
+\textbf{Beispiel:} $A=\{3,5,6\}, B=\{3,\{5,6\},6,7\}, A\nsubseteq B \Rightarrow A\cup B=\{3,5,6,7,\{5,6\}\}$. Bei mehreren Mengen: $\bigcup_{i\in \N} A_i=A_1\cup A_2\cup A_3\cup ... = \{x : \exists i : x\in A_i\}$, auch: $\bigcup_{i=1}^3 A_i=A_1 \cup A_2 \cup A_3$
+\includegraphicsdeluxe{vereinigungsmenge_wikipedia.png}{Vereinigungsmenge von A und B}{fig:vereinigungsmenge_wikipedia} % Nr. 
+
+\subsubsection{Differenz}\index{Mengen!Differenz}
+$A \setminus B := \{ x \mid \left( x\in A \right) \und \left( x\not\in B \right) \}$\\
+\textbf{Beispiel:} $B\setminus A=\{\{5,6\},7\}$
+\includegraphicsdeluxe{differenz_wikipedia.png}{B ohne A}{fig:differenz_wikipedia} % Nr. 
+
+\subsubsection{Grundmenge $ \Omega $ }\index{Mengen!Grundmenge}
+$A \subset \Omega \rightarrow \bar A=\Omega \setminus A$, auch: $\bar A=\{x \in \Omega:x\notin A\}$
+
+\begin{satz}
+$A=B \Leftrightarrow A\subset B \und B\subset A$
+\end{satz}
+
+\begin{satz}
+Es gilt:
+\begin{itemize}
+\item $\overline{\bigcup_{i\in \N}A_i}=\bigcap_{i\in \N} \overline{A_i}$
+\item $\overline{\bigcap_{i\in \N}A_i}=\bigcup_{i\in \N} \overline{A_i}$
+\end{itemize}
+\end{satz}
+
+\begin{proof}
+Sei
+\begin{itemize}
+\item $x\in \overline{\bigcup_{i\in \N}A_i} \Leftrightarrow x\notin \bigcup_{i\in \N} A_i \Leftrightarrow x\notin A_i \forall i \in \N \Leftrightarrow x\in \overline{A_i} \forall i\in \N \Leftrightarrow x\in \bigcap_{i\in \N} \overline{A_i}$ 
+\item  $x\in \overline{\bigcap_{i\in \N} A_i} \Leftrightarrow x\notin \bigcap_{i\in \N} A_i \Leftrightarrow \exists i \in \N \textrm{ mit } x\notin A_i \Leftrightarrow \exists i \in \N \textrm{ mit }x\in \overline{A_i} \Leftrightarrow x\in \bigcup_{i\in \N} \overline{A_i}$
+\end{itemize}
+\end{proof}
+
+\subsection{Potenzmenge}\index{Mengen!Potenzmenge}
+Die Potenzmenge P(M) ist die Menge aller Teilmengen von M. Beispiel: $M=\{1,2,3\} \Rightarrow P(M)=\{\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\},\{1,2,3\},\{\}\}$. Es fällt auf, dass P(M) 8 Elemente also die Mächtigkeit $|P(M)|=8=2^3$ hat. 
+
+\subsubsection{Mächtigkeit von Mengen}\index{Mengen!Mächtigkeit}\index{Mengen!Kardinalität} Die Mächtigkeit von Mengen heißt auch Kardinalität. 
+
+\begin{satz}
+Sei M endlich: $|P(M)|=2^{|M|}$
+\end{satz}
+
+\begin{proof}
+Jede Abbildung $f:M \longmapsto {0,1}$ entspricht einer Teilmenge A von M. $x\in A \Leftrightarrow f(x)=1$. Wir zählen die Abbildungen $f:M \longmapsto {0,1}$:\\
+$M=
+\begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+0 & 1 & 1 & 0 & 1 \\ 
+\end{array} 
+\Rightarrow 2 \cdot  2 \cdot  2 \cdot  2 \cdot  2 = 2^5
+$ Möglichkeiten für f.
+\end{proof}
+
+\section{Relationen}\index{Relationen}
+
+\subsection{Das Direkte Produkt von zwei Mengen}\index{Relationen!Direktes Produkt}
+$A\times B=\{(a,b):a\in A,b\in B\}$\\
+Es gilt: $(a,b)=(c,d) \Leftrightarrow a=c \textrm{ und } b=d$\\
+\paragraph{Beispiel:} $A=\{1,2,3\}, B={a,b} \Rightarrow A\times B=\{(1,a),(2,a),(3,a),(1,b),(2,b),(3,b)\}$
+
+\subsection{Relation}
+Eine Relation R auf A,B ist eine Teilmenge von $A\times B$, z.B.: $A=\{1,2,3\}, B=\{a,b\}, R=\{(1,a),(2,b),(3,b)\}$. Für $(1.a)\in \R$ schreibt man auch 1 R a oder 1 $\sim$ a.\marginpar{Für Relationen kann man beliebige Zeichen verwenden, hier eben $\sim$.} Die beiden Mengen A,B können gleich sein. Relationen auf A,A oder kurz: Relation auf A: $A=\{1,2,3\}, R=\{(1,2),(1,3),(2,3)\}$ oder 
+
+\paragraph{Beispiel:}Relation auf $\N$: $A=\N$\\
+$\leq:\{(a,b)\in \N^2:a\leq b\}$\\
+$=:\{(a,b)\in \N^2:a=b\}=\{(a,a):a\in \N \}$\\
+
+\subsection{Äquivalenzrelation}\index{Relationen!Äquivalenzrelation}
+Sei v eine Relation auf M mit folgenden Eigenschaften: 
+\begin{enumerate}
+\item $a\sim a, \forall a\in M$ (reflexiv)\index{Relationen!reflexiv}
+\item $a\sim b \Rightarrow b\sim a$ (symmetrisch)\index{Relationen!symmetrisch}
+\item $a\sim b \und b\sim c \Rightarrow a\sim c$ (transitiv)\index{Relationen!transitiv}
+\end{enumerate}
+
+\paragraph{Beispiel:}$M=$ist die Menge von Kugeln mit den Farben rot, blau, weiß. Kugel a $\sim$ Kugel b $\Leftrightarrow a,b$ haben dieselbe Farbe:
+\begin{itemize}
+\item $\sim$ ist reflexiv $\checkmark$
+\item $\sim$ ist symmetrisch $\checkmark$
+\item $\sim$ ist transitiv $\checkmark$
+\end{itemize}
+$\Rightarrow\ \sim$ ist Äquivalenzrelation.
+
+\subsection{Grundmenge $\Z$}
+$x\sim y \Leftrightarrow x-y\in 5\cdot \Z=\{5z:z\in\Z\}=\{-10,-5,0,5,10,...\}$\\
+$x\sim y \Leftrightarrow x \textrm{ und } y$ unterscheiden sich durch ein Vielfaches von 5, z.B.: $3\sim 8, -7\sim 3, -8\sim -23$. 
+\begin{itemize}
+\item $\sim$ ist reflexiv $\checkmark$
+\item $\sim$ ist symmetrisch $\checkmark$
+\item $\sim$ ist transitiv $\checkmark$
+\end{itemize}
+$\Rightarrow\ \sim$ ist Äquivalenzrelation.
+
+\begin{defi}[Äquivalenzklassen]\index{Relationen!Äquivalenzklassen}
+$\sim$ sei eine Äquivalenzrelation auf M, dann gilt:\\
+$[x]=\{y\in M: x\sim y\}$ heißt Äquivalenzklasse von x. Natürlich gilt auch: $x\in[x]$.
+\end{defi}
+
+\begin{satz}
+Die Äquivalenzklassen bilden eine Zerlegung von M. 
+\end{satz}
+\includegraphicsdeluxe{aequivalenzklassen_wikipedia.png}{Menge von acht Buchexemplaren mit eingezeichneter Äquivalenzrelation „x und y besitzen dieselbe ISBN“ als Pfeildiagramm und den Äquivalenzklassen (Quelle: Wikipedia).}{fig:aequivalenzklassen_wikipedia} % Nr. 
+\begin{proof}
+Falls $y\in [x]$, so ist $[y]=[y]$\\
+$\left.
+\begin{array}{c}
+\textrm{Sei } a\in [x] \Rightarrow a\sim x \Rightarrow a\sim y \Rightarrow a\in [y] \Rightarrow [x]\subset [y] \\ 
+\textrm{Sei } a\in [y] \Rightarrow a\sim y \Rightarrow a\sim x \Rightarrow a\in [x] \Rightarrow [y] \subset [x]
+\end{array} 
+\right\}[x]=[y]$\\
+Falls $[x] \cap [y] \neq \emptyset$, z.B.: $a\in [x]$ und $a\in [y] \Rightarrow [a]=[x]=[y]$, also $[x]=[y] \Rightarrow$ Zerlegung von M. 
+\end{proof}
+
+\paragraph{Beispiel:} Die Zerlegung durch die Äquivalenzklassen kann man anhand des Beispiels $x\sim y \Leftrightarrow x-y\in 5\cdot \Z$ gut auf einem Zahlenstrahl zeigen (Abb. \ref{fig:aequivalenzklassen_auf_zahlenstrahl}).
+
+\noindent blau: $\overbrace{[0]}^{\textrm{Klassen}}=\overbrace{\{...,-10,-5,0,5,10,...\}}^{\textrm{Jeder Wert kann Representant der Klasse sein}}=[15]=[-5]$\\
+rot: $[1]=\{...,-9,-4,1,6,...\}=[6]=[-4]$\\
+grün: $[2]=\{...,-8,-3,2,7,...\}=[-8]=[7]$\\ 
+
+%\includegraphicsdeluxe{aequivalenzklassen_auf_zahlenstrahl.jpg}{Zerlegung von $\Z$ in 5 Klassen}{fig:aequivalenzklassen_auf_zahlenstrahl} % Nr. 2
+Die Zerlegung einer Menge M in Klassen entsprechn den Äquivalenzrelationen auf M.
+
+\subsection{Funktionen}\index{Funktionen}
+
+\begin{defi}[Funktion]
+Eine Relation R auf den Mengen A,B heißt Funktion von A nach B, wenn gilt: Zu jedem $a\in A$ gibt es genau ein $b\in B$ mit $(a,b)\in R$.
+\end{defi}
+
+\paragraph{Schreibweise:}
+$f: 
+\begin{cases} 
+A \rightarrow B \\
+a \rightarrow f(a)
+\end{cases}$\\
+mit A Definitionsbereich\index{Funktionen!Definitionsbereich}, B Zielbereich\index{Funktionen!Zielbereich}, R Graph\index{Funktionen!Graph} von A ($R=\{(a,f(a)):a\in A\}$) und W Wertebereich\index{Funktionen!Wertebereich} ($\{f(a):a\in A\}$).
+
+\begin{defi}[Bild von D]\index{Funktionen!Bild}
+Sei $D\subset A: f(D)=\{f(x):x\in D\}$ (auch: Zielmenge, Wertemenge, Wertebereich)
+\end{defi}
+
+\begin{defi}[Urbild von E]\index{Funktionen!Urbild}
+Sei $E\subset B: f^{-1}(E)=\{x\in A: f(x)\in E\}$.
+Das Urbild einer Teilmenge der Zielmenge von f ist eine Teilmenge der Definitionsmenge.
+\end{defi}
+
+\begin{defi}[injektiv, auch: linkseindeutig]\index{Funktionen!injektiv}
+Sei $f:A\rightarrow B$. f ist injektiv, falls $x,y\in A$ und $x\neq y \Rightarrow f(x)\neq f(y)$
+\end{defi}
+%\includegraphicsdeluxe{fnk_injektiv.jpg}{Elemente in B werden einmal oder gar nicht getroffen}{fig:fnk_injektiv} % Nr. 3
+Elemente aus A bilden nicht auf dasselbe Element in B ab. Wie kann man zeigen, dass eine Funktion injektiv ist? Zeige: $f(x)=f(y) \Rightarrow x=y$.
+
+\begin{defi}[surjektiv, auch: rechtstotal]\index{Funktionen!surjektiv}
+Sei $f:A\rightarrow B$. f ist surjektiv, falls $f(a)=B$
+\end{defi}
+%\includegraphicsdeluxe{fnk_surjektiv.jpg}{Jedes Element der Zielmenge B wird mindestens einmal als Funktionswert angenommen.}{fig:fnk_surjektiv} % Nr. 4
+Auf jedes Element der Wertemenge B wird abgebildet.  
+
+\begin{defi}[bijektiv]\index{Funktionen!bijektiv}
+Sei $f:A\rightarrow B$. f ist bijektiv, wenn injektiv und surjektiv.
+\end{defi}
+%\includegraphicsdeluxe{fnk_bijektiv.jpg}{}{fig:fnk_bijektiv} % Nr. 5
+f bijektiv, dann immer umkehrbar. Man kann die Umkehrfunktion definieren: $f^{-1}:B\rightarrow A, b\rightarrow a$ mit $f(a)=b$
+\begin{proof}Sei $f:A\rightarrow B$\\
+f surjektiv $\Rightarrow \exists a$ mit $f(a)=b$\\
+f injektiv $\Rightarrow$ Es gibt höchstens ein a mit f(a)=b.
+\end{proof}
+
+\subsubsection{Umkehrabbildung}\index{Funktionen!Umkehrabbildung}\index{Funktionen!Umkehrfunktion}
+$f:
+\begin{array}{ccc}
+1 & 2 & 3 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+5 & 0 & 3
+\end{array} 
+$
+\\
+$f^{-1}:
+\begin{array}{ccc}
+0 & 3 & 5 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+2 & 3 & 1
+\end{array} 
+$
+\\
+Die Umkehrfunktion von $f^{-1}$ ist f.
+
+\subsubsection{Komposition}
+\begin{defi}[Komposition]\index{Funktionen!Komposition}
+Für A $\xrightarrow{f}$ B $\xrightarrow{g}$ C schreibt man auch $g \circ f$ (Komposition): $g\circ f: A\rightarrow C,a\rightarrow g(f(a))$\\
+Es seien f und g ein Paar von Funktion und Umkehrfunktion.\\
+$(g\circ f)(x)=x, g\circ f=id$\\
+$(f\circ g)(x)=x, f\circ g=id$\\
+$id(x)=x$\\
+\end{defi}
+
+\begin{satz}
+$f:A\rightarrow B$ ist injektiv\index{Funktionen!injektiv} $\Rightarrow \exists g:B\rightarrow A$ mit $g\circ f=id$. 
+\end{satz}
+
+% ausgelassen: Beweis

@@ -1,0 +1,127 @@
+% Vorlesung vom 18.05.2015
+\renewcommand{\ldate}{2015-05-18}	% define lessiondate
+
+\section{Graphentheorie}
+
+\subsection{Königsberger Brückenproblem}
+Ziel: Eine Tour über die Brücken. Jede Brücke soll nur einmal benutzt werden. Start- und Endpunkt sollen gleich sein. 
+Lösung: Das Problem wird mit Hilfe der Graphentheorie modelliert. 
+
+\includegraphicsdeluxe{7bruecken.jpg}{7 Brücken}{fig:7bruecken}
+
+
+
+\includegraphicsdeluxe{7bruecken_abstrakt.jpg}{Abstraktion 7 Brücken}{fig:7bruecken_abstrakt}
+
+
+\paragraph{ein Graph} 
+$G = (V,E)$\\
+V: Knotenmenge (endlich) \\
+E: Kantenmenge $E \subseteq \binom{v}{2}$ \\
+$V=\{a,b,c,d\}$\\
+$E=\{\{a,b\},\{a,b\},\{b,c\},\{b,c\},\{a,d\},\{b,d\},\{c,d\}\}$\\
+Knotengrad (Grad): $deg(v) = \mbox{Anzahl von Kanten mit v inzident}$
+
+\paragraph{Eulertour} ist eine Tour, die jede Kante genau einmal benutzt. Anfangspunkt und Endpunkt sind identisch. 
+
+\paragraph{Beispiel} Gegeben ist der Graph G (vgl. Abb. \ref{fig:eulertour1}). Gesucht ist eine Eulertour ($\Rightarrow G$ eulersch). Eine mögliche Eulertour ist $a e_q b e_3 d e_5 c e_{12} b e_2 e e_7 d e_6 f e_8 e e_{11} g e_{10} f e_9 c e_4 a$
+
+
+\includegraphicsdeluxe{eulertour1.jpg}{Eulertour}{fig:eulertour1}
+
+
+\paragraph{Definition} G ist eulersch, wenn
+\begin{itemize}
+\item G zusammenhängend
+\item deg(v) gerade $\forall v \in V$
+\end{itemize}
+Das sind zwei notwendige Bedingungen für die Eigenschaft \textit{eulersch}. Sind sie auch hinreichend? G ist zusammenhängend, da es für je zwei Knoten u,v eine Kantenfolge gibt (ein Weg, vgl. Abb. \ref{fig:graph_zusammenhaengend}). 
+
+
+\includegraphicsdeluxe{graph_zusammenhaengend.jpg}{Ein zusammenhängender Graph}{fig:graph_zusammenhaengend}
+
+
+\paragraph{Satz:} Ein zusammenhängender Graph G besitzt genau dann eine Eulertour, wenn alle Knoten einen geraden Grad haben. 
+
+\paragraph{Beweis:} Im Beispiel findet man auf Anhieb eine geschlossene Kantenfolge (auch: Kreis, z.B. $\{a,b,c,d\}$ orange) finden. Eine weitere ist $\{b,e,f,c\}$ (rot). Beide lassen sich zu einer Kantenfolge zusammenfassen (grün) und solange erweitern, bis alle Kanten bedeckt sind (blau). $\Box$
+
+
+\includegraphicsdeluxe{graph_beweis_euler.jpg}{Mehrere zusammenhängende Kantenfolgen}{fig:graph_beweis_euler}
+
+
+\subsection{Haus vom Nikolaus} \ref{fig:graph_hausvomnikolaus} $deg(d), deg(e)$ ungerade. Wir suchen eine offene Eulertour (Kantenfolge, diesmal aber Anfangspunkt $\neq$ Endpunkt). 
+
+
+\includegraphicsdeluxe{graph_hausvomnikolaus.jpg}{Das ist das Haus ...}{fig:graph_hausvomnikolaus}
+
+
+\paragraph{Bemerkung:} In jedem Graphen ist die Anzahl von Knoten ungeraden Grades gerade: $\sum_{v \in V} deg(v) = 2 m$ mit m Anzahl Kanten. 
+
+\paragraph{Satz:} Ein zusammenhängender Graph G besitzt genau dann eine \textbf{offene} Eulertour, wenn alle Knoten \textbf{bis auf zwei} einen geraden Grad haben. 
+
+
+\includegraphicsdeluxe{graph_offeneeulertour.jpg}{Offene Eulertour}{fig:graph_offeneeulertour}
+
+
+\subsection{Hamiltonkreise}
+
+\paragraph{Hamiltonkreise} sind Kreise, die jeden Knoten genau einmal besuchen. Im Graph \ref{fig:graph_hamiltonkreis} wird ein Hamiltonkreis gesucht. 
+
+
+\includegraphicsdeluxe{graph_hamiltonkreis.jpg}{Wo ist der Hamiltonkreis?}{fig:graph_hamiltonkreis}
+
+
+\paragraph{Beispiel:} Ist G (Abb. \ref{fig:graph_hamilton_stern}) hamiltonsch? Der Graph hat 10 Knoten. Es gibt einen Kreis, der aber nur maximal 9 Knoten hat. Daher ist G nicht hamiltonsch. Er heißt \textbf{Peterson-Graph}.
+
+
+\includegraphicsdeluxe{graph_hamilton_stern.jpg}{Ist der graph hamiltonsch?}{fig:graph_hamilton_stern}
+
+
+\paragraph{Satz:} Ist $deg(u) = deg(v) \geq n $, mit n Anzahl Knoten und u,v nicht benachbart $\Rrightarrow$ G ist hamiltonsch (nicht umgekehrt!).
+
+\paragraph{Beispiel:} $V=\{u,v\}, n=6$\\
+$deg(a)+deg(b)=6 \geq 6 \Rightarrow OK$\\
+$def(u)+deg(v)=4 < 6 \Rightarrow nicht OK$\\
+$def(u)+deg(c)=5 < 6 \Rightarrow nicht OK$\\
+
+
+\includegraphicsdeluxe{graph_hamilton2.jpg}{Ist der graph hamiltonsch?}{fig:graph_hamilton2}
+
+
+\paragraph{Idee Hülle (Hamilton Abschluss):} 
+$n-1 = deg_G(u)+deg_G < n$\\
+$deg_{G'}(u)+deg_{G'}(a)=n$\\
+G nicht hamiltonsch und $deg_{G}(u)+deg_{G}(v) \geq n \Rightarrow G'=G+uv$ nicht hamiltonsch.
+
+\paragraph{Bemerkung} G ist hamiltonsch $\Rrightarrow G'=G+uv$ hamiltonsch.
+
+\paragraph{Beweis:} ausgelassen. 
+
+\paragraph{Obere Schranke für die Anzahl der Knoten:} $deg(u) \leq n-1 < n$
+
+\paragraph{Beispiel (Tiefensuche):} Man kann Hamiltonkreise mithilfe der Tiefenbaumsuche finden. Interessant dabei ist, wie lange die Suche dauert.\\
+Grad: höchstens n (vgl. obere Schranke)\\
+Tiefe: $n-1 < n$\\
+$\Rightarrow n^n \approx e^n \approx 2^n = 1024$\\
+
+
+\includegraphicsdeluxe{graph_tiefensuche.jpg}{Tiefensuche}{fig:graph_tiefensuche}
+
+
+\subsection{Chinesisches Postboten-Problem} Jetzt werden dem bekannten Graphen G Längen zugeordnet, d.h. der Graph wird \textbf{gewichtet}. Gesucht wird die kürzeste Tour durch alle Punkte. \\
+Falls G eulersch ist, dann ist die Lösung die Eulertour. Was gilt, wenn G nicht eulersch ist? 
+
+\paragraph{Beispiel (Haus vom Nikolaus):} Gesucht wird der kürzeste Weg zwischen zwei Punkten. Dabei betrachten wir die Länge der offenen Eulertour. Die Länge entspricht der Summe der gewichteten Kanten.\\
+In diesem Fall: Länge $= 29$. \\
+$+uv=39$\\
+$+uav=32$\\
+$+ubv=36$\\
+Dabei ist uav die kürzeste Strecke unter allen Kantenfolgen. 
+
+
+\includegraphicsdeluxe{graph_chinesisch.jpg}{Das Haus vom Nikolaus}{fig:nikolaus_haus}
+
+ 
+
+\subsection{Das Problem des Handlungsreisenden}
+Wir suchen den kürzesten Hamiltonkreis. Eine Möglichkeit der Lösung ist die Tiefensuche. 

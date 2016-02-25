@@ -1,0 +1,149 @@
+% Vorlesung vom 17.11.2015
+\renewcommand{\ldate}{2015-11-17}
+
+\subsection{Beispiel Urne mit 2 Kugeln, n mal ziehen mit Rücklegen, 3 Fälle möglich}
+\includegraphicsdeluxe{BspUrne2n31.jpg}{Beispiel Urne}{Urne mit 2 Kugeln, n mal ziehen mit Rücklegen, 3 Fälle möglich}{fig:BspUrne2n31}
+Urne mit 2 Kugeln, n mal ziehen mit Rücklegen, 3 Fälle möglich (Abb. \ref{fig:BspUrne2n31}): 
+\begin{enumerate}
+\item $A_1$: 2 schwarze
+\item $A_2$: 1 rote, 1 schwarze
+\item $A_3$: 2 rote
+\end{enumerate}
+Man bekommt die Information B: Nur rote Kugeln wurden gezogen.
+Berechne $P(A_1|B), P(A_2|B), P(A_3|B)$. 
+Ergebnis: Alle Pfade
+
+$P(A_1|B)$
+$=0$
+
+$P(A_2|B)$
+$=\frac{P(A_2\cap B)}{P(B)}$
+$=\frac{p_2 \cdot \rbr{\frac{1}{2}}^n}{p_2 \cdot \rbr{\frac{1}{2}}^n + p_3}$
+$\overrightarrow{n\rightarrow \infty} 0$
+
+$P(A_3|B)$
+$=\frac{P(A_3\cap B)}{P(B)}$
+$=\frac{p_3}{p_2 \cdot \rbr{\frac{1}{2}}^n + p_3}$
+$\overrightarrow{n\rightarrow \infty} 1$
+
+\paragraph{Mit der Formel von Bayes}
+$P(A_k|B)$
+$=\frac{P(A_k) \cdot P(B|A_k)}{\sum_{j=1}^{3} P(A_j) \cdot P(B|A_j)}$
+
+Nenner: $p_1 \cdot 0 + p_2 \cdot \rbr{\frac{1}{2}}^n + p_3 \cdot 1 $
+$=p_2 \cdot \rbr{\frac{1}{2}}^n + p_3 $
+
+Zähler: $k=1: 0$, $k=2: p_2 \cdot rbr{\frac{1}{2}}^n$, $k=3: p_3 \cdot 1$
+
+$P(A_1|B)$
+$=0$
+
+$P(A_2|B)$
+$=\frac{p_2 \cdot \rbr{\frac{1}{2}}^n}{p_2 \cdot \rbr{\frac{1}{2}}^n + p_3}$
+
+$P(A_3|B)$
+$=\frac{p_3}{p_2 \cdot \rbr{\frac{1}{2}}^n + p_3}$
+
+\subsection{Beispiel Würfeln}
+\includegraphicsdeluxe{BspWueSechser1.jpg}{Beispiel Würfeln:}{Beispiel Würfeln: B: Augensumme $\geq 8$, $A_1$: kein Sechser, $A_2$: mindestens ein Sechser}{fig:BspWueSechser1}
+Es werden zwei Würfel geworfen. Wir bekommen die Information: Augensumme $\geq 8$. Wie groß ist die Wahrscheinlichkeit, dass wir mindestens einen Sechser haben (Abb. \ref{fig:BspWueSechser1})?
+
+Exakt: Es muss vor dem Würfeln ausgemacht werden: Man bekommt die Information Augenzumme $\geq 8$ \underline{oder} Augensumme $< 8$. 
+
+$P(A_2|B)$
+$=\frac{P(A_2\cap B)}{P(B)}$
+$=\frac{\frac{9}{36}}{\frac{15}{36}}$
+$=\frac{9}{15}$
+$=\frac{3}{5}$
+
+$P(B)$
+$=\frac{5}{36} + \frac{4}{36} + \frac{3}{36} + \frac{2}{36} + \frac{1}{36} $
+$=\frac{15}{36}$
+
+\subsection{Beispiel Test auf Krankheit}
+\includegraphicsdeluxe{BspTestKrankheit1.jpg}{Beispiel Test auf Krankheit}{Beispiel Test auf Krankheit: A: Person krank, B: Test zeigt positiv}{fig:BspTestKrankheit1}
+Test positiv $\Rightarrow$ krank\\
+Test negativ $\Rightarrow$ gesund\\
+$P_{sl}$: Wahrscheinlichkeit(Test zeigt positiv $\vert$ Person krank)\\
+$P_{sp}$: Wahrscheinlichkeit(Test zeigt negativ $\vert$ Person gesund)\\
+
+ELISA-Test auf HIV: $P_{sl} = P_{sp} = 0.998$
+
+Person wird getestet. Test zeigt positiv. Wie groß ist die Wahrscheinlichkeit, dass die Person krank ist? q sei die apriori Wahrscheinlichkeit, dass die Person krank ist ($q \cdot 100 \%$ der Bevölkerung hat HIV, vgl. Abb. \ref{fig:BspTestKrankheit1})
+
+$P(A|B)$
+$=\frac{A\cap B}{P(B)}$
+$=\frac{q \cdot P_{sl}}{q \cdot P_{sl} + (1-q) (1 - P_{sp}}$
+
+Hier: 
+$P(A|B)$
+$=\frac{q \cdot 0.998}{q \cdot 0.998 + (1-q) \cdot 0.002}$
+
+\begin{tabular}{|c|c|c|c|}
+\hline q & 0.001 & 0.01 & 0.1 \\ 
+\hline $P(A|B)$ & 0.333 & 0.834 & 0.982 \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Verblüffende Beispiele}
+
+\paragraph{1)}
+Eine Familie hat 2 Kinder. Man bekommt die Information \glqq Mindestens ein Junge \grqq. Wie groß ist die Wahrscheinlichkeit, dass es 2 Jungen sind?
+
+A: 2 Jungen\\
+B: mindestens ein Junge\\
+$P(A|B)$
+$=\frac{P(A\cap B)}{P(B)}$
+$=\frac{\frac{1}{4}}{\frac{3}{4}}$
+$=\frac{1\cdot 4}{4\cdot 3}$
+$=\frac{1}{3}$
+
+\paragraph{2)}
+\includegraphicsdeluxe{BspJungenMaedchen2.jpg}{Beispiel Familie 2}{Beispiel Familie mit zwei Kindern}{fig:BspJungenMaedchen2}
+Familie mit 2 Kindern. Die 2 Kinder spielen im Haus. Eines schaut aus dem Fenster heraus. Es ist ein Junge. Wie groß ist die Wahrscheinlichkeit, dass das andere Kind auch ein Junge ist? 
+
+$P(\textrm{JJ} | \textrm{Junge schaut heraus})$
+$=\frac{P(JJ \cap J_{sh})}{P(J_{sh})}$
+$=\frac{\frac{1}{4}}{\frac{1}{4} + \frac{1}{2} \cdot \frac{1}{2}}$
+$=\frac{\frac{1}{4}}{\frac{1}{2}}$
+$=\frac{1}{2}$
+
+Mädchen sind nun neugieriger als Jungen (vgl. rote Wahrscheinlichkeiten in Abb. \ref{fig:BspJungenMaedchen2}).
+$ P(JJ|J_{sF})$
+$=\frac{P(JJ\cap J_{sF})}{P(J_{sF})}$
+$=\frac{\frac{1}{4}}{\frac{1}{4} + \frac{1}{2} \cdot \frac{1}{4}}$
+$=\frac{\frac{1}{4}}{\frac{3}{8}}$
+$=\frac{1\cdot 8}{4 \cdot 3}$
+$=\frac{2}{3}$
+
+\section{Stochastische Unabhängigkeit}
+$P(A|B)$
+$=\frac{A\cap B}{P(B)}$
+
+$P(A|B)$
+$=P(A) \Rightarrow$ A ist von B unabhängig. 
+
+$\frac{P(A\cap B)}{P(B)}$
+$=P(A) $
+$\Leftrightarrow$
+$P(A\cap B)$
+$=P(A) \cdot P(B)$
+
+\begin{defi}
+Zwei Ereignisse A, B heißen unabhängig, wenn gilt: $P(A\cap B) = P(A) \cdot P(B)$
+\end{defi}
+
+\begin{defi}
+Drei Ereignisse A,B,C heißen unabhängig, wenn gilt: \\
+$P(A\cap B\cap C) = P(A) \cdot P(B) \cdot P(C)$\\
+$P(A\cap B) = P(A) \cdot P(B)$\\
+$P(A\cap C) = P(A) \cdot P(C)$\\
+$P(B\cap C) = P(B) \cdot P(C)$
+\end{defi}
+
+\begin{defi}
+$A_1, ..., A_n$ heißen unabhängig, wenn: 
+$P(\bigcap_{j\in T} A_j)$
+$=\prod_{j\in T} P(A_j)$
+für jede Teilmenge T aus $\cbr{1,2,...,n}$.
+\end{defi}

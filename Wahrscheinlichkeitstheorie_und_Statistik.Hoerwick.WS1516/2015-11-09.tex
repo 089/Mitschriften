@@ -1,0 +1,86 @@
+% Vorlesung vom 09.11.2015
+\renewcommand{\ldate}{2015-11-09}
+
+\subsection{Lotterie Keno}
+Aus den Zahlen 1 bis 70 werden 20 gezogen. Man kann 2 bis 10 Zahlen ankreuzen, z.B. kreuzen wir 9 Zahlen an. Es gibt aber feste Gewinnquoten. Man kann 0 bis 9 Richtige haben:\\
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline Richtige & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ 
+\hline Quote & 50000 & 1000 & 20 & 5 & 2 & 0 & 0 & 0 & 0 & 2 \\ 
+\hline 
+\end{tabular}\\
+
+Wir spielen mit 1 EUR Einsatz: Die Zufallsgröße Y ist der ausbezahlte Betrag. Wir suchen EY. Die gezogenen 20 Kugeln malen wir rot an und legen sie in die Trommel zurück. Wir ziehen jetzt $n=9$ Kugeln ohne Rücklegen. Die Zufallsgröße X entspricht nun der Anzahl der roten Kugeln in der Ziehung. X ist hypergeometrisch (Stichprobenverteilung) verteilt. 
+
+$ g(x) $ ist die Quote, z.B. $g(7)=20$. 
+$\Rightarrow Y=g(X)$, 
+$P(X=k) = \frac{\binom 20 k \cdot \binom 50 {9-k}}{\binom 70 9}$,
+$EY = 2 \cdot P(X=0) + 2 \cdot P(X=5) + 5 \cdot P(X=6) + 20 \cdot P(X=7) + 1000 \cdot P(X=8) + 50000 \cdot P(X=9) = 0.510$\\
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline angekreuzte Zahlen & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 \\ 
+\hline EY & 0.49 & 0.51 & 0.49 & 0.49 & 0.49 & 0.50 & 0.49 & 0.50 & 0.47 \\ 
+\hline 
+\end{tabular} \\
+
+\section{Mehrstufige Experimente}
+\subsection{Beispiel}
+Urne mit 1 roten und 3 schwarzen Kugeln. 
+\paragraph{1. Stufe:} Kugel ziehen, Kugel + eine weitere Kugel der gleichen Farbe zurücklegen. 
+\paragraph{2. Stufe:} Wieder eine Kugel ziehen. 
+
+\subsubsection{Modellierung durch einen Baum}
+\includegraphicsdeluxe{ModellBaum1.jpg}{Modellierung mittels Baum}{Modellierung mittels Baum. Die relativen Wahrscheinlichkeiten stehen an den Ästen}{fig:ModellBaum1} 
+Die Pfade sind die möglichen Ausgänge. Wie groß sind die Wahrscheinlichkeiten der Pfade? Zum Beispiel ungefähre relative Häufigkeit von (r,r) ist $\frac{1}{4} \cdot \frac{2}{5} $. Die relativen Häufigkeiten sind ungefähr die Wahrscheinlichkeiten. 
+
+\subsubsection{Wahrscheinlichkeit eines Pfades}
+Um die Wahrscheinlichkeit eines Pfades zu erhalten, muss man die Wahrscheinlichkeiten entlang eines Pfades multiplizieren. Das nennt sich die erste Pfadregel\index{Pfadregel!Erste}. Die Wahrscheinlichkeiten der Pfade in der Abb. \ref{fig:ModellBaum1} sind also: 
+$P(r,r) = \frac{1}{4} \cdot \frac{2}{5} = \frac{2}{20}$, 
+$P(r,s) = \frac{1}{4} \cdot \frac{3}{5} = \frac{3}{20}$, 
+$P(s,r) = \frac{3}{4} \cdot \frac{1}{5} = \frac{3}{20}$, 
+$P(s,s) = \frac{3}{4} \cdot \frac{4}{5} = \frac{12}{20}$. Die Summe der Wahrscheinlichkeiten der einzelnen Pfade ist 1.
+$P(\textrm{2. Kugel rot}) $
+$= P(r,r) + P(s,r)$
+$\frac{2}{20} + \frac{3}{20} $
+$=\frac{5}{20}$
+$=\frac{1}{4}$ (2. Pfadregel).
+
+\subsection{Modellierung mehrstufiger Experimente}
+Ergebnismenge: $\Omega = \Omega_1 \times \Omega_2 \times ... \times \Omega_n$\\
+Startverteilung: $p(a_1)$ mit $a_1 \in \Omega_1$\\
+\textbf{2. Stufe:} Für jedes $a_1 \in \Omega_1:$ $P(a_2 | a_1)$ Wahrscheinlichkeitsverteilung auf $\Omega_2$\\
+\textbf{3. Stufe:} $p(a_3 | a_1, a_2)$ Wahrscheinlichkeitsverteilung auf $\Omega_3$\\
+usw.\\
+\textbf{n. Stufe:} $p(a_n | a_1, a_2, ..., a_{n-1})$ Wahrscheinlichkeitsverteilung auf $\Omega_n$\\
+
+$p(\omega) = p(a_1, a_2, ..., a_n)$ \profnote{Wie beim Baum, 1. Pfadregel).}
+$= P(a_1) \cdot P(a_2 | a_1) \cdot P(a_3 | a_1,a_2) \cdot ... \cdot P(a_n | a_1,a_2,...,a_{n-1})$
+
+\subsection{Sonderfall: unabhängige Experiemente}
+z.B. $p(a_2|a_1)$ unabhängig von $a_1$, $p(a_n | ... )$ unabhängig von ... .
+$p(a_1,a_2,...,a_n) = p(a_1) \cdot p(a_2) \cdot ... \cdot p(a_n)$, z.B. dreimal würfeln: 
+$p(2,3,5) = \frac{1}{6} \cdot \frac{1}{6} \cdot \frac{1}{6}$
+
+\subsection{Das Polyasche Urnenschema}
+Urne mit r roten und s schwarzen Kugeln. Eine Kugel ziehen, zurücklegen und c Kugeln der gleichen Farbe hineinlegen. ($c<0$ heißt herausnehmen). Den Vorgang wiederholen wir (n-1) mal und nennen das n-stufiges Experiment mit den Sonderfällen $c=0$ ziehen mit Rücklegen und $c=1$ ziehen ohne Rücklegen. Die Zufallsvariable X gebe die Anzahl der gezogenen roten Kugeln an. \\
+
+Verteilung von X? EX? Wir definieren: $ 1 \widehat{=}$ rot, $0 \widehat{=} schwarz$.\\
+Start: $P_1(1) = \frac{r}{r+s}, P_1(0) = \frac{s}{r+s}$\\
+Züge $1, 2, ..., j-1$ schon gemacht. Darunter seien genau l Einsen: $ a_1 + a_2 + ... + a_{j-1} = l$\\
+$P_j(1|a_1,a_2,...,a_{j-1}) = \frac{r + l \cdot c}{r+s+(j-1)c}$, 
+$P_j(0|a_1,a_2,...,a_{j-1}) = \frac{s + (j-1-l)c}{r+s+(j-1)c}$
+
+Die Wahrscheinlichkeiten sind nur von der Anzahl der Einsen abhängig, nicht von der Reihenfolge.
+
+$\underbrace{P(a_1, a_2, ..., a_n)}_{\textrm{Zähle die Einsen.}} =$ entlang des Pfades multiplizieren \profnote{Es sind k Einsen.}
+$= \frac{\prod_{j=0}^{k-1} (r+j \cdot l ) \cdot \prod_{j=0}^{n-k-1} (s+j \cdot l)}{\prod_{j=0}^{n-1} (r+s+j\cdot l)}$
+
+$P(X=k) = \binom n k \cdot \frac{\prod_{j=0}^{k-1} (r+j \cdot l ) \cdot \prod_{j=0}^{n-k-1} (s+j \cdot l)}{\prod_{j=0}^{n-1} (r+s+j\cdot l)}$
+
+$c=-1$: ohne Rücklegen $\Rightarrow$ hypergeometrische Verteilung\\
+$c=0$: mit Rücklegen $\Rightarrow$ Binomialverteilung\\
+
+Wir setzen jetzt einfach mal $c=0$: 
+$P(X=k) = \binom n k \cdot \frac{\prod_{j=0}^{k-1} r \cdot \prod_{j=0}^{n-k-1} s}{\prod_{j=0}^{n-1} (r+s}$
+mit $p=\frac{r}{r+s}$ folgt 
+$= \binom n k p^k (1-p)^{n-k}$

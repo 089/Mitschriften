@@ -1,0 +1,116 @@
+% Vorlesung vom 17.06.2015
+\renewcommand{\ldate}{2015-06-17}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+\section{Fragen von Studenten. Antworten vom Professor}
+
+\subsection{Wie funktioniert loop unrolling?}
+
+\begin{lstlisting}
+	PREFIX :InsertEnd:
+new	IS $0	Adresse des neuen Knoten
+head	IS $1	Adresse von der Adresse des ersten Knotens
+next	IS $2
+NEXT	IS 0	Offset des NEXT-Feldes
+
+% Variante 1
+1H	SET head,next
+:InsertEnd	LDOU	next,head,NEXT
+	BNZ	next,1B
+	STOU	new,head,NEXT
+	POP	0,0
+	
+% Variante 2	
+1H	SET head,next
+:InsertEnd	LDOU	next,head,NEXT
+	BZ	next,0F
+	SET	head,next
+	LDOU	next,head,NEXT
+	BNZ	next,1B
+	STOU	new,head,NEXT
+	POP	0,0
+	
+OH	STOU	new,head,NEXT	
+\end{lstlisting}
+
+\includegraphicsdeluxe{foto_optimierung_code.jpg}{Optimierung mittels loop doubleing; Rot: neuer Wert, Gelb: Verwendung}{fig:foto_optimierung_code} % Nr. FOTO!
+
+\paragraph{copy propagation} Statt der Kopie verwendet man das Original. Der optimierte Code lautet dann:
+
+\begin{lstlisting}
+:InsertEnd LDOU	next,head,NEXT
+	BZ	next,0F
+
+	LDOU	head,next,NEXT
+	PBNZ	head,:InsertEnd
+	STOU	new,next,NEXT
+	POP	0,0
+	
+0H	STOU	new,head,NEXT
+	POP	0,0	
+\end{lstlisting} 
+
+\subsection{Wie kann man die Anzahl von Bytes auf ein Vielfaches von 8 aufrunden?}
+
+\subsubsection{Wie geht das Dezimal?}
+\begin{itemize}
+\item Abrunden: $1234567 \rightarrow 1234000$
+\item Aufrunden: $1234567 \rightarrow 12345000$
+\item Aufrunden durch Abrunden: Erst $+999$, dann abrunden: $1234557 + 999 = 12345566 \rightarrow 12345000$
+\end{itemize}
+
+\subsubsection{Wie geht das binär?}
+Abrunden auf Vielfaches von 8 (Abb. \ref{fig:abrunden_auf_vielfaches_von_8})
+\begin{lstlisting}
+AND	size,size,7
+(AND	size,size,#FFF....F8 % wg. Groesse nicht moeglich)
+ANDN	size,size,7 % Ersatz fuer Zeile oben drueber
+\end{lstlisting}
+\includegraphicsdeluxe{abrunden_auf_vielfaches_von_8.jpg}{Abrunden auf Vielfaches von 8 (binär)}{fig:abrunden_auf_vielfaches_von_8} % Nr. 1
+
+
+\paragraph{Aufrunden auf Vielfaches von 8 (Abb. \ref{fig:aufrunden_auf_vielfaches_von_8})}
+
+\includegraphicsdeluxe{aufrunden_auf_vielfaches_von_8.jpg}{Aufrunden auf Vielfaches von 8 (binär)}{fig:aufrunden_auf_vielfaches_von_8} % Nr. 2
+
+\section{Verbesserung der Freispeicherverwaltung}
+
+\subsection{ganz einfach}
+\begin{itemize}
+\item malloc(n) nimmt die nächsten n Byte $((n+7)8 \sim 7)$ vom Poolsegment.
+\item free(p) wird nicht implementiert 
+\end{itemize}
+
+\subsection{einfach für eine feste Größe N} Verwalten einer Liste mit freien Blöcken.
+
+\paragraph{malloc(N)}
+\begin{itemize}
+\item wenn Freiliste leer N Bytes vom Poolsegment
+\item sonst erstes Element der Freiliste
+\end{itemize}
+
+\paragraph{free(p)} Node p in die Freiliste einfügen.
+
+Das ist einfach für eine Variable n. Die Knoten sehen so aus: Abb. \ref{fig:freiliste_malloc}
+\paragraph{malloc(n):} n wir auf ein Vielfaches von 8 aufgerundet. In der Freiliste wird nach einem \textbf{passenden} Element gesucht. Wenn nicht, wird aus dem Poolsegment n+8 Byte (8 entspricht der Größe size=)genommen. Size wird eingetragen und Adresse vom OCTA nach size zurückgegeben. 
+\paragraph{Was heißt passend?} Es gibt unterschiedliche Strategien. 
+\begin{itemize}
+\item First Fit: den ersten der passt
+\item Best Fit: den der als bester passt
+\end{itemize}
+\includegraphicsdeluxe{freiliste_malloc.jpg}{So könnte die Freiliste aussehen}{fig:freiliste_malloc} % Nr. 
+
+\paragraph{Best Fit und First Fit} 
+Beide Strategien können mit dem Teilen von Knoten kombiniert werden (Abb. \ref{fig:geteilteKnoten}). Teilen in der Regel nur, wenn der Rest eine gewisse Mindestgröße hat. Problem: Speicherfragmentierung. 
+\includegraphicsdeluxe{geteilteKnoten.jpg}{geteilte Knoten}{fig:geteilteKnoten} % Nr. 4
+\paragraph{Beispiel:} Knoten zwischen 16 und 1600 Byte zufällig gemischt, First Fit, Anforderung von 64 Byte.
+
+\subsection{Verbesserungen}
+\begin{itemize}
+\item Durchsuchen der Freiliste nicht jedes Mal von vorne, sondern von der letzten Fundstelle aus. 
+\item Zusammenfügen von Knoten beim Freigeben. Nachteil: Durchsuchen der Liste dauert ggf. lange. Man kann das verkürzen, indem man die Liste nach Adressen sortiert. 
+\item Garbage Collection
+	\subitem Es erfolgt keine Freigabe
+	\subitem stattdessen gibt es ein Verzeichnis aller Zeiger (auf dem Stack, z.B. in Java).
+	\subitem Hier gibt es einen Mark and Sweep Algorithmus. Man beginnt mit den Zeigern auf dem Stack und markiert sie , dann markiert man alle Objekte, auf die sie zeigen und alle Zeiger in den Objekten und so weiter (Mark). Nun wird der Speicher durchlaufen und nicht-markierte OElemente freigegeben (Sweep). 
+\end{itemize}

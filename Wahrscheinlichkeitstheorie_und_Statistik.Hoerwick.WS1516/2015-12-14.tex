@@ -1,0 +1,107 @@
+% Vorlesung vom 14.12.2015
+\renewcommand{\ldate}{2015-12-14}
+
+\subsection{Beispiel hypergeometrische Verteiltung}
+Wir haben r rote und s schwarze Kugeln in einer Urne. Es werden n Kugeln ohne Rücklegen gezogen: X ist die Anzahl der roten Kugeln, $A_j$ das Ereignis: bei jeder j-ten Ziehung rot $(a_1, a_s, ..., \underbrace{a_j}_{\textrm{hier rot}}, ..., a_n)$
+
+$X = I_{A_1} + ... + I_{A_n}$
+
+$P(A_j)$
+$=\frac{r}{r+s}$, 
+$P(A_i \cap A_j)$
+$=\frac{r(r-1)}{(r+s)(r+s-1)}$
+
+$V(I_{A_1} + ... + I_{A_n}) $
+$=n\cdot \frac{r}{r+s} \cdot \rbr{1-\frac{r}{r+s}} + n(n-1) \sbr{\frac{r(r-1)}{(r+s)(r+s-1)} - \rbr{\frac{r}{r+s}}^2}$
+$=...$
+$=n\cdot \frac{r}{r+s} \cdot \rbr{1-\frac{r}{r+s}} \rbr{1-\frac{n-1}{r+s-1}}$
+
+Mit $p=\frac{r}{r+s}$ 
+
+$V(X) = n\cdot p(1-p) \rbr{1- \frac{n-1}{r+s-1}}$
+
+$[\sbr{EX=n \cdot p}]$
+
+\textbf{Vergleich zur Binomialverteilung} $EX = np, V(X)=np(1-p)$
+
+\subsection{Beispiel Permutationen}
+Betrachte die Permutationen der Zahlen 1 bis n. X ist die Anzahl der Fixpunkte einer Permutation.
+
+$A_j: \cbr{\textrm{Permutationen }\omega : \textrm{Fixpunkte bei j}}$ 
+
+$ X = I_{A_1} + I_{A_2} + ... + I_{A_n}$
+
+$P(A_j) = \frac{1}{n}$
+
+$P(A_i\cap A_j) = \frac{1}{n(n-1)}$, auch möglich: $= \frac{(n-2)!}{n!}$
+
+$ V(X) $
+$=n P(A_1)(1-P(A_1))+ n(n-1) \sbr{P(A_1\cap A_2) - P(A_1)^2}$
+$=\rbr{1-\frac{1}{n}} + (n-1) \sbr{\frac{1}{n-1} - \frac{1}{n}}$
+$=\frac{n-1}{n} + \frac{n-1}{n-1} - \frac{n-1}{n}$
+$= 1$
+
+$Var(X) = 1, $ von früher: $EX =1 \Rightarrow $ unabhängig von n.
+
+\subsection{Korrelationskoeffizient}
+
+\begin{defi}
+$X,Y: \Omega \rightarrow \R$
+
+$r(X,Y) = \frac{C(X,Y)}{\sqrt{V(X) \cdot V(Y)}}$ heißt Korrelationskoeffizient von X und Y
+\end{defi}
+
+\textbf{Problem:}
+$X,Y: \Omega \rightarrow \R$. Wir kennen $X(\omega)$ und wollen $Y(\omega)$ schätzen. $Y \approx g(X), Y \approx a+bX$ (Gerade). Wie berechnet man a und b, damit man Y möglichst gut schätzt? 
+
+Der Schätzfehler $Y(\omega) - a - b X(\omega)$ ist eine Zufallsgröße.
+
+Minimiere $E\sbr{\rbr{Y(\omega) - a - b X(\omega)}^2}$. Dieses Optimierungsproblem hat die Lösung:
+$b^* = \frac{C(X,Y)}{V(X)}, a^+ = EXY - b^* EX$.
+
+Der Minimalwert $M^+$ von $*$ ist:
+$M^+ = V(Y) \cdot \sbr{1-r^2(X,Y)}$
+
+\textbf{Beweis:} $Z=Y-bX;$
+$ E\sbr{(Y-a-bX)^2}$
+$=\underbrace{E\sbr{(Z-a)^2}}$
+
+$=\sbr{V(X) = \underbrace{E\sbr{(X-a)^2}} - \sbr{EX-a}^2}$
+$=Var(Z) + \sbr{EZ-a}^2$
+
+\textbf{minimal bei:} $EZ =a; E(Y-bX) = a; EY -bEX= a$
+
+\profnote{Abkürzung: $\tilde{Y} = Y-EY, \tilde{X} = X-EX$}
+\textbf{minimiere:} $V(Z) = V(Y-bX)$
+$=E\sbr{(Y-bX - EY + bEX)^2}$
+$=E \sbr{(\tilde{Y} - b\tilde{X})^2}$
+$=E\sbr{\tilde{Y}^2 - 2b \tilde{X}\tilde{Y} + b^2 \tilde{X}^2}$
+$=V(Y) -2b C(X,Y) + b^2 V(X) $
+$=h(b)$
+$\Rightarrow$ \textbf{minimal beim Scheitel:} 
+$ h'(b) = -2 C(X,Y) + 2b V(X) = 0$
+
+$b V(X) = C(X,Y)$
+
+$b = \frac{C(X,Y)}{V(X)}$
+
+\textbf{Also: } $b^* = \frac{C(X,Y)}{V(X)}, a^* = EY - b^* EX$\\
+
+$M^* = E\sbr{ (Y-a^* - b^* X)^2 }$
+$= E \sbr{ (Y-EY + b^* EX - b^* X)^2 }$
+$= E \sbr{ ((Y-EY) - b^* (X - EX))^2 }$
+$= E \sbr{ ((Y-EY)^2 - b^*{^2} (X - EX)^2 - 2b^* (x-EX) (Y-EY) }$
+$= V(Y) + b^* V(X) - 2 b^* C(X,Y)$
+$=V(Y) + \frac{C(X,Y)^2 \cdot V(X)}{V(X)^2} - 2 \cdot \frac{C(X,Y)}{V(X)} \cdot C(X,Y)$
+$=V(Y) + \frac{C(X,Y)^2}{V(X)} - 2 \cdot \frac{C(X,Y)^2}{V(X)}$
+$=V(Y) - \frac{C(X,Y)^2}{V(X)}$
+$=V(Y) - V(Y) \cdot \frac{C(X,Y)^2}{V(X)\cdot V(Y)}$
+$=V(Y) \cdot \sbr{1 - r(X,Y)^2}$
+
+\subsection{Folgerungen}
+
+\begin{enumerate}
+\item $\sbr{C(X,Y)}^2 \leq V(X) \cdot V(Y)$
+\item $\abs{r(X,Y)} \leq 1$
+\item $\abs{r(X,Y)} = 1 \Leftrightarrow M^* = 0 \Leftrightarrow Y = a+bX$
+\end{enumerate}

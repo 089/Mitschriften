@@ -1,0 +1,82 @@
+% Vorlesung vom 30.10.2015
+\renewcommand{\ldate}{2015-10-30}
+
+\subsection{Krümmung einer ebenen Kurve in Parameterdarstellung}
+\includegraphicsdeluxe{krEbKurvInParamd1.jpg}{Krümmung einer ebenen Kurve}{Krümmung einer ebenen Kurve}{fig:krEbKurvInParamd1}
+
+Steigung an der Stelle $ x(t), y(t))$: 
+$\tan \alpha = \frac{\dot y (t)}{\dot x (t)}$
+$=f'(t)= \frac{df}{dx} (x(t))$ (Abb. \ref{fig:krEbKurvInParamd1})
+
+\paragraph{Beide Seiten nach t ableiten:}
+$ \frac{\dot x(t) \ddot y(t) - \dot y(t) \ddot x(t)}{\dot x(t)^2}$
+$=\frac{df}{dx \cdot dx} \cdot \dot x(t)$
+$\Rightarrow f''(x) = \frac{\dot x(t) \ddot y(t) - \dot y(t) \ddot x(t)}{\dot x(t)^3}$
+
+\paragraph{Krümmung beim Parameterwert t}
+$ K(t) = \frac{f''(x)}{\sqrt{1+f'(x)^2}^3}$
+$= \frac{\dot x \ddot y - \dot y \ddot x}{\dot x^3 \sqrt{1+\frac{\dot y}{\dot x}^2}^3}$
+
+\paragraph{Krümmung bei t}
+$ K(t) = \frac{\ddot y \dot x - \dot y \ddot x}{\rbr{\dot x \sqrt{1+\frac{\dot y}{\dot x}^2}}^3}$
+ 
+\subsection{Beispiel Ellipse}
+\includegraphicsdeluxe{bspEllipse1.jpg}{Ellipse}{So kann eine Ellipse ausschauen ;-)}{fig:bspEllipse1}
+$ \vektor{x(t) \\ y(t)}$
+$=\vektor{a \cos t \\ b \sin t}$
+
+$\dot x = -a \sin t, \ddot x = -a \cos t$\\
+$\dot y = b \cos t, \ddot y = -bin \sin t$\\
+
+$K(t) = \frac{b \sin (t) a \sin (t) + b \cos (t) a \cos (t)}{\rbr{- a \sin t \sqrt{1+\frac{b \cos t}{-a \sin t}^2}}^3 }$
+$= \frac{a b}{\rbr{- a \sin t \sqrt{1+\frac{a^2 \sin^2 t + b^2 \cos^2 t}{a^2 \sin^2 t} }}^3}$
+$= \frac{a b}{\rbr{\pm 1 \sqrt{a^2 \sin^2 t + b^2 \cos^2 t}^3}}$
+
+\paragraph{Krümmung an den Scheiteln ($0\gradi, 90\gradi$)}
+$t=0\gradi: K(0) = \frac{a b}{\sqrt{b^2}^3} = \frac{a b }{b^3} = \frac{a}{b^2}$ 
+$\Rightarrow \textrm{Krümmungskreisradius} = \frac{b^2}{a}$\\
+
+$t=90\gradi : K(\frac{\pi}{2}) = \frac{a b}{\sqrt{a^2}^3} = \frac{a b}{a^3} = \frac{b}{a^2}$ 
+$\Rightarrow \textrm{Krümmungskreisradius} = \frac{a^2}{b}$\\
+
+\includegraphicsdeluxe{senkrDreiecke1.jpg}{Ellipse}{Konstruktion einer Ellipse mit $a=3, b=2$ mit Hilfe von ähnlichen Dreiecken. R und r sind die Krümmungskreismittelpunkte. }{fig:senkrDreiecke1}
+Wir suchen nun ähnliche Dreiecke (Abb. \ref{fig:senkrDreiecke1}), bei denen die Seiten Senkrecht zueinander sind. 
+$\frac{b}{a} = \frac{a}{R}$
+$\Rightarrow bR=a^2 \Rightarrow R = \frac{a^2}{b}$
+
+$\frac{b}{a} = \frac{r}{b} \Rightarrow r=\frac{b^2}{a}$
+
+\section{Kurven in Polarkoordinaten}
+\includegraphicsdeluxe{kurvInPolarkoord.jpg}{Kurven in Polarkoordinaten}{Kurven in Polarkoordinaten umrechnen. Gegeben $r(\varphi)$}{fig:kurvInPolarkoord}
+Gegeben ist $r(\varphi) \Rightarrow$ übliche Parameterdarstellung: 
+$ x(\varphi) = r(\varphi) \cdot \cos \varphi$, 
+$ y(\varphi) = r(\varphi) \cdot \sin \varphi$
+
+\subsection{Beispiel Archimedische Spirale}
+\includegraphicsdeluxe{ArchimedischeSpirale.png}{Beispiel Archimedische Spirale}{Beispiel Archimedische Spirale (Quelle: Wikipedia)}{fig:ArchimedischeSpirale}
+$ r(\varphi) = a \cdot \varphi, a > 0$
+$ x(\varphi) = a \cdot \varpi \cdot \cos \varphi$, 
+$ y(\varphi) = a \cdot \varpi \cdot \sin \varphi$,
+Tangentenvektor: 
+$x'(\varphi) = a(1\cos \varphi - \varphi \sin \varphi)$, 
+$y'(\varphi) = a(1\sin \varphi + \varphi \cos \varphi)$. \\
+
+Bei $\varphi = 0\gradi$: $(x'(0), y'(0)) = a(1,0)$\\
+Bei $\varphi = 2\pi $: $a(\cos 2\pi - 2\pi \sin 2\pi, \sin 2\pi + 2\pi \cos 2\pi) = a(1,2\pi)$
+
+\subsection{Sektorflächeninhalt}
+\includegraphicsdeluxe{sektorflaecheninhalt1.jpg}{Sektorflächeninhalt}{Sektorflächeninhalt: Annäherung durch Kreissegment (1), durch eine Funktion (2) und durch die Archimedische Spirale (3).}{fig:sektorflaecheninhalt1}
+Annäherung durch Kreissegmente: 
+$\sum_{i=1}^{n} \frac{r(\varphi_i)^2 \pi}{2\pi} \DPH $
+$=\sum_{i=1}^{n} \frac{1}{2} r(\varphi_i)^2 \DPH $
+$\overrightarrow{n\Rightarrow \infty}$
+$\int_{\varphi_1}^{\varphi_2} \frac{1}{2} r(\varphi)^2 d\varphi$\\
+
+Archimedische Spirale: $2\pi$\\
+$\int_{\varphi_1}^{\varphi_2} \frac{1}{2} r(\varphi)^2 d\varphi $
+$= \int_{0}^{2\pi} \frac{1}{2} (a \varphi)^2 d\varphi$
+$= \frac{a^2}{2} \int_{0}^{2\pi} \varphi^2 d\varphi$
+$= \sbr{ \frac{a^2}{2} \frac{1}{3} \varphi^3}_0^{2\pi}$
+$= \frac{a^2}{2} \frac{1}{3} (2\pi)^3$
+$=\frac{4}{3} a^2 \pi^3 $ mit $a=1$: 
+$ \frac{4}{3} \pi^3 = 41.3$

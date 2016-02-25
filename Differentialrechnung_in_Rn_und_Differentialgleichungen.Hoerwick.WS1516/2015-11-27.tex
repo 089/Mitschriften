@@ -1,0 +1,90 @@
+% Vorlesung vom 27.11.2015
+\renewcommand{\ldate}{2015-11-27}
+
+\subsection{Ein System von DGL}
+$y_1' = f_1(x_1, y_1, y_2) $, 
+$y_2' = f_2(x_1, y_1, y_2) $
+
+Lösung: 
+\includegraphicsdeluxe{DGLSysteme1.jpg}{System von DGL}{System von DGL}{fig:DGLSysteme1}
+$\varphi_1, \varphi_1$ mit 
+$\varphi_1'(x) = f_1(x,\varphi_1(x),\varphi_2(x))$,
+$\varphi_2'(x) = f_2(x,\varphi_1(x),\varphi_2(x))$
+
+\textbf{Allgemein:}\\
+$y_1' = f_1(x,y_1,y_2,...,y_n)$\\
+$y_2' = f_2(x,y_1,y_2,...,y_n)$\\
+$\vdots$\\
+$y_n' = f_n(x,y_1,y_2,...,y_n)$\\
+
+\textbf{Lösung:} Funktionen $\varphi_1, ..., \varphi_n$ (vgl. Abb. \ref{fig:DGLSysteme1}) mit \\
+$\varphi_1'(x) = f_1(x, \varphi_1(x), ..., \varphi_n'(x))$\\ 
+$\varphi_2'(x) = f_2(x, \varphi_1(x), ..., \varphi_n'(x))$\\ 
+$\vdots$\\
+$\varphi_n'(x) = f_n(x, \varphi_1(x), ..., \varphi_n'(x))$\\
+
+\textbf{Die fassen wir nun zusammen:}\\
+$ \varphi(x) = \vektor{\varphi_1(x)\\ \varphi_2(x)\\ \vdots \\ \varphi_n(x)}$ 
+
+Das ist die Parameterdarstellung einer Kurve im $\R^n$. Dabei ist x die Zeit, die Bewegung eines Punktes im $\R^n$. Also ist 
+
+$\varphi'(x) = \vektor{\varphi_1'(x)\\\varphi_2'(x)\\\vdots \\ \varphi_n'(x)}$
+
+der Geschwindigkeitsvektor. 
+
+$f\rbr{x, \vektor{y_1\\\vdots\\y_n}} = \vektor{f_1(x,y_1,...,y_n)\\f_2(x,y_1,...,y_n)\\\vdots\\f_n(x,y_1,...,y_n)\\} = \vektor{y_1'\\\vdots\\y_n'\\}$
+
+f gibt zu jedem Zeitpunkt x und Raumpunkt $y=\vektor{y_1\\\vdots\\y_n}$ einen Vektor aus $\R^n$ an. \\
+
+\textbf{Lösung:} $\varphi(x)$ mit $\varphi'(x) = f(x,\varphi(x))$
+
+\includegraphicsdeluxe{DGLGeschwVekt1.jpg}{DGL und der Geschwindigkeitsvektor}{DGL und der Geschwindigkeitsvektor $\varphi'(x)$}{fig:DGLGeschwVekt1}
+Die DGL gibt zu jedem Zeitpunkt x und Raumpunkt $y=\vektor{y_1\\\vdots\\y_n}$ einen Geschwindigkeitsvektor an. Gesucht ist die Bewegung im Raum $\varphi(x)$, die dazu passt (Abb. \ref{fig:DGLGeschwVekt1}).\\
+
+\textbf{Gegeben:} $\varphi(x_0) = y_0$. Falls $\abs{x-x_0}$ klein 
+$\Rightarrow$ Näherung: $\varphi(x) = \varphi(x_0) + \varphi'(x_0) \cdot (x-x_0)$
+$\varphi(x_0) + f(x_0, \varphi(x_0)) \cdot (x-x_0)$
+
+Auch eine \textit{normale} eindimensionale DGL (Abb. \ref{fig:EindimensionalesDGL1}) kann man so auffassen: 
+
+$y' = f(x,y)$ Lösung $\varphi(x)$
+
+\includegraphicsdeluxe{EindimensionalesDGL1.jpg}{Eindimensionales DGL}{Eindimensionales DGL: Der Punkt y zur Zeit x $\Rightarrow$ Die DGL gibt die Geschwindigkeit vor.}{fig:EindimensionalesDGL1}
+$\varphi'(x) = f(x,\varphi(x))$
+$\varphi(x)$ fassen wir als Bewegung eines Punktes auf der Geraden $\R$ auf. $\varphi'(x)$ ist dabei die Geschwindigkeit (Abb. \ref{fig:}). Lösung: Bewegung eines Punktes, die dazu passt. 
+
+\subsection{DGL n-ter Ordnung}
+
+\begin{defi}
+$ f: \R \times \R^n \rightarrow \R$,
+$f(x,y,y',y'',...,y^{(n-1)}) = y^{(n)}$ heißt DGL n-ter Ordnung. Eine Lösung ist $\varphi(x) : I \rightarrow \R$ mit 
+
+* \label{*} $ \varphi^{(n)}(x) = f(x,\varphi(x),\varphi'(x),\varphi''(x),...\varphi^{(n-1)}(x))$
+\end{defi}
+
+Das kann man umformen in ein System von DGL (DGL-System)\index{DGL!System}:
+
+$y^{(n)} = f(x,\underbrace{y}_{y_0},\underbrace{y'}_{y_1},...,\underbrace{y^{(n-1)}}_{y_{n-1}} )$
+
+$y'_0 = y_1 = f_1(x,y_0,y_1,...,y_{n-1})$\\
+$y'_1 = y_2 = f_2(x,y_0,y_1,...,y_{n-1})$\\
+$\vdots$\\
+$y'_{n-2} = y_{n-1} = f_{n-1}(x,y_0,y_1,...,y_{n-1})$\\
+$y'_{n-1} = f(x,y_0,y_1,...,y_{n-1})$\\
+Ist $\varphi(x) = \vektor{\varphi_0(x)\\...\\\varphi_{n-1}(x)\\}$ eine Lösung des Systems, so ist $\varphi_0(x)$ eine Lösung von * in der Definition \ref{*}.
+
+\subsection{Lippschitzbedingung}
+\includegraphicsdeluxe{Lippschitzbedingung1.jpg}{Die Lippschitzbedingung}{Die Lippschitzbedingung}{fig:Lippschitzbedingung1}
+\begin{defi}[Lippschitzbedingung1]
+$f: \R \times \R^n \rightarrow \R^n$, $ (x,y) \rightarrow f(x,y)$ 
+genügt der Lippschitzbedingung mit konstanter $L>0$, wenn gilt: 
+
+\color{red}
+$\abs{f(x,y) - f(x,\tilde{y})}$
+\color{black}
+$\leq  L \cdot $
+\color{blue}
+$\abs{y-\tilde{y}}$ 
+\color{black}
+(vgl. Abb. \ref{fig:Lippschitzbedingung1})
+\end{defi}

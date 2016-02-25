@@ -1,0 +1,110 @@
+% Vorlesung vom 08.12.2015
+\renewcommand{\ldate}{2015-12-08}
+
+\section{Kovarianz}
+
+$ X,Y: \Omega \rightarrow \R $ Zufallsgrößen
+
+$ V(X+Y) = E[(X+Y - E(X+Y))^2]$
+$=E[((X-EX) + (Y+EY))^2]$
+$=E[\underbrace{(X-EX)^2}_{Var(X)} + \underbrace{(Y-EY)^2}_{Var(Y)} + 2 (X-EX)(Y-EY)]$
+$=Var(X) + V(Y) + 2 \cdot \underbrace{E[(X-EX)(Y-EY)]}_{\textrm{Kovarianz von X und Y}}$ \profnote{auch: $cov(X,Y), C(X,Y)$}
+
+\begin{defi}
+$C(X,Y) 4$
+$=E[(X-EX)(Y-EY)]$
+
+$V(X + Y)$
+$=Var(X) + V(Y) + 2 \cdot C(X,Y)$
+\end{defi}
+
+\begin{satz}
+\begin{enumerate}
+\item $C(X,Y) = E(X\cdot Y) - (EX) \cdot (EY)$
+\item $C(X,Y) = C(Y,X), C(X,X) = V(X)$
+\item $ C(X+a, Y+b) = C(X,Y)$
+\item $X,Y$ unabhängig $\Rightarrow C(X,Y) = 0$
+\item $C(\sum_{i=1}^{m} a_i X_i, \sum_{j=1}^{n} b_i Y_i) $
+$=\sum_{i=1}^{m} \sum_{j=1}^{n} a_i b_j C(X_i, Y_j)$
+\item $V(X_1 + X_2 + ... + X_n)$
+$= \sum_{j=1}^{n} V(X_j) + 2 \sum_{1\leq i < j \leq j} C(X_i, X_j)$
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+\item $ C(X,Y) = E[(X-EX)(Y-EY)]$
+$=E[X\cdot Y - X EY - YEX + EX\cdot EY]$
+$=E(X\cdot Y) - EX\cdot EY - EY\cdot EX + EX\cdot EY] $
+$=E(X\cdot Y) - EX \cdot EY$
+\item klar
+\item $ C(X+a, Y+b)$
+$=E[(X+a - EX - a) (Y+b - EY - b)]$
+$=E[(X - EX) (Y - EY)]$
+$=C(X,Y)$ 
+\profnote{Jetzt verwenden wir die Unabhängigkeit. Sind sie unabhängig ist die Kovarianz 0. Umgekehrt gilt das nicht!}
+\item mit 1.) $C(X,Y) = E(X\cdot Y) - (EX) \cdot (EY)$ 
+$=(EX) \cdot (EY) - (EX) \cdot (EY)$
+$=0$
+\item $C(\sum_{i=1}^{m} a_i X_i, \sum_{j=1}^{n} b_i Y_i) $
+$\underbrace{=}_{\textrm{mit 1.)}} E[\sum_{i=1}^{m} a_i X_i \cdot \sum_{j=1}^{n} b_i Y_i)] $
+$- E[\sum_{i=1}^{m} a_i X_i] \cdot E[\sum_{j=1}^{n} b_i Y_i)] $
+$= \sum_{i=1}^{m} \sum_{j=1}^{n} a_i b_i E(X_i\cdot Y_j)$
+$-\sum_{i=1}^{m} \sum_{j=1}^{n} a_i b_i EX_i \cdot EY_j)$
+$=\sum_{i=1}^{m} \sum_{j=1}^{n} a_i b_i [E(X_i\cdot Y_j) - EX_i \cdot EY_j]$
+$=\sum_{i=1}^{m} \sum_{j=1}^{n} a_i b_i C(X_i, Y_j)$
+\item $V(X_1 + X_2 + ... + X_n)$
+$=C(X_1 + ... + X_n, X_1 + ... + X_n)$
+$\underbrace{=}_{\textrm{mit 5.)}} \sum_{i=1}^{n} \sum_{j=1}^{n} C(X_i, X_j)$
+$=\underbrace{\sum_{j=1}^{n} V(X_j)}_{\textrm{Das sind die, bei denen gilt: } i=j} $
+$+ 2 \sum_{1\leq i < j \leq n} C(X_i, X_j)$
+\end{enumerate}
+\end{proof}
+
+\subsection{Folgerung}
+Sind $X_1, X_2, ..., X_n$ unabhängig, so ist 
+$ V(X_1 + X_2 + ... + X_n)$
+$= V(X_1) + V(X_2) + ... + V(X_n)$ (nach 6.) und 4.))
+
+\subsection{Beispiel} 
+Aus $C(X, Y) = 0$ (d.h. unkorreliert) folgt nicht, dass X und Y unabhängig sind, z.B.: 
+2 mal Würfeln: X ist die erste Augenzahl, Y ist die zweite Augenzahl. 
+
+$C(X+Y, X-Y)$
+$=C(X,X) - C(X,Y) + C(Y,X) - C(Y,Y)$
+$=V(X) - V(Y)$
+$=0$, \textbf{also} $(X+Y), (X-Y)$ unkorreliert. \\
+
+Die Wahrscheinlichkeit zwei 6er zu würfeln: 
+$ P(X+Y = 12, X-Y=0)$ \profnote{Das Komma muss man als und lesen.}
+$=\frac{1}{36}$
+$\neq$
+$P(X+Y=12) \cdot P(X-Y=0)$ 
+$=\frac{1}{36} \cdot \frac{6}{36}$
+
+$\Rightarrow$ also unabhängig
+
+\subsection{Varianz einer Indikatorsumme}
+$C(I_A, I_B) $
+$\underbrace{=}_{\textrm{mit 1.)}} E(I_A\cdot I_j) - EI_A \cdot EI_B$
+$=E(I_{A\cap B})- EI_A\cdot EI_B $
+$=P(A\cap B) - P(A) \cdot P(B)$\\
+
+$V(I_{A_1} + I_{A_2} + ... + I_{A_n})$
+$\underbrace{=}_{\textrm{mit 6.)}} \sum_{j=1}^{n} V(I_{A_j}) +2 \sum_{1\leq i < j \leq n} C(I_{A_i}, I_{A_j})$
+$=\sum_{j=1}^{n} P(A_j) (1-P(A_j)) +2 \sum_{1\leq i < j \leq n} [P(A_i\cap A_j) - P(A_i) \cdot P(A_j)]$
+$=I_{A_1} + ... + I_{A_n} $. Zählvariable (zählt in wie vielen $A_i$ $\omega$ liegt)
+
+\paragraph{Sonderfall}
+$P(A_j)$ alle gleich und $P(A_i\cap A_j)$ auch alle gleich. 
+
+$V(I_{A_1} + ... + I_{A_n})$
+$=n\cdot P(A_1) \cdot (1-P(A_1)) + n(n-1) [P(A_1\cap A_2) - P(A_1)^2]$
+
+\subsection{Beispiel Binomialverteilung Bin(n,p)}
+Wir haben n unabhängige Ereignisse. $A_1, A_2, ..., A_n$. $P(A_i) = p$. X zählt, wieviele Ereignisse eingetreten sind. X ist Bin(n,p)-verteilt. 
+$ X = I_{A_1} + I_{A_2} + ... + I_{A_n}$.\\
+
+$V(X) = n\cdot P(A_1) (1-P(A_1)) + n(n+1)\cdot 0$
+
+$V(X) = n p(1-p)$, $ EX = np$

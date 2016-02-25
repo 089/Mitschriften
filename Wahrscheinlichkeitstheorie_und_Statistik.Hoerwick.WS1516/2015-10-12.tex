@@ -1,0 +1,111 @@
+% Vorlesung vom 12.10.2015
+\renewcommand{\ldate}{2015-10-12}
+
+\subsection{Der empirische Median}
+Die Stichprobe ist der Größe nach sortiert, also $ x_1 \leq x_2 \leq ... \leq x_n $. Der Median $ x_{\frac{1}{2}} = x_{0.5} = x_{50 \%} = x_{ \frac{n+1}{2}} $, falls ungerade und $ x_{0.5} = \frac{1}{2} (x_{\frac{n}{2}} + x_{\frac{n}{2}+1}) $
+
+\subsubsection{Beispiel}
+\begin{enumerate}
+\item $ 3,4,5,6,7 \Rightarrow x_{0.5} = 5 $
+\item $ 3,4,5,6,7,8 \Rightarrow x_{0.5} = 5.5 $
+\item $ 3,3,4,5,6,20 \Rightarrow x_{0.5} = 4.5 $; vgl. dazu das arithmetische Mittel: $ \overline{x} = \frac{3+3+4+5+6+20}{6} = 6.8 $
+\end{enumerate}
+
+Der Median unempfindlich gegen Ausreißer, das arithmetische Mittel nicht. 
+
+Minimiere $ \sum_{j=1}^{n} | x_j - t | $. Bei welchem t minimal? Beim Median: 3 3 4 $ \vert $ 5 6 7 % \profnote{Mitdenken! Nicht, dass ich einen Unsinn erzähl.}
+
+\subsubsection{Verallgemeinerung}
+Für den Median $ x_{0.5} $ gilt: \profnote{Links und rechts vom Median sind gleich viele Werte.}
+\begin{itemize}
+\item Mindestens 50\% der Werte sind $\leq x_{0.5} $
+\item Mindestens 50\% der Werte sind $\geq x_{0.5} $
+\end{itemize}
+
+Der p Quantil $ x_p $
+\begin{itemize}
+\item Mindestens $p \cdot 100\%$ der Werte sind $\leq x_p $
+\item Mindestens $100\% - p \cdot 100\% $ der Werte sind $\geq x_p $
+\end{itemize}
+
+\subsection{Streuungsmaße}
+$ \sigma $ Streuungsmaß\\
+Formel: $ \sigma(x_1,...,x_n) = \sigma(a+x_y,a+x_2,...,a+x_n) $
+
+\subsubsection{Die empirische Varianz}
+Daten: $ x_1, ..., x_n $\\
+arithmetische Mittel: $ \overline{x} $\\
+Varianz: $ s^2 = \frac{1}{n-1} \sum_1^n (x_j - \overline{x})^2$\\
+empirische Standardabweichung: $ \sqrt{s^2} $
+
+\subsubsection{Beispiel} $ 5,5,7,8,9 $\\
+$ \overline{x} = \frac{1}{5} (5+5+7+8+9) = 6.8 $\\
+$ s^2 = \frac{1}{4} [(5-6.8)^2 + (5-6.8)^2 + (6-6.8)^2 + (7-6.8)^2 + (8-6.8)^2 ] = 3.2 $\\
+$ s=\sqrt{3.2} = 1.78$\\
+Einheiten:\\
+Meßwerte, Mittel, Standardabweichung: m\\
+Varianz: $ m^2 $
+
+\subsubsection{Beispiele für andere Streuungsmaße}
+\begin{enumerate}
+\item mittlere absolute Abweichung: $ \frac{1}{n} \sum_{j=1}^{n} |x_j - \overline{x}| $
+\item Medianabweichung: $ x_1, ..., x_n $, Median: $ x_{0.5} $\\
+	$ |x_1 - x_{0.5}|, |x_2 - x_{0.5}|, ..., |x_n - x_{0.5}| $ und davon wählt man nun den Median.
+\end{enumerate}
+
+\subsubsection{Beispiel Medianabweichung}
+$ 5,5,7,8,9 \Rightarrow x_{0.5} = 7 $\\
+Abstände: $ |5-7|, |5-7|, |7-7|, |8-7|, |9-7| $, also $ 2,2,0,1,2 \Rightarrow 0,1,2,2,2 \Rightarrow $ Median ist 2 $ \rightarrow $ Medianabweichung: 2 
+
+\section{Endliche Wahrscheinlichkeitsräume}
+endliche Ergebnismenge: $ \Omega $\\
+Potenzmenge von $ \Omega \rightarrow \R$: $ P $\\
+$ A \rightarrow P(A) $\\
+mit
+\begin{enumerate}
+\item $ P(A)  \geq 0 $
+\item $ P(\Omega) = 1 $
+\item $ P(A+B)=P(A\cup B) = P(A) + P(B), A\cap B=\emptyset $
+\end{enumerate}
+P heißt Wahrscheinlichkeit, Wahrscheinlichkeitsmaß oder auch Wahrscheinlichkeitsverteilung. P(A) heißt Wahrscheinlichkeit von A. Also: Jede Teilmenge von $ \Omega $ bekommt eine Wahrscheinlichkeit. 
+
+\subsection{Einfache Folgerungen}
+
+\begin{enumerate}
+\item $ P(\emptyset) = 0 $
+\item $ P(\sum_{j=1}^{n} A_j) = \sum_{j=1}^{n} P(A_j) $ 
+\item $ 0\leq P(A)\leq 1 $ 
+\item $ P(\overline{A}) = 1-P(A) $ 
+\item Aus $ A\subset B \Rightarrow P(A)\leq P(B) $ 
+\item $ P(A\cup B) = P(A)+P(B) - P(A\cap B) $ 
+\item $ P(\bigcup_{j=1}^n A_j) \leq \sum_{j=1}^{n} P(A_j) $ 
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+\item $ P(\Omega)= P(\Omega + \emptyset) = P(\Omega) + P(\emptyset) \Rightarrow P(\emptyset) = 0 $ 
+\item Induktionsbeweis 
+\item $ 1 = P(\Omega) = P(A + \overline{A})= P(A) + P(\overline{A}) \Rightarrow P(A) = 1 - P(\overline{A}) \leq 1 $ 
+\item $ 1= P(A) + P(\overline{A}) $ 
+\item $ B=A+B \setminus A, P(B)=P(A) + P(B\setminus A) \Rightarrow P(A) \leq P(B) $ 
+\item $ P(A\cup B)= P(A\setminus B) + P(A\cap B) + P(B\setminus A) $\\
+	$ P(B) = P(A\cap B) + P(B\setminus A) $ \\
+	$ P(A) = P(A\cap B) + P(A\setminus B) $\\
+	$ \Rightarrow P(A\cup B) = P(A) - P(A\cap B) + P(A\cap B) + P(B) - P(A\cap B) $
+	$ \Rightarrow P(A\cup B) = P(A) + P(B) - P(A\cap B) $
+\item richtig für $ n=2 $, Induktionsbeweis 
+\end{enumerate}
+\end{proof}
+
+\subsection{Wie gibt man eine Wahrscheinlichkeitsverteilung an?}
+$\Omega = \{ \omega_1, \omega_2, ..., \omega_n \} $\\
+Kennt man $ P(\{\omega_1\}), ..., P(\{\omega_n\}) $ - Abkürzung: $ P(\{\omega_1\}) = p(\omega_1) $ -, so kennt man ganz P. \\
+$ P(A) = P(\{ \omega_1, \omega_2, \omega_3 \}) $ $= P(\{\omega_1\}) + P(\{\omega_2\}) + P(\{\omega_3\})$.\\
+Weiter muss gelten: $ p(\omega_1) + p(\omega_2) + ... + p(\omega_n) = 1 $\\
+Man zeigt: $ 0\leq p(\omega_1) \leq 1 $ beliebig mit $ \sum_{i=1}^{n} p(\omega_i) $ so hat man eine Wahrscheinlichkeitsverteilung. 
+
+\subsection{Beispiel}
+$ \Omega: 2,3,5,6,7 $\\
+$ p: 0.1, 0.1, 0.2, 0.3, 0.3 $\\
+$ A = \{ 3,5 \} \Rightarrow P(A) = 0.1 + 0.2 = 0.3 $
+

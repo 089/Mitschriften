@@ -1,0 +1,86 @@
+ % Vorlesung vom 18.06.2015
+\renewcommand{\ldate}{2015-06-18}	% define lessiondate
+
+% Angabe einbinden
+% \includepdf[pages={1,3-5}]{Dateiname}
+
+\section{Lösung zur Prüfung SS 2012}
+
+\subsection{Aufgabe 1}
+
+$ggT(91,55) \Rightarrow 91=1\cdot 55+36 \Rightarrow 55=1\cdot 36+19 \Rightarrow 36=1\cdot 19+17 \Rightarrow 19=1\cdot 17+2 \Rightarrow 17=8\cdot 2+1$\\
+$1=17-8\cdot 2=17-8(19-17)=9\cdot 17-8\cdot 19=9(36-19)-8\cdot 19=9\cdot 36-17\cdot 19=9\cdot 36-17(55-36)=26\cdot 36-17\cdot 55=26(91-55)-17\cdot 55=26\cdot 91-43\cdot 55=1$
+
+\subsection{Aufgabe 2}
+
+\subsubsection{a}
+$(\Z_{11},+,\cdot)$\\
+I: $2x+y=0$ \\
+II: $x-3y=10$\\
+I-2 * II: $y+6y=-20 \Leftrightarrow 7y=2 (=13=24=35) \Rightarrow y=5$\\
+in II: $x-3\cdot 5=10 \Rightarrow x=25=3$
+
+\subsubsection{b}
+$x=log(a) \Leftrightarrow 2^x=a$\\
+$log(5) = ?$ (einfach ausprobieren)\\
+$2, 2^2=4, 2^3=8, 2^4=16=5 \Leftrightarrow 2^4=5 \Rightarrow log(5)=4$\\
+Kann man von jeder Zahl $\neq 0$ den Logarithmus bilden? Wir bilden dazu die Zweierpotenzen: $2, 2^2=4, 2^3=8, 2^4=16=5, 2^5=10, 2^6=9, 2^7=7, 2^8=3, 2^9=6, 2^{10}=1$. Das sind alle. Also kann man mit jeder Zahl den Logarithmus bilden.
+
+\subsection{Aufgabe 3}
+
+\subsubsection{a}
+$\Z_{12}^* =\{1,5,7,11\}$\\ 
+Wir bilden die Gruppentafel. In jeder Zeile bzw. Spalte darf und muss jede Zahl genau einmal vorkommen. 
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$ & 1 & 5 & 7 & 11 \\ 
+\hline 1 & 1 & 5 & 7 & 11 \\ 
+\hline 5 & 5 & 1 & 11 & 7 \\ 
+\hline 7 & 7 & 11 & 1 & 5 \\ 
+\hline 11 & 11 & 7 & 5 & 1 \\ 
+\hline 
+\end{tabular} 
+
+\subsubsection{b}
+$\pi_1(5)\cdot \pi_2(7)\cdot \pi_3(x) = 1$\\
+$7 \cdot  5 \cdot  \pi_3(x)=1$\\
+$11 \cdot  \pi_3(x) = 1$\\
+$\Rightarrow \pi_3(x)=11 \Rightarrow x=7$
+
+\subsection{Aufgabe 4}
+$\pi:
+\begin{array}{cccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 7 & 1 & 5 & 2 & 8 & 4 & 6
+\end{array} 
+$\\
+$c(i):=m(\pi(i)), m(i):=c(\pi^{-1}(i))$\\
+$\pi^{-1}:
+\begin{array}{cccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 5 & 1 & 7 & 4 & 8 & 2 & 6
+\end{array} 
+$\\
+$m=(A,B,A,A,C,D,D,E)$\\
+$c=(A,D,A,C,B,E,A,D)$\\
+$\tilde{c}=(B,C,E,A,A,D,E,E)$\\
+$\tilde{M}=(E,A,B,E,A,E,C,D)$\\
+
+\subsection{Aufgabe 5}
+
+\subsubsection{a}
+Es gibt genau zwei Kanten mit ungeradem Grad. 
+
+\subsubsection{b}
+Lösung siehe Angabe. 
+
+\subsection{Aufgabe 6}
+Lassen wir weg, weil identisch mit anderem Jahrgang.
+
+\subsection{Aufgabe 7}
+Wir verteilen die $k=20$ Rosinen auf $n=10$ Fächer. Wir wählen Fach 1 aus: 
+\includegraphicsdeluxe{rosinen_verteilung.jpg}{Die Rosinen werden verteilt}{fig:rosinen_verteilung} % Nr. 1
+Alle Fälle: $10^{20}$\\
+Günstige Fälle: $\binom{20}{2}\cdot 9^{18}$\\
+$p=\frac{\textrm{günstige Fälle}}{\textrm{Nenner}}=\frac{\binom{20}{2}\cdot 9^{18}}{10^{20}}=...=0,285$

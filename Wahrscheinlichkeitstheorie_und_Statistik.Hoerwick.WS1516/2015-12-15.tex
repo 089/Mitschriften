@@ -1,0 +1,202 @@
+% Vorlesung vom 15.12.2015
+\renewcommand{\ldate}{2015-12-15}
+
+\subsection{Beispiel}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline X/Y & 3 & 5 & 7 &  \\ 
+\hline 1 & $ \frac{6}{24} $ & $ \frac{1}{24} $ & $ \frac{1}{24} $ & $ \frac{8}{24} $ \\ 
+\hline 2 & $ \frac{1}{24} $ & $ \frac{6}{24} $ & $ \frac{1}{24} $ & $ \frac{8}{24} $ \\ 
+\hline 3 & $ \frac{1}{24} $ & $ \frac{1}{24} $ & $ \frac{6}{24} $ & $ \frac{8}{24} $ \\ 
+\hline  & $ \frac{8}{24} $ & $ \frac{8}{24} $ & $ \frac{8}{24} $ & $ \frac{}{24} $ \\ 
+\hline 
+\end{tabular}  
+
+$EX=1\cdot \frac{8}{24} + 2\cdot \frac{8}{24} + 3\cdot \frac{8}{24} = 2$
+
+$E(X^2) = 1\cdot \frac{8}{24} + 4\cdot \frac{8}{24} + 9\cdot \frac{8}{24} = 4.66$
+
+$V(X) $
+$= E(X^2) - (EX)^2$
+$=4.66 - 4$
+$=0.66$
+
+$EY = 3\cdot \frac{8}{24} + 5\cdot \frac{8}{24} + 7\cdot \frac{8}{24} = 5$
+
+$E(Y^2) = 9\cdot \frac{8}{24} + 25\cdot \frac{8}{24} + 49\cdot \frac{8}{24} = 27.66$
+
+$V(Y) = E(Y^2) - (EY)^2$
+$=27.66 - 25$
+$=2.66$
+
+$E(X\cdot Y) $
+$= \frac{1}{24} ( 1\cdot 3\cdot 6+1\cdot 5\cdot 1+1\cdot 7\cdot 1 + 2\cdot 3\cdot 1+2\cdot 5\cdot 6 +2\cdot 7\cdot 1+3\cdot 3\cdot 1+3\cdot 5\cdot 1 +3\cdot 7\cdot 6) = 10.83$ 
+
+$C(X,Y) = E(X\cdot Y) (EY)$
+$=10.83 -2\cdot 5 = 0.83$
+
+$b^* = \frac{C(X,Y)}{V(X)} = \frac{0.83}{0.66} = 1.25$
+
+$a^+ $
+$= EY - b^* EX$
+$=5-1.25\cdot 2$
+$=2.50$
+
+\textbf{Also:} $Y\approx a^* + b^* X = 2.50 + 1.25\cdot X$, $r(X,Y) = \frac{C(X,Y)}{\sqrt{V(X)\cdot V(Y)}}$
+$=\frac{0.83}{\sqrt{0.66\cdot 2.66}} = 0.625$
+
+$g(1)=2.50 + 1.25 \cdot 1 = 3.75$
+
+$g(2)=2.50 + 1.25 \cdot 2 = 5$
+
+$g(3)=2.50 + 1.25 \cdot 3 = 6.25$
+
+\section{Überbestimmte LGS}
+$
+\vektor{a_{11}, a_{12}, ..., a_{1n}\\\vdots\\a_{m1}, a_{m2}, ..., a_{m,n} }
+\vektor{x_1\\\vdots\\x_n}
+=
+\vektor{b_1\\\vdots\\b_n}
+$
+also $A x = b$ ist nicht lösbar. Daher suchen wir die beste Näherungslösung: $ \abs{A x - b}$ minimal. 
+Lösungsformel: Die Normalengleichung $A^T A x = A^T b$ ist lösbar. 
+
+\subsection{Aufgabe}
+\includegraphicsdeluxe{MethDerKlQuadr1.jpg}{Methode der kleinsten Quadrate}{Methode der kleinsten Quadrate: $s_1^2 + s_2^2 + s_3^2 + s_4^2$ soll minimal sein}{fig:MethDerKlQuadr1}
+Gegeben sind die Punkte $(x_i,y_i), i=1, ..., n$. Wir suchen nun die Gerade $g: y=a+bx$ möglichst passend. 
+
+$x_1 + a = y_1$\\
+$x_2 + a = y_2$\\
+$\vdots$\\
+$x_n + a = y_n$\\
+lösen!\\
+
+Minimal ist 
+$(x_1 b + a -y_1)^2$
+$+(x_2 b + a -y_2)^2$
+$...$
+$(x_n b + a -y_n)^2$ (Abb. \ref{fig:MethDerKlQuadr1}).
+
+\subsection{Beispiel Methode der kleinsten Quadrate}
+$ P_1 = (2,2), P_2=(4,3), P_3=(5,2), P_4=(7,4)$
+
+Werte einsetzen:
+
+$2b+a=2$\\
+$4b+a=3$\\
+$5b+a=2$\\
+$7b+a=4$\\
+
+Daraus machen wir die Matrix A: 
+$
+\vektor{2,1\\4,1\\5,1\\7,1}
+\vektor{b\\a}
+=
+\vektor{2\\3\\2\\4}
+$
+
+Wir rechnen:
+
+$
+\vektor{2\ 4\ 5\ 7\\1\ 1\ 1\ 1}
+\cdot
+\vektor{2,1\\4,1\\5,1\\7,1}
+\cdot
+\vektor{b\\a}
+=\vektor{2\ 4\ 5\ 7\\1\ 1\ 1\ 1}
+\cdot 
+\vektor{2\\3\\2\\4}
+$
+
+$
+\vektor{94, 18\\18, 4}
+\vektor{b\\a}
+=
+\vektor{54\\11}
+$
+
+$a = 1.19, b=0.346$
+
+$g : y = a+bx = 1.19 + 0.346 x$ (Idee siehe Abb. \ref{fig:MethDerKlQuadr1})
+
+\begin{tabular}{|c|c|c|}
+\hline X & 0 & 5 \\ 
+\hline Y & 1.2 & 2.9 \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Zusammenhang mit der Wahrscheinlichkeitsrechnung}
+$ \Omega = \cbr{P_1, P_2, P_3, P_4} $
+$= \cbr{\omega_1, \omega_2, \omega_3, \omega_4}$.
+Jedes $\omega$ habe die gleiche Wahrscheinlichkeit, hier $p(\omega) = \frac{1}{4}$
+
+$X(x_i, y_i) = x_i$
+
+$Y(x_i, y_i) = y_i$
+
+X bekannt, schätze Y durch $Y\approx a + b X$. Berechne $a^*, b^*$
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline X/Y & 2 & 3 & 4 &  \\ 
+\hline 2 & $ \frac{1}{4} $ & 0 & 0 & $ \frac{1}{4} $ \\ 
+\hline 4 & 0 & $ \frac{1}{4} $ & 0 & $ \frac{1}{4} $ \\ 
+\hline 5 & $ \frac{1}{4} $ & 0 & 0 & $ \frac{1}{4} $ \\ 
+\hline 7 & 0 & 0 & $ \frac{1}{4} $ & $ \frac{1}{4} $ \\ 
+\hline & $ \frac{1}{2} $ & $ \frac{1}{4} $ & $ \frac{1}{4} $ & \\
+\hline 
+\end{tabular} 
+
+$
+EX = 
+2\cdot \frac{1}{4} 
++4\cdot \frac{1}{4} 
++5\cdot \frac{1}{4} 
++7\cdot \frac{1}{4} 
+=4.5
+$
+
+$
+E(X^2) =
+\frac{1}{4} (
+4+16+25+49
+)
+= 23.5
+$
+
+$V(X) = E(X^2) - (EX)^2 = 3.25$
+
+$EY = 
+2\cdot \frac{1}{2} 
++3\cdot \frac{1}{4} 
++4\cdot \frac{1}{4} 
+=2.75$
+
+$E(Y^2)
+4\cdot \frac{1}{2} 
++9\cdot \frac{1}{4} 
++16\cdot \frac{1}{4} 
+=8.25
+$
+
+$V(Y) = E(Y^2) - (EY)^2 = 0.687$
+
+$E(X\cdot Y) = 
+2\cdot 2\cdot \frac{1}{4} 
++4\cdot 3\cdot \frac{1}{4} 
++5\cdot 2\cdot \frac{1}{4} 
++7\cdot 4\cdot \frac{1}{4} 
+= 13.5$
+
+$C(X,Y) = 
+E(X\cdot Y) - (EX) \cdot (EY) = 13.5 - 4.5 \cdot 2.75 = 1.125$
+
+$b^* = \frac{C(X,Y) }{V(X)} = \frac{1.125}{3.25} = 0.346$
+
+$a^* = EY - b^* \cdot EX = 2.75 - 0.346 \cdot 4.5 = 1.19$
+
+\textbf{Die beiden Ansätze bringen das gleiche Ergebnis!}\\
+\includegraphicsdeluxe{PunkteWolkeKorrel.jpg}{Punktewolken und Geraden}{Punktewolken, der Korrelationskoeffizient und die dazugehörigen Geraden. }{fig:PunkteWolkeKorrel}
+
+Der Korrelationskoeffizient gibt an, wie gut sich die Punktwolke durch eine Gerade annähern lässt. 
+$r(X,Y) = \frac{C(X,Y)}{\sqrt{V(X)\cdot V(Y)}} = \frac{1.125}{\sqrt{3.25 \cdot 0.687}} = 0.75$ \profnote{Je näher dieser Betrag bei 1 liegt, desto genauer ist der Graph. }
+Die Steigung hat das gleiche Vorzeichen wie der Korrelationskoeffizient (+ steigt, - fällt, vgl. Abb. \ref{fig:PunkteWolkeKorrel}). 

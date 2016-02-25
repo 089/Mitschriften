@@ -1,0 +1,158 @@
+% Vorlesung vom 16.11.2015
+\renewcommand{\ldate}{2015-11-16}
+
+\section{Bedingte Wahrscheinlichkeiten}
+Zufallsexperiment mit Wahrscheinlichkeitsverteilung P. Experiment wird durchgeführt. Man bekommt die Information, dass das Ereignis A eingetreten ist (Ausgang $\omega \in A$). Damit konstruieren wir eine neue Wahrscheinlichkeitsverteilung $P_A$ (bedingte Wahrscheinlichkeit). Versuchsserie mit n (groß) Einzelversuchen:
+ 
+$ r_n(B|A) = $ relative Häufigkeit von B unter der Bedingung 
+$= \frac{\textrm{absolute Häufigkeit von} A \cap B}{\textrm{Häufigkeit von A}}$
+$\underbrace{=}_{\textrm{teilen durch n}}$
+$=\frac{r_n(A\cap B)}{r_n(A)}$.
+Die relative Häufigkeiten entsprechen den Wahrscheinlichkeiten. Mit dieser Vorlage definieren wir: 
+
+\begin{defi}
+$(\Omega,P)$ endlicher Wahrscheinlichkeitsraum. $P(A) > 0$. \\
+$P_A(B) $
+$=P(B|A)$  \profnote{$P(B|A)$ sprich: Die Wahrscheinlichkeit von B unter der Bedingung A.}
+$=\frac{P(A\cap B)}{P(A)}$
+bedingte Wahrscheinlichkeit (ist neue Wahrscheinlichkeitsverteilung). 
+\end{defi}
+
+Ist das überhaupt eine Wahrscheinlichkeitsverteilung? \\
+$0 \leq P_A(B) \leq$ klar!\\
+$P_A(\Omega)=1 \checkmark$\\
+$B_1 \cap B_2 = \emptyset$ (disjunkt): 
+\begin{proof}
+$P_A(B_1 + B_2)$
+$=\frac{P((B_1+B_2) \cap A)}{P(A)}$
+$=\frac{P((B_1\cap A)+ (B_2\cap A))}{P(A)}$
+$=\frac{P(B_1\cap A)}{P(A)} + \frac{P(B_2\cap A)}{P(A)}$
+$=P_A(B_1) + P_A(B2)$
+\end{proof}
+
+\subsection{Bedingte Wahrscheinlichkeit für einzelne Ausgänge}
+$P_A(\cbr{\omega}) = p_A(\omega) = $
+$\begin{cases}
+\frac{p(\omega)}{P(A)}\textrm{, falls } \omega \in A\\
+0\textrm{, falls } \omega \notin A
+\end{cases}$
+
+Jedes $\omega \in A$ wird mit Faktor $\frac{1}{P(A)}$ multipliziert. Die anderen $\omega$ werden auf 0 gesetzt. 
+
+\subsection{Beispiel}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\omega$ & 1 & 2 & 3 & 4 & 5 & 6 \\ 
+\hline p & 0.1 & 0.1 & 0.2 & 0.4 & 0.1 & 0.1 \\ 
+\hline 
+\end{tabular} 
+
+$A=\cbr{1,2,3}$ ist eingetreten. 
+$\frac{1}{P(A)}$
+$=\frac{1}{0.4}$
+$=2.5$
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\omega$ & 1 & 2 & 3 & 4 & 5 & 6 \\ 
+\hline $P(A)$ & 0.25 & 0.25 & 0.5 & 0 & 0 & 0 \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Beispiel}
+Urne mit 2 roten, 2 schwarzen und 2 blauen Kugeln. Man vereinbart: Ziehen ohne Rücklegen, Mitteilung, wann zum ersten mal eine blaue gezogen wurde. Das Experiment wird durchgeführt und man bekommt die Mitteilung: \glqq Erste blaue Kugel beim 3. Zug. \grqq Wie groß ist die Wahrscheinlichkeit, dass die ersten beiden gezogenen Kugeln rot waren?
+
+Wir modellieren: 
+\begin{itemize}
+\item rote Kugeln 1/2
+\item blaue Kugeln 3/4
+\item schwarze Kugeln 5/6
+\end{itemize}
+
+$ \Omega = \cbr{(a_1,a_2,a_3) : 1\leq a_i\leq 6, a_1\neq a_2\neq a_3} $
+
+$ A=\cbr{(a_1,a_2,a_3) \in \Omega : a_3\in \cbr{3,4}, a_1,a_2 \in \cbr{1,2,5,6} }$
+
+$ B=\cbr{(a_1,a_2,a_3) \in \Omega : \cbr{a_1,a_2} = \cbr{1,2}}$
+
+apriori Wahrscheinlichkeit von B: 
+Pfadregel: $\frac{2}{6} \cdot \frac{1}{5} $
+$=\frac{2}{30}$
+$=\frac{1}{15}$
+
+$\abs{\Omega} $
+$=5\cdot 5\cdot 4$
+$=120$
+
+$\abs{A}$
+$=4\cdot 3\cdot 2$
+$=24$
+
+$\abs{A\cap B}$
+$=2\cdot 2$
+$=4$
+
+$P(B|A) $ \profnote{Zu Erinnerung: $P(B|A)$ sprich: Die Wahrscheinlichkeit von B unter der Bedingung A.}
+$=\frac{P(A\cap B)}{P(A)}$
+$= \frac{\frac{4}{120}}{\frac{24}{120}}$
+$=\frac{4}{24} $
+$=\frac{1}{6}$
+
+\subsection{Umstellung der Formel}
+$P(B|A) $ 
+$=\frac{P(A\cap B)}{P(A)}$
+$\Rightarrow$
+$P(A\cap B) $
+$=P(A) \cdot P(B|A)$ 
+
+Das kann man nun Verallgemeinern. \profnote{Der Beweis kann mittels Induktion durchgeführt werden.}
+$P(A_1 \cap A_2 \cap ... \cap A_n)$
+$= P(A_1) \cdot P(A_2 | A_1) \cdot P(A_3 | A_1 \cap A_2) \cdot ... \cdot P(A_n | A_1 \cap ... \cap A_{n-1})$
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{BspBaum2ro3schwaKu1.jpg}{Beispiel}{Beispiel Urne mit 2 roten und 3 schwarzen Kugeln}{fig:BspBaum2ro3schwaKu1} 
+Urne mit 2 roten und 3 schwarzen Kugeln. Kugel ziehen, Kugel zurück und zusätzlich zwei Kugeln derselben Farbe. Wieder eine Kugel ziehen. Fertig. 
+
+Man bekommt die Information: 2 gezogene Kugeln sind rot. Wie groß ist die Wahrscheinlichkeit, dass die 1. gezogene Kugel rot ist (Abb. \ref{fig:BspBaum2ro3schwaKu1})?
+
+Bedingungen A: 2. rot, Ereignis B: 1. rot; 
+$P(B|A) $
+$=\frac{P(A\cap B)}{P(A)}$
+
+$P(A) = \frac{2}{5} \cdot \frac{4}{7} + \frac{3}{5} \cdot \frac{2}{7}$
+$=\frac{8+6}{35} $
+$=\frac{14}{35}$
+
+$P(A\cap B) $
+$=\frac{2}{5} \cdot \frac{4}{7}$
+$=\frac{8}{35}$
+
+$\frac{P(A\cap B)}{P(A)}$
+$=\frac{\frac{8}{35}}{\frac{14}{35}}$
+$\frac{8}{14}$
+$=\frac{4}{7}$
+
+\subsection{Bayes-Formel}\index{Formeln!Bayes}\index{Bayes-Formel}
+\profnote{Zerlegung: Disjunkte Vereinigung von Teilmengen. }
+$\Omega$ ist Wahrscheinlichkeitsraum, $A_1, A_2, ..., A_n$ eine Zerlegung von $\Omega$, B Ereignis. 
+
+\paragraph{a)}
+$P(B)$
+$=\sum_{j=1}^{n} P(A_j) \cdot P(B|A_j)$
+
+\paragraph{b)}
+$P(A_k|B)$
+$=\frac{P(A_k) \cdot P(B|A_k)}{\sum_{j=1}^{n} P(A_j) \cdot P(B|A_j)}$
+
+\begin{proof}
+\textbf{a)}
+$P(B)=$
+$=P(\Omega \cap B)$
+$=P((\sum_{j=1}^{n} A_j) \cap B)$
+$=P(\sum_{j=1}^{n} (A_j \cap B))$
+$=\sum_{j=1}^{n} P(A_j \cap B)$
+$=\sum_{j=1}^{n} P(A_j) \cdot P(B|A_j)$
+
+\textbf{b)}
+$P(A_k|B)$
+$=\frac{P(A_k \cap B)}{P(B)}$
+$=\frac{P(A_k) \cdot P(B|A_k)}{\sum_{j=1}^{n} P(A_j) \cdot P(B|A_j)}$
+\end{proof}

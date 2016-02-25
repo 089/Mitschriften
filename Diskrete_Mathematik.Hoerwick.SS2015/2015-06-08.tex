@@ -1,0 +1,75 @@
+ % Vorlesung vom 08.06.2015
+\renewcommand{\ldate}{2015-06-08}	% define lessiondate
+
+\subsubsection{vollständiger Graph mit 5 Ecken}
+\paragraph{Das Brückenproblem} kann umformuliert werden: Hat der Graph einen eulerschen Kreis? Als erstes sehen wir uns ein Beispiel (Abb. \ref{fig:vollst_graph_5_ecken}) an.
+
+
+% Nr. 1
+\includegraphicsdeluxe{vollst_graph_5_ecken.jpg}{eulerscher Kreis mit 10 Kanten}{fig:vollst_graph_5_ecken}
+
+
+\paragraph{Satz:} Sei G ein zusammenhängender Graph und jede Ecke habe einen Grad $\geq 2$. Dann gibt es einen Kreis in G.
+
+\paragraph{Beweis:} mittels Beispiel (Abb. \ref{fig:zsmh_graph_mit_kreis}). Man fängt irgendwo an und findet in A1B2C3D4E5B den einen Kreis B2C3D4E5B. $\Box$
+
+
+% Nr. 2
+\includegraphicsdeluxe{zsmh_graph_mit_kreis.jpg}{Kreise finden in Graphen}{fig:zsmh_graph_mit_kreis}
+
+
+\paragraph{Satz (Euler 1736):}Wenn G einen eulerschen Kreis hat, dann hat jede Ecke von G geraden Grad. 
+
+\paragraph{Beweis:} Wir durchlaufen den eulerschen Kreis und malen dabei die Kanten rot an (Abb. \ref{fig:eulerscher_kreis_grad_2}). Einmal durchlaufen $\rightarrow$ Grad 2, zweimal durchlaufen $\rightarrow$ Grad 4. Grad Anfang und Ende: 1 (Start) + 2 (je Durchlauf) + 1 (Ziel) $\rightarrow$ gerader Grad. 
+
+
+% Nr. 3
+\includegraphicsdeluxe{eulerscher_kreis_grad_2.jpg}{Ein eulerscher Grad}{fig:eulerscher_kreis_grad_2}
+
+
+\paragraph{Das Brückenproblem} ist demnach \textbf{nicht} eulersch. 
+
+\paragraph{Satz:} Wenn in einem zusammenhängenden Graphen jede Ecke geraden Grad hat, dann ist der Graph eulersch. 
+
+\paragraph{Beweis:} Induktionsbeweis nach Anzahl m der Kanten (Abb. \ref{fig:graph_beweis_eulersch}).
+
+
+% Nr. 4 
+\includegraphicsdeluxe{graph_beweis_eulersch.jpg}{Richtig für $m=2, m=3$}{fig:graph_beweis_eulersch}
+
+
+Angenommen richtig für $Kantenzahl < m$. \\
+Zeige: Dann richtig für m Kanten.\\
+Sei also G ein zusammenhängender Graph mit m Kanten und jede Ecke hat geraden Grad. Dann gibt es einen Kreis in G (siehe oben). Wir betrachten einen Kreis C in G, der maximale Länge hat. Dann ist C ein eulerscher Kreis (Behauptung), wegen: \\
+
+\paragraph{Widerspruchsbeweis:} Angenommen C ist \textbf{nicht} eulersch. Wir entfernen die Kanten von C aus G. Vom Restgraphen betrachten wir eine Zusammenhangskomponente Z. Jede Ecke von Z hat geraden Grad (da die Kanten von einem Kreis entfernt wurden). $\underbrace{\Rightarrow}_{I.V.}$ Z hat eulerschen Kreis.\\
+Eine Ecke von Z wird von C getroffen (Abb. \ref{fig:graph_widerspruchsbeweis_eulersch}). Dann kann der Kreis C vergrößert werden. \textbf{Widerspruch, da C maximale Länge hatte!} $\Rightarrow$ C ist eulerscher Kreis $\Box$  
+
+
+% Nr. 5
+\includegraphicsdeluxe{graph_widerspruchsbeweis_eulersch.jpg}{Kreis C und Zusammenhangskomponente Z}{fig:graph_widerspruchsbeweis_eulersch}
+
+
+\paragraph{Folgerung:}Der vollständige Graph mit n Ecken ist eulersch, wenn n ungerade ist. 
+
+\paragraph{Definition:}Ein Weg, der kein Kreis ist, heißt offene eulersche Linie, wenn jede Kante darin vorkommt ($\Rightarrow genau einmal vorkommt$). 
+
+\paragraph{Satz:} Wenn G eine offene eulersche Linie hat, dann hat G \textbf{genau zwei} Ecken mit ungeradem Grad. 
+
+\paragraph{Beweis:} Die rote Linie verbindet A und B (Abb. \ref{fig:graph_eulersche_linie}). Dann ist das ein eulerscher Kreis. $\Box$
+
+% Nr. 6
+\includegraphicsdeluxe{graph_eulersche_linie.jpg}{offene eulersche Linie}{fig:graph_eulersche_linie}
+
+
+\paragraph{Satz:}Für jeden zusammenhängenden Graphen gilt: Wenn es genau zwei Ecken mit ungeradem Grad gibt, dann hat G eine offene eulersche Linie. 
+
+\paragraph{Beweis:} Gegeben ist die offene eulersche Linie (schwarz). Verbinde A und B durch eine Kante (rot). Jetzt hat jede Ecke geraden Grad $\Rightarrow$ Es gibt einen eulerschen Kreis. Dieser kann z.B. so aussehen: $e_0 k_1 e_1 k_2 e_2 k_3 e_3 k_4 e_4 k_5 e_5$ Rote Kante könnte z.B. $k_4$ sein $\Rightarrow$ offene eulersche Linie: $e_4 k_5 e_0 k_1 e_1 k_2 e_2 k_3 e_3$. Verbindet e4 und e3. Start- und Endpunkt haben ungeraden Grad. $\Box$
+
+
+% Nr. 7
+\includegraphicsdeluxe{graph_offene_eulersche_linie.jpg}{Eulersche Linie}{fig:graph_offene_eulersche_linie}
+
+
+\subsection{Das Haus vom Nikolaus} 
+Genau zwei Ecken mit ungeradem Grad (links- und rechtsunten, also A und B) $\Rightarrow$ offene eulersche Linie mit Start/Ende: A, B. Man muss bei A oder B anfangen! \includegraphics{pics/2015-06-08_graph_hausvomnikolaus.jpg}

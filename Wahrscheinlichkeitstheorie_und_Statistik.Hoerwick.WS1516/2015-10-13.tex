@@ -1,0 +1,79 @@
+% Vorlesung vom 13.10.2015
+\renewcommand{\ldate}{2015-10-13}
+
+\subsection{Verteilung einer Zufallsvariablen}
+
+$ X:\Omega \rightarrow \R $ Auf $ \Omega $ haben wir eine Wahrscheinlichkeitsverteilung P. \\
+$ W = X(\Omega) $ Wertemenge von X.\\
+$ W = \{ x_1, x_2, ..., x_n\} $\\
+Auf W haben wir die Wahrscheinlichkeitsverteilung $ P^x $: \\
+$ B \subset W $\\
+$ P^x(B) = P(\{ \omega \in \Omega : X(\omega \in B)\}) = P(X\in B) $ (Die Wahrscheinlichkeit, dass X einen Wert von B annimmt.)\\
+$ P^x $ heißt die Verteilung von X.\\
+Für $ B \subset \R $ kann man schreiben: $ P^x(B) = P(X\in B) = P(\{\omega \in \Omega : X(\omega) \in B \}) $
+
+\subsubsection{Beipiel}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline P & $ \frac{1}{6} $ & $ \frac{1}{6} $ & $ \frac{1}{6} $ & $ \frac{1}{6} $ & $ \frac{1}{6} $ & $ \frac{1}{6} $ \\ 
+\hline $ \Omega $ & 1 & 2 & 3 & 4 & 5 & 6 \\ 
+\hline  & $ \downarrow $ & $ \downarrow $ & $ \downarrow $ & $ \downarrow $ & $ \downarrow $ & $ \downarrow $ \\
+\hline X & 0 & 5 & 5 & 10 & 1 & 0 \\
+\hline 
+\end{tabular} 
+mit $ \omega = \{0,1,5,10 \} $\\
+$ P^x(\{0 \}) = P(X=0) = P(\{1,6 \}) = \frac{2}{6}$\\
+$ P^x(\{1 \}) = P(X=1) = P(\{5 \}) = \frac{1}{6}$\\
+$ P^x(\{5 \}) = P(X=5) = P(\{2,3 \}) = \frac{2}{6}$\\
+$ P^x(\{10 \}) = P(X=10) = P(\{4 \}) = \frac{1}{6}$\\
+Neues Zufallsexperiment: $ \Omega = \{0,1,5,10 \}$\\
+Wahrscheinlichkeit P auf $ \Omega $: 
+$ p(0)=\frac{2}{6}, p(1)=\frac{1}{6}, p(5)=\frac{2}{6}, p(10)=\frac{1}{6} $
+
+\subsubsection{Übung 6.10}
+% 1 \includegraphicsdeluxe{.jpg}{}{}{fig:}
+Konstruiere $ (\Omega, P) $ mit $(A,B)$ und $ P(A\cap B) \geq 9\cdot P(A) \cdot P(B)$ mit $\Omega=\{1,2,...,n\}, p(i)=\frac{1}{n}$.\\
+$ P(A\cap B) = \frac{t}{n}$, $P(A) = \frac{s+t}{n}$, $P(B) = \frac{t+u}{n}$\\
+$\frac{t}{n} \geq 9\cdot \frac{s+t}{n} \cdot \frac{t+u}{n} | n^2 $\\
+$t\cdot n \geq 9(s+t)(t+u)$\\
+$n\geq \frac{9(s+t)(t+u)}{t}$\\
+z.B. $s=2, t=2, u=2 \Rightarrow n\geq \frac{9\cdot 4\cdot 4}{2} \Rightarrow n\geq 72$\\
+Also: $\Omega=\{1,2,...,72\}, A=\{1,2,3,4\}, B=\{3,4,5,6\} $
+
+\section{Laplace-Modelle}
+Laplace-Experiment: endlich viele Ausgänge/Ergebnisse mit derselben Wahrscheinlichkeit. \profnote{Jedes Ergebnis ist gleich wahrscheinlich.}
+$\Omega = \{\omega_1, \omega_2, ..., \omega_n\}$\\
+$P(\{\omega_i \})=p(\omega_i)=\frac{1}{n}$\\
+$P(A)=\frac{|A|}{n}=\frac{\textrm{Anzahl günstige Fälle}}{\textrm{Anzahl alle Fälle}}$
+
+\subsection{Beispiel Zweimal Würfeln}
+Wie groß ist die Wahrscheinlichkeit, dass die Augensumme 5 ist?\\
+$\Omega=\{(i,j): 1\leq i,j\leq 6 \}, |\Omega|=36$\\
+$X(i,j)=i+j$\\
+$P(X=5)=P(\{(1,4),(2,3), (3,2), (4,1) \})=\frac{4}{36}=\frac{1}{9}$
+
+\subsection{Beispiel Zwei farbige Würfel}
+Zwei weiße Würfel werden gleichzeitig geworfen. 
+$\Omega=\{(i,j): 1\leq i,j\leq 6 \textrm{ und } i\leq j\}$. 
+Aber nicht jeder Ausgang ist gleich wahrscheinlich! $\Rightarrow$ kein Laplace-Experiment. 
+Nun denken wir uns die Würfel grün (i) und rot (j) $\Rightarrow \Omega'=\{(i,j) 1\leq i,j \leq 6 \}$.\\
+$P(5 \textrm{ und } 6) = P\{(5,6), (6,5)\} = \frac{2}{36}$\\
+$P(6 \textrm{ und } 6) = P({6,6}) = \frac{1}{36}$ 
+
+\subsection{Beispiel Drei Würfel}
+Drei Würfel werden gleichzeitig geworfen. Gesucht wird $P(\textrm{Augensumme 5})$.\\
+$P(\{(1,1,3),(1,2,2),(1,3,1),(2,1,2),(2,2,1),(3,1,1) \})=\frac{6}{6^3}=\frac{1}{36}$
+
+\subsection{Beispiel Faires Spiel}
+A, B spielen ein faires Spiel. Einsatz 10 Taler. Wer zuerst 6 mal gewonnen hat, bekommt den Einsatz. A hat 5 Runden gewonnen, B 3 Runden. Es kommt zu einer Spielunterbrechung. Wie kann man nun den Einsatz von 20 Talern fair verteilen? \\
+Nun stellen wir uns vor, dass das Spiel dreimal fortgesetzt wird:\\
+
+A gewinnt: AAA, BAA, ABA, AAB, ABB, BAB, BBA\\
+B gewinnt: BBB\\
+
+Es handelt sich um ein Laplace-Experiment, da jeder Ausgang gleich wahrscheinlich ist nämlich: $\frac{1}{8} \Rightarrow$\\
+P(B gewinnt) $=\frac{1}{8}$, P(A gewinnt) $=\frac{7}{8}$. Wir teilen den Einsatz entsprechend der Wahrscheinlichkeiten auf. Wenn man das Spiel n mal fertig spielt, wird in $\approx \frac{1}{8}$ der Fälle B den Einsatz bekommen, in $\approx \frac{7}{8}$ der Fälle A.\\
+
+Aufteilung: B bekommt $\frac{20}{8} = 2,50$ Taler und A 17,50 Taler.
+
+\subsection{Hausaufgabe Ziegenproblem}
+In Amerika gab es eine Show, da konnte man etwas gewinnen. Es gab drei Tore mit Gewinnen dahinter, eines mit einem Ferrari und zwei Ziegen. Der Teilnehmer wählt ein Tor. Der Quizmaster hilft und öffnet ein Tor mit einer Ziege. Der Quizmaster fragt, ob der Teilnehmer sein Tor beibehalten oder wechseln will. Wie soll sich der Teilnehmer entscheiden? 

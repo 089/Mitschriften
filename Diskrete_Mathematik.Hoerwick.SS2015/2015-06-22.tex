@@ -1,0 +1,118 @@
+ % Vorlesung vom 22.06.2015
+\renewcommand{\ldate}{2015-06-22}	% define lessiondate
+
+\section{Einzelne Aufgaben}
+
+\subsection{Dominosteine in 3xn-Feld unterbringen}
+Wie viele Möglichkeiten a(n) gibt es 1x2-Steine anzuordnen? Wenn n ungerade ist, geht es nicht. 
+\includegraphicsdeluxe{dominofelddarstellung.jpg}{Wie kann man die 1x2 Steine im Feld unterbringen?}{fig:dominofelddarstellung} % Nr. 1
+Wenn man die Anfänge in Abb. \ref{fig:dominofelddarstellung} betrachtet kommt man auf folgende Formeln für die Möglichkeiten: 
+
+\begin{itemize}
+\item $a(n)=a(n-2)+2 b(n)$
+\item $b(n)=a(n-2)+b (n-2)$
+\end{itemize}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline n & 2 & 4 & 6 & 8 \\ 
+\hline a(n) & 3 & $3+2\cdot 4=11$ & $11+2\cdot 15=41$ & $41+2\cdot 56=153$ \\ 
+\hline b(n) & 1 & $3+1=4$ & $11+4=15$ & $41+15=56$ \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Rechnen im $\Z_{11}$}
+Wir rechnen in $(\Z_{11},+,\cdot)$. 11 ist eine Primzahl also ist das ein Körper. 
+
+\subsubsection{Lineares Gleichungssystem}
+I: $x+3y=8$\\
+II: $2x+y=4$\\
+
+II-2I: $y-6y=4-16$\\
+$-5y=-12$\\
+$5y=12=23=34=45$\\
+$\Rightarrow y=9$\\
+
+in I: $x+3\cdot 9=8$\\
+$x=8-27=-19$\\
+$x=3$
+
+\subsubsection{Quadratische Gleichung}
+$x^2+4x=10$ mit $(a+b)^2 = a^2+2ab+b^2 \Rightarrow b=2$\\
+$x^2+4x+w^2=10+2^2$\\
+$(x+2)^2=14=3$\\
+Die Lösungen finden wir mittels Ausprobieren: 
+$2^2=4, 3^2=9, 4^2=16=5,$ \textbf{$5^2=25=3$}\\
+$x+2=\pm 5$\\
+$x_1 + 2 = 5 \Rightarrow x_1=3$\\
+$x_2+2=-5 \Rightarrow x_2=-7=4$\\
+
+\subsection{Kombinatorikaufgabe}
+10 Ehepaare sitzen an einem langen Tisch. Auf einer Seite die Männer, auf der anderen die Frauen. Wie groß ist die Wahrscheinlichkeit, dass sich kein Ehepaar gegenüber sitzt? \\
+Das klingt nach Permutationen: \\
+$
+\begin{array}{ccccccc}
+\textrm{Männer} & 1 & 2 & 3 & 4 & ... & 10 \\ 
+ & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+\textrm{Frauen} & 3 & 4 & 7 & 10 & ... & 5
+\end{array} 
+$\\
+Damit kann man die Aufgabe neu formulieren: Wie groß ist die Wahrscheinlichkeit, dass die Permutationen keinen Fixpunkt hat?\\
+alle Permutationen: n!\\
+Permutationen ohne Fixpunkt: $a(n)=n!\underbrace{(1-\frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+...+(-1)^n \frac{1}{n!})}_{\approx e^{-1}} \approx n! e^{-1}= \frac{10!}{e}$\\
+P(kein Fixpunkt)$=\frac{\textrm{günstige Fälle}}{\textrm{alle Fälle}}=\frac{\frac{n!}{e}}{n!}=\frac{1}{e}=0,367$
+
+\subsection{Einheitengruppe}
+$(\Z_{16}^* ,\cdot)$ Einheitengruppe (teilerfremd zu 16): $\Z_{16}^*  = \{1,3,5,7,9,11,13,15\}$\\
+Jetzt machen wir einen Code c über $\Z_{16}^* $.\\
+$c=\{(a,b,c) : a b c = 1, a,b,c \in \Z_{16}^* \}$\\
+\paragraph{Ergänze $(5,11,\cdot)$} zu einem Codewort.\\
+$5\cdot 11\cdot x=1$\\
+$55 x = 1$\\
+$7 x = 1$ \\
+Jetzt probieren wir die Werte aus der o.g. Einheitengruppe aus:\\
+$7\cdot 3=21=5$\\
+$7\cdot 3=35=3$\\
+$7\cdot 7=49=1$\\
+$\Rightarrow x=7$
+
+\paragraph{Aus wie vielen Elementen besteht der Code?}
+$(a,b,\cdot)$ mit a,b beliebig wählen und $\cdot$ rechnen wir aus.
+Für a und b gibt es jeweils 8 Möglichkeiten (Anzahl der Elemente der Einheitengruppe), also 64 Elemente. Der Code hat also 64 Codewörter. 
+
+\subsection{Verschlüsseln und Entschlüsseln mit Permutationen}
+\paragraph{Wir haben eine gegebene Permutation}
+$\pi: 
+\begin{array}{ccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 7 & 1 & 5 & 4 & 2 & 6
+\end{array} 
+$
+\paragraph{Suche die inverse Permutation}
+$\pi^{-1}: 
+\begin{array}{ccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 6 & 1 & 5 & 4 & 7 & 2
+\end{array} 
+$
+
+\paragraph{Damit kann man Wörter der Länge 7 verschlüsseln.}
+$c(i):=m(\pi(i))$\\
+
+\paragraph{Verschlüssle $m=(C,A,B,C,D,E,A)$}
+$\Rightarrow c=(B,A,C,D,C,A,E)$
+
+\paragraph{Entschlüssle c (mit $\pi^{-1}$)}
+$m(i) := c(\pi^{-1}(i))$\\
+$m=(C,A,B,C,D,E,A) \checkmark$
+
+\subsection{Graphentheorie}
+Hat der gegebene Graph (Abb. \ref{fig:aufgaben_graphen6}) einen eulerschen Kreis oder eine eulersche Linie? 
+\includegraphicsdeluxe{aufgaben_graphen6.jpg}{Eulersche Linie und eulerscher Kreis}{fig:aufgaben_graphen6} % Nr. 2
+
+\subsubsection{eulersche Linie}
+Es gibt genau zwei Knoten (A, E) mit ungeradem Grad $\Rightarrow$ eulersche Linie (rot). Beim Einzeichnen muss man bei einem Knoten mit ungeradem Grad (z.B. A oder E) starten! 
+
+\subsubsection{eulerscher Kreis}
+Füge eine zusätzliche Kante ein, damit ein eulerscher Kreis (nur gerade Grade) entsteht (blau). 

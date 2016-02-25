@@ -1,0 +1,154 @@
+% Vorlesung vom 21.12.2015
+\renewcommand{\ldate}{2015-12-21}
+
+\section{Diskrete Wahrscheinlichkeitsräume}
+
+$\Omega$ abzählbar unendlich.  $(\Omega, P)$ diskreter Wahrscheinlichkeitsraum, wenn: P auf den Teilmengen von $\Omega$ definiert mit:
+
+\begin{enumerate}
+\item $P(A) \geq 0 $
+\item $P(\Omega) = 1$
+\item $P(\sum_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty} P(A_i)$ disjunkte $A_i$
+\end{enumerate}
+
+Die $\varphi$ Additivität ($\sum_{i=1}^{\infty} A_i$) folgt nicht aus $P(A\cup B) = P(A) + P(B)$ für $A\cap B = \emptyset$
+
+\subsection{Beispiel}
+$\Omega = \cbr{\omega_1, \omega_2, \omega_3, ..., }$
+
+$P(\omega_j) \geq \forall j$, 
+$\sum_{j=1}^{\infty} p(\omega_j) = 1$,
+$P(A) = \sum_{\omega_j \in A} p(\omega_j)$ ist ein Wahrscheinlichkeitsmaß.
+
+$E(X) = \sum_{\omega \in \Omega} X(\omega) \cdot p(\omega)$
+
+$E(X) = \sum_{j=1}^{\infty} x_j \cdot P(X=x_j)$
+
+$E(g(X)) = \sum_{j=1}^{\infty} g(x_j) \cdot P(X=x_j)$
+
+\subsection{St. Petersburger Spiel}
+Eine Münze wird solange geworfen bis eine Zahl oben ist. 
+
+$\Omega = \cbr{1,2,3,4,...} \Rightarrow P(\cbr{k}) = \rbr{\frac{1}{2}}^k$.
+Man bekommt $2^{k-1}$ Rubl als Gewinn. 
+X ist der Gewinn.
+
+$
+EX = \sum_{k=1}^{\infty} p(k) \cdot X(k) 
+= \sum_{k=1}^{\infty} \rbr{\frac{1}{2}}^k \cdot 2^{k-1}
+= \sum_{k=1}^{\infty} \frac{2^{k-1}}{2^k}
+= \sum_{k=1}^{\infty} \frac{1}{2} 
+= \frac{1}{2} + \frac{1}{2} + \frac{1}{2} + ... = \infty
+$.  
+Erwartungswert ist $\infty$.
+
+\subsection{Spieler-Ruin-Problem}
+Der Spieler A hat ein Kapital von a Euro und der Spieler B eins von b. Sie werfen eine Münze. Gewinnt A, so bekommt A von B einen Euro und umgekehrt. Sie spielen solange, bis einer bankrott ist. 
+
+\textbf{Wahrscheinlichkeit Allgemeiner:}
+
+A gewinnt: p 
+
+B gewinnt: (1-p) = q
+
+\textbf{Wie groß ist die Wahrscheinlichkeit, dass A gewinnt?}
+
+\includegraphicsdeluxe{WahrschlABPfade1.jpg}{Spieler-Ruin-Problem}{Spieler-Ruin-Problem: $\Omega$: alle möglichen Pfade. }{fig:WahrschlABPfade1}
+Wir rechnen das allgemein aus (Abb. \ref{fig:WahrschlABPfade1}), ges.: 
+
+$P_k(A)$ Kapital von A\\
+$P_0(A) = 0$\\
+$P_r(A) = 1$\\
+Sei $1\leq k\leq r-1$\\
+$P_k(A) = P_k(A\cap A_1) + P_k(A\cap A_2)$, wobei $A_1:$ gewinnt beim nächsten Wurf, $A_2$ verliert ((Abb. \ref{fig:})).
+$
+= P_k(A_1) \cdot P_k(A|A_1) + P_k(A_2) \cdot P_k(A|A_2)
+= p \cdot P_{k+1}(A) + q \cdot P_{k-1}(A)
+$
+
+$d_k = P_{k+1}(A) - P_k(A)$
+
+$d_{k-1} = P_{k}(A) - P_{k-1}(A)$
+
+\profnote{Wir lassen das von A also (A) mal weg $\Rightarrow$ weniger Schreibarbeit. }
+
+$
+\frac{d_k}{d_{k-1}} = \frac{P_{k+1} - P_{k+1}\cdot p - P_{k-1} \cdot q}{P_{k+1} \cdot p + P_{k-1} \cdot q - P_{k-1}}
+= \frac{P_{k+1} \underbrace{(1-p)}_{q} - P_{k-1} \cdot q}{P_{k+1} \cdot p + P_{k-1} \underbrace{(q-1)}_{-p}}
+= \frac{P_{k+1} \cdot q - P_{k-1} \cdot q}{P_{k+1} \cdot - P_{k-1} \cdot p}
+= \frac{q \rbr{P_{k+1} - P_{k-1}}}{p \rbr{P_{k+1} - P_{k-1}}}
+= \frac{q}{p}
+\Rightarrow d_k = d_{k-1} \cdot \frac{q}{p}
+\Rightarrow P_{k+1} = P_k + d_k
+$
+
+$P_1 = P_0 + d_0 = d_0$
+
+$P_2 = P_1 + d_1 = d_0 + d_1$
+
+$\vdots$
+
+$P_k = d_0 + d_1 + ... + d_{k-1}$
+
+$p_r = 1$\\
+
+\paragraph{1. Fall:} $p=q=\frac{1}{2}$. Alle $d_k$ gleich.
+
+$1=d_0 + d_1 + ... + d_{r-1} \Rightarrow d=\frac{1}{r}, d = d_0 = d_1 = ... $
+
+$\Rightarrow P_k = k \cdot \frac{1}{r} = \frac{k}{r}$. Also $P_a = \frac{a}{a+b}$
+
+\textbf{Beispiel} A hat 10 Euro und B hat 12. $P(A) = \frac{10}{10+12} = 0.45$
+
+\paragraph{2. Fall:} $p\neq q$
+
+$d_1 = d_0 \cdot \frac{1}{p}$
+
+$d_2 = d_1 \cdot \frac{q}{p}
+= d_0 \cdot \rbr{\frac{q}{p}}^2
+\Rightarrow P_k(A) = \sum_{j=0}^{k-1} d_j
+= \sum_{j=0}^{k-1} d_0 \cdot \rbr{\frac{q}{p}}^j
+= d_0 \sum_{j=0}^{k-1} \rbr{\frac{q}{p}}^j
+= d_0 \frac{1 - \rbr{\frac{q}{p}}^k}{1 - \frac{q}{p}}
+= P_k(A)
+$
+
+Für $k=r$ ergibt sich 
+$P_r(A) = 1$
+
+$ 
+1 = d_0 \cdot \frac{1 - \rbr{\frac{q}{p}}^r}{1 - \frac{q}{p}}
+\Rightarrow d_0 = \frac{1 - \rbr{ \frac{q}{p} } }{1 - \rbr{ \frac{q}{p} }^r }
+\Rightarrow P_k(A) = \frac{1 - \frac{q}{p} }{1 - \rbr{ \frac{q}{p} }^r } \cdot \frac{1 - \rbr{\frac{q}{p}}^k }{1 - \rbr{ \frac{q}{p} } }
+\Rightarrow P_k(A) = \frac{1 - \rbr{\frac{q}{p}}^k }{1 - \rbr{ \frac{q}{p} }^r }
+$
+
+\paragraph{Beispiel}
+$ a=10, b=12, p=0.6, q=0.4 \Rightarrow P(A) = \frac{1 - \rbr{\frac{4}{6}}^{10} }{1-\rbr{\frac{4}{6}}^{22} } = 0.98$
+ 
+\section{Exkurs wichtige Reihen}
+$
+e^x 
+= \sum_{k=0}^{\infty} \frac{x^k}{k!}
+$
+Exp.reihe
+
+$\sum_{k=0}^{\infty} x^k = \frac{1}{1-x}$ für $\abs{1} < 1$ geometrische Reihe. 
+
+Ableitung: 
+$\sum_{k=1}^{\infty} k\cdot x^{k-1} = \frac{1}{(1-x)^2}$
+
+Ableitung: 
+$\sum_{k=2}^{\infty} k (k-1) \cdot x^{k-2} = \frac{2}{(1-x)^3}$
+
+\begin{satz}[Umordnungssatz]
+$a_i \geq 0, \forall i\in \N$
+
+$\sum_{n=1}^{\infty} a_n < \infty$
+
+Dann darf mann: 
+\begin{enumerate}
+\item Reihe beliebig umordnen $\sum_{n=1}^{\infty} a_{\pi(n)}$ ($\pi$ Permutationen)
+\item In Teilmengen $T_1, T_2, ... $ zerlegen und aufaddieren $\sum_{i} \rbr{ \sum_{a_k \in T_i} a_k }$
+\end{enumerate}
+\end{satz}

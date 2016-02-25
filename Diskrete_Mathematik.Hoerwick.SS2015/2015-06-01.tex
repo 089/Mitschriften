@@ -1,0 +1,207 @@
+ % Vorlesung vom .2015
+\renewcommand{\ldate}{2015-06-01}	% define lessiondate
+
+\subsection{Blockverschlüsselung}
+Es werden nun Blöcke fester Länge verschlüsselt. Es gibt verschiedene Modi.
+
+\subsubsection{EBC-Mode}Jeder Block wird unabhängig von den anderen Blöcken verschlüsselt. 
+
+
+% Nr. 1
+\includegraphicsdeluxe{blockverschluesselung.jpg}{Blockverschlüsselung}{fig:blockverschluesselung}
+
+
+\paragraph{Beispiel:} Alphabet: $\{0,1,2,...,9\}$ mit der Blocklänge 5. Verschlüsselung mittels Permutationen (geheim)
+
+$c(i):=m(\pi(i))$:\\
+$\pi$:\\
+$\begin{array}{cccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+2 & 4 & 1 & 5 & 3 \\
+\end{array}$ 
+\\
+
+Verschlüsseln:\\
+$\pi^{-1}$:\\
+$\begin{array}{cccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 1 & 5 & 2 & 4 \\
+\end{array}$ 
+\\
+
+Entschlüsseln: $c(\pi^{-1}(i)) = m(\pi(\pi^{-1}(i))) = m(i)$\\
+$m(i)=c(\pi^{-1}(i))$\\
+
+\paragraph{Beispiel:} Klartext $m=(3,2,1,0,1)$ mit $m(3)=1, m(5)=1$\\
+Verschlüsseln:\\
+$c(1)=m(\pi(1))=m(2)=2$\\
+$c(2)=m(\pi(2))=m(4)=0$\\
+$c(3)=3$\\
+$c(4)=1$\\
+$c(5)=1$\\
+$c=(2,0,3,1,1)$
+
+Entschlüsseln:\\
+$m(1)=c(\pi^{-1} (1))=c(3)=3$\\
+$m(2)=c(\pi^{-1} (2))=c(1)=2$\\
+$m(3)=c(5)=1$\\
+$m(4)=c(2)=0$\\
+$m(5)=c(4)=1$\\
+$m=(3,2,1,0,1)$\\
+
+\subsubsection{CBC-Mode} Startwert: $c_0$ öffentlich\\
+Alphabet: $(\mathbb{Z}_n,+)$\\
+Verschlüsseln: $c_i := f(c_{i-1} \oplus m_i)$\\
+Entschlüsseln: $m_i := f^{-1}(c_i) \ominus c_{i-1}$\\
+Verschlüsselung von m hängt ab, wo m steht (Anfang, Mitte oder Ende). Bei mod 2 ist $\oplus$ und $\ominus$ das gleiche. 
+
+\paragraph{Beispiel:} Alphabet: $(\mathbb{Z}_2,+)$, mod 2\\
+Blocklänge: $n=5$\\
+Verschlüsselung f: Permutationen\\
+Startwert (öffentlich): $c_0 = (1,1,1,0,0)$
+
+$\pi$:\\
+$\begin{array}{cccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+2 & 3 & 5 & 1 & 4 \\
+\end{array}$ 
+\\
+
+$\pi^{-1}$:\\
+$\begin{array}{cccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+4 & 1 & 2 & 5 & 3 \\
+\end{array}$ 
+\\
+
+$m1=(1,0,1,0,1), m2=(0,0,1,1,0)$
+
+\paragraph{Verschlüsseln:}
+$c_1=f(c_0 \oplus m_1)=f[(1,1,1,0,0) \oplus (1,0,1,0,1)]=f(0,1,0,0,1) = (1,0,1,0,0) = c_1$\\
+$c_2=f(c_1 \oplus m_2)=f[(1,0,1,0,0) \oplus (0,0,1,1,0)]=f(1,0,0,1,0) = (0,0,0,1,1) = c_2$\\
+
+\paragraph{Entschlüsseln:}
+$m_1 := f^{-1}(c_1) \ominus c_{0} \rightarrow m_1 := f^{-1}(c_1) \oplus c_{0}$ (wegen mod 2)\\
+$=f^{-1}(1,0,1,0,0) \oplus (1,1,1,0,0) = (0,1,0,0,1) \oplus (1,1,1,0,0) = (1,0,1,0,1)$\\
+
+$m_2=f^{-1}(c_2) \oplus c_{1} = f^{-1}(0,0,0,1,1) \oplus (1,0,1,0,0) = (1,0,0,1,0) \oplus (1,0,1,0,0) = (0,0,1,1,0)$
+
+\subsubsection{CFB-Mode}
+Alphabet: $(\mathbb{Z}_m,+)$\\
+Blockchiffre der Länge n: $E_k$\\
+Der Klartext wird in Blöcke der Länge $r < n$ eingeteilt. Außerdem benötigen wir einen Startvektor/Initialisierungsvektor (IV) der Länge n.
+
+\paragraph{Verschlüsseln:}
+$I_1 = IV$
+\begin{enumerate}
+\item $O_j := E_k(I_j)$
+\item $t_j :=$ Die ersten r Zeichen von $O_j$
+\item $c_j := m_j \oplus t_j$
+\item $I_{j+1} :=$ Die ersten r Zeichen von $I_j$ löschen und $c_j$ hinten anhängen. 
+\end{enumerate}
+
+\paragraph{Entschlüsseln:} $I_1 = IV$
+\begin{enumerate}
+\item $O_j := E_k(I_j)$
+\item $t_j :=$ Die ersten r Zeichen von $O_j$
+\item $m_j := c_j \ominus t_j$
+\item $I_{j+1} :=$ Die ersten r Zeichen von $I_j$ löschen und $c_j$ hinten anhängen. 
+\end{enumerate}
+
+\paragraph{Beispiel:} Alphabet: $(\mathbb{Z}_10,+)$\\
+Blockchiffre der Länge $n = 6$\\
+Permutation $\pi$: 
+$\begin{array}{cccccc}
+1 & 2 & 3 & 4 & 5 & 6\\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 6 & 1 & 5 & 2 & 4\\
+\end{array}$ 
+\\
+$IV=(2,0,8,3,3,1)$\\
+Klartext, Schlüsseltext: Blocklänge $r=4$
+$m_1=(2,0,5,1), m_2=(9,7,1,2)$
+
+\paragraph{Verschlüsseln:} $I_1=(2,0,8,3,3,1)$\\
+1. Schritt:\\
+\begin{enumerate}
+\item $O_1=E(I_1)=(8,1,2,3,0,3)$
+\item $t_1=(8,1,2,3)$
+\item $c_1=m_1 \oplus t_1 = (2,0,5,1) \oplus (8,1,2,3)=(0,1,7,4)$
+\item $I_2=(3,1,0,1,7,4)$
+\end{enumerate}
+2. Schritt:\\
+\begin{enumerate}
+\item $O_2=E(I_2)=(0,4,3,7,1,1)$
+\item $t_2=(0,4,3,7)$
+\item $c_2=m_2 \oplus t_2 = (9,7,1,2) \oplus (0,4,3,7)=(9,1,4,9)$
+\item $I_3=(7,4,9,1,4,9)$
+\end{enumerate}
+
+\paragraph{Entschlüsseln:}
+$IV=(2,0,8,3,3,1)$\\
+1. Schritt
+\begin{enumerate}
+\item $O_1 = E(I_1)=(8,1,2,3,0,3)$
+\item $t_1 = (8,1,2,3)$
+\item $m_1 = c_1 \ominus t_1 = (0,1,7,4) \ominus (8,1,2,3) = (2,0,5,1) \checkmark$
+\item $I_2 = (3,1,0,1,7,4)$
+\end{enumerate}
+2. Schritt
+\begin{enumerate}
+\item $O_2 = E(I_2)=(0,4,3,7,1,1)$
+\item $t_2 = (0,4,3,7)$
+\item $m_2 = c_2 \ominus t_2 = (9,1,4,9) \ominus (0,4,3,7) = (9,7,1,2) \checkmark$
+\item $I_3 = (7,4,9,1,4,9)$
+\end{enumerate}
+
+\section{Graphentheorie}
+\paragraph{Graph:} Ein Graph besteht aus Ecken und Kanten. Jede Kante verbindet zwei \underline{verschiedene} Ecken.
+\paragraph{vollständig} Jede Ecke wird mit jeder anderen Ecke durch genau eine Kante verbunden. G vollständig mit n Ecken $\Rightarrow Kantenzahl = \binom{n}{2}=\frac{n(n-1)}{1\cdot 2}$
+
+
+% Nr. 2
+\includegraphicsdeluxe{graph_vollstaendig.jpg}{vollständige Graphen}{fig:graph_vollstaendig}
+
+ 
+\subsection{G heißt bipartit,} wenn man seine Ecken in 2 Klassen einteilen kann, so dass jede Kante die zwei Klassen verbindet. 
+
+
+% Nr. 3
+\includegraphicsdeluxe{graph_bipartit.jpg}{bipartite Graphen}{fig:graph_bipartit}
+
+
+\subsection{Kantenzug:} $e_0 k_1 e_1 k_2 e_2 k_3 e_3 k_4 e_4$\\
+$e_i$: Ecken\\
+$k_i$: Kanten ($k_i$ verbindet $e_{i-1}$ und $e_i$)\\
+Der Kantenzug verbindet Anfangs- und End-Ecke. Anfangs- und End-Ecke können identisch sein. 
+
+% Nr. 4 
+\includegraphicsdeluxe{graph_kantenzug.jpg}{Ein Kantenzug}{fig:graph_kantenzug}
+
+
+\subsection{Definition zusammenhängender Graph:}Ein Graph heißt zusammenhängend, wenn je zwei Ecken durch einen Kantenzug verbunden werden können. 
+
+
+% Nr. 5 
+\includegraphicsdeluxe{graph_zsmhaengend.jpg}{Ein zusammenhängender Graph und ein Graph mit zwei Zusammenhangskomponenten}{fig:graph_zsmhaengend}
+
+
+\subsection{Kantenzüge}
+\subsubsection{Länge eines Kantenzugs}Die Anzahl der durchlaufenen Kanten. 
+\subsubsection{geschlossene Kantenzüge}Ein Kantenzug heißt geschlossen, wenn die Anfangsecke gleich Endecke ist.
+\subsubsection{Weg}Ein Kantenzug heißt Weg, wenn alle seine Kanten verschieden sind. 
+\subsubsection{Kreis}Ein Weg heißt Kreis, wenn Anfangsecke gleich Endecke ist. 
+\subsubsection{Grad einer Ecke}Anzahl der Kanten die die Ecke verlassen. 
+
+\subsection{Das Königsberger Brückenproblem}
+Es gibt einen Fluss mit zwei Inseln und 7 Brücken. Gibt es einen Spaziergang (Kreis), so dass man über jede Brücke genau einmal geht und am Ende wieder am Anfangspunkt ist? 
+
+\includegraphicsdeluxe{7bruecken.jpg}{Königsberger Brückenproblem}{fig:g2_7bruecken}
+
+\includegraphicsdeluxe{7bruecken_abstrakt.jpg}{Königsberger Brückenproblem als Graph}{fig:7bruecken_abstrakt2}
+
+\paragraph{eulersch}Ein Kreis eines Graphen heißt eulersch, wenn in ihm jede Kante genau einmal vorkommt und die Anfangsecke gleich der Endecke ist. Das Brückenproblem kann umformuliert werden: Hat der Graph einen eulerschen Kreis?

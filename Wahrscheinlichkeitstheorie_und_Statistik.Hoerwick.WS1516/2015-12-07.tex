@@ -1,0 +1,164 @@
+% Vorlesung vom 07.12.2015
+\renewcommand{\ldate}{2015-12-07}
+
+\section{Standardisierung einer Zufallsgröße}
+
+$X^* = \frac{X-EX}{\sigma(x)}$ mit $\sigma(x) = \sqrt{Var(x)}$
+
+$EX^* = \frac{1}{\sigma(x)} \cdot E[X-EX]$
+$=\frac{1}{\sigma(x)} \cdot [EX-EX]$
+$=0$\\
+
+$Var(X^*) = Var[\frac{1}{\sigma(x)} \cdot (X-EX)]$
+$=\frac{1}{\sigma^2(x)} \cdot Var(X-EX) $
+$=\frac{1}{\sigma^2(x)} \cdot Var(x) $
+$=1$
+
+\subsection{Die Tschebyschow-Ungleichung}
+Für jedes $\varepsilon > 0$ gilt: 
+
+\textcolor{red}{$ P(\abs{X-EX} \geq \varepsilon) $ }
+$\leq$
+\textcolor{blue}{$\frac{1}{\varepsilon^2} \cdot Var(X)$}
+
+\begin{proof}
+\includegraphicsdeluxe{BewTschebyschowUngl1.jpg}{Beweis}{Beweis}{fig:BewTschebyschowUngl1}
+$ g(x) = 
+\begin{cases}
+1, \textrm{ falls } \abs{x-EX} \geq \varepsilon\\
+0, \textrm{ sonst}
+\end{cases}$ (vgl. Abb. \ref{fig:BewTschebyschowUngl1})
+
+$ h(x) = \frac{1}{\varepsilon^2} \cdot (x-EX)^2$ (vgl. Abb. \ref{fig:BewTschebyschowUngl1})
+
+Es ist $g(x) \leq h(x) $ für alle x. Zufallsgröße $X: \Omega \rightarrow \R$
+
+Es ist $g(X(\omega)) \leq h(X(\omega))$\\
+
+\textcolor{red}{$ P(\abs{X-EX} \geq \varepsilon) $}
+$=P(\cbr{\omega \in \Omega : \abs{X(\omega) - EX} \geq \varepsilon})$
+$=P( \cbr{\omega : g(X(\omega)) = 1} )$
+$=\sum_{\omega \in \Omega} p(\omega) \cdot g(X(\omega))$\\
+
+\textcolor{blue}{$\frac{1}{\varepsilon^2} Var(X)$}
+$=\sum_{\omega} \sbr{(X(\omega) - EX)^2 \cdot p(\omega)} \cdot \frac{1}{\varepsilon^2}$
+$=\sum_\omega \frac{1}{\varepsilon^2} (X(\omega) - EX)^2 \cdot p(\omega)$
+$=\sum_\omega h(X(\omega) \cdot p(\omega)$
+$\Rightarrow \underbrace{\sum_\omega g(X(\omega)) \cdot p(\omega)}_{\textrm{linke Seite}} \leq \underbrace{\sum_\omega h(X(\omega)) \cdot p(\omega)}_{\textrm{rechte Seite}}$
+\end{proof}
+
+\subsection{Beispiel} 
+\includegraphicsdeluxe{BspTschUngl1.jpg}{Beispiel}{Beispiel}{fig:BspTschUngl1}
+Setze $\varepsilon = k \cdot \sigma(x)$
+
+$ P(\abs{X-EX} \geq k\cdot \sigma(x)) \leq \frac{1}{k^2 \cdot \sigma^2(x)} \cdot \sigma^2(x) = \frac{1}{k^2}$
+
+$ P(\abs{X - EX} \leq k \cdot \sigma(x)) \geq 1 - \frac{1}{k^2}$
+
+z.B. $k=2$
+
+$ P(\abs{X-EX} \geq 2\cdot \sigma(x)) \leq \frac{1}{4}$
+
+$ P(\abs{X - EX} \leq 2 \cdot \sigma(x)) \geq \frac{3}{4}$
+
+Die Wahrscheinlichkeit, dass X einen Wert in diesem Intervall (Abb. \ref{fig:BspTschUngl1}) annimmt, ist $\geq 75\% $. 
+
+\subsection{Aufgabe 1} 
+X nimmt die Werte $1,2,..., k$ mit gleicher Wahrscheinlichkeit an. Berechne $EX$ und $Var(x)$.
+
+$EX = \frac{1}{k} (1+2+3+...+k)$
+$=\frac{1}{k} \cdot  \frac{k(k+1)}{2} $
+$=\frac{k+1}{2}$\\
+
+$E(X^2) $
+$=\frac{1}{k} (1^2+2^2+3^2+...+k^2)$
+$\underbrace{=}_{F.S.} \frac{1}{k} \cdot \frac{k(k+1)(2k+1)}{6}$ \profnote{F.S.: Aus der Formelsammlung}
+$=\frac{(k+1)(2k+1)}{6}$
+
+$Var(X) = E(X^2) - (EX)^2$
+$=\frac{(k+1)(2k+1)}{6} - \frac{(k+1)^2}{4}$
+$=...$
+$=\frac{k^2-1}{12}$
+
+\subsection{Aufgabe 2}
+Wir würfeln n mal mit einem Würfel. Die Zufallszahl $Y_n$ ist die größte Augenzahl. Berechne Varianz und Erwartungswert.
+
+$P(Y_n = 1) $
+$=\frac{1}{6^n}$
+
+$P(Y_n = 2) $
+$=\frac{2^n - 1}{6^n}$ \profnote{Lauter 1er $\Rightarrow - 1$}
+
+$P(Y_n = 3) $
+$=\frac{3^n - 2^n}{6^n}$ \profnote{Wir müssen die abziehen, wo kein 3er vorkommt ($2^n$).}
+
+$P(Y_n = 4) $
+$=\frac{4^n - 3^n}{6^n}$
+
+$P(Y_n = 5) $
+$=\frac{5^n - 4^n}{6^n}$
+
+$P(Y_n = 6) $
+$=\frac{6^n - 5^n}{6^n}$
+
+$EY_n = \frac{1}{6^n} \cdot 1 $
+$+ \sbr{\rbr{\frac{2}{6}}^n - \rbr{\frac{1}{6}}^n} \cdot 2 $
+$+ \sbr{\rbr{\frac{3}{6}}^n - \rbr{\frac{2}{6}}^n} \cdot 3 $ 
+$+ \sbr{\rbr{\frac{4}{6}}^n - \rbr{\frac{3}{6}}^n} \cdot 4 $
+$+ \sbr{\rbr{\frac{5}{6}}^n - \rbr{\frac{4}{6}}^n} \cdot 5 $
+$+ \sbr{1^n - \rbr{\frac{5}{6}}^n} \cdot 6 $
+$\Rightarrow $
+$\lim\limits_{n \rightarrow \infty} EY_n = 6$
+
+$EY_n^2 $
+$= \frac{1}{6^n} \cdot 1^2 $
+$+ \sbr{\rbr{\frac{2}{6}}^n - \rbr{\frac{1}{6}}^n} \cdot 2^2 $
+$+ \sbr{\rbr{\frac{3}{6}}^n - \rbr{\frac{2}{6}}^n} \cdot 3^2 $ 
+$+ \sbr{\rbr{\frac{4}{6}}^n - \rbr{\frac{3}{6}}^n} \cdot 4^2 $
+$+ \sbr{\rbr{\frac{5}{6}}^n - \rbr{\frac{4}{6}}^n} \cdot 5^2 $
+$+ \sbr{1^n - \rbr{\frac{5}{6}}^n} \cdot 6^2 $
+$\Rightarrow $
+$\lim\limits_{n \rightarrow \infty} EY_n^2 = 6^2 = 36$
+
+$Var(Y_n) = E(Y_n^2) - [EY_n]^2$
+$\Rightarrow $
+$\lim\limits_{n \rightarrow \infty} Var(Y_n) = 36 - 36 = 0$
+
+\subsection{Aufgabe 3}
+X nehme nur Werte im Intervall $[b,c]$ an. Zeige:
+\begin{enumerate}
+\item $Var(X) \leq \frac{1}{4} (c-b)^2$
+\item $Var(X) = \frac{1}{4} (c-b)^2 \Leftrightarrow P(X=b) = P(X=c) = \frac{1}{2}$
+\end{enumerate} 
+
+\begin{proof}
+\includegraphicsdeluxe{Aufg3Bew1.jpg}{Beweis}{Beweis: Für a nehmen wir die Mitte, also $ a = \frac{c-b}{2}$.}{fig:Aufg3Bew1} 
+
+zu 1.) Es gilt: $Var(X) = E[(X-a)^2] - [(EX) - a]^2, a\in \R$ 
+
+$(X-a)^2 \leq \rbr{\frac{c-b}{2}}^2$
+$\Rightarrow E[(X-a)^2] \leq \frac{(c-b)^2}{4}$
+
+$E[(X-a)^2] \geq Var(X)$
+$\Rightarrow \frac{(c-b)^2}{4} \geq Var(X)$\\
+
+zu 2.) 
+$Var(X) = \frac{(c-b)^2}{4} \Leftrightarrow E[(X-a)^2] = \frac{(c-b)^2}{4}$
+und $ E(X) - a = 0$, also $EX=a$
+
+$\Leftrightarrow EX=a $ und 
+$(x_1 - a)^2 \cdot p_1 $
+$+(x_2 - a)^2 \cdot p_2 $
+$+\vdots $
+$+(x_n - a)^2 \cdot p_n $
+$=\frac{(c-b)^2}{4}$
+
+$(x_i -a)^2 \leq \rbr{\frac{c-b}{2}}^2$ für alle i. 
+
+also $(x_i - a)^2 = \rbr{\frac{c-b}{2}}^2$
+
+also $x_i =$ b oder c. 
+
+weil $EX = a$ ist $P(X=b) = P(X=c) = \frac{1}{2}$
+
+\end{proof}

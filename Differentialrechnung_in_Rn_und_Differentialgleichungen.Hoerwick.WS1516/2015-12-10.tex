@@ -1,0 +1,145 @@
+% Vorlesung vom 10.12.2015
+\renewcommand{\ldate}{2015-12-10}
+
+\subsection{Beispiel}
+$y' = 2xy + x^3$ mit $\psi(0) = c$
+
+Zuerst lösen wir den vorderen Teil: $ \varphi(x) = exp(\int_{x_0}^{x} 2t dt)$
+$=exp(\sbr{t^2}_0^x)$
+$=exp(x^2)$
+$\Rightarrow \psi(x) = exp(x^2) \cdot (c+\int_{0}^{x} \frac{t^3}{e^{(t^2)}} dt)$
+
+Jetzt versuchen wir das Integral auszurechnen: 
+$\int_{0}^{x} \frac{t^3}{e^{(t^2)}} dt $
+$=\int_{0}^{x} t^3 \cdot e^{-t^2} dt $
+$=\int_{0}^{x} \frac{1}{2} t^2 \cdot e^{-t^2} \cdot 2t dt$
+\profnote{Substitutionsregel: $\int_{a}^{b} f(\varphi(x)) \varphi'(x) dx = \int_{\varphi(a)}^{\varphi(b)} f(x) dx$}
+
+$\underbrace{=}_{\textrm{Subst. } s=t^2} \int_{0}^{x^2} \frac{1}{2} s \cdot e^{-s} ds$
+$=\frac{1}{2} \int_{0}^{x^2} \underbrace{s}_{f}\cdot \underbrace{e^{-s}}_{g'} ds$
+\profnote{NR: $f(s) = s, f'(s)=1, g(s)=-e^{-s}, g'(s)=e^{-s}$}
+
+$\underbrace{=}_{\textrm{Produktregel}} \frac{1}{2} (\sbr{-s e^{-s}}_0^{x^2} - \int_{0}^{x^2} - e^{-s} ds)$
+$=\frac{1}{2} (-x^2 \cdot e^{-x^2} - (e^{-x^2} - 1) )$
+$=\frac{1}{2} (-x^2 \cdot e^{-x^2} - e^{-x^2} + 1))$
+$=-\frac{1}{2} e^{-x^2} (x^2+1) + \frac{1}{2}$
+
+Das ausgerechnete Integral setzen wir jetzt ein: 
+
+$\Rightarrow \psi(x) = e^{x^2} \cdot \rbr{-\frac{1}{2} e^{-x^2} (x^2+1) + \frac{1}{2}}$
+$=e^{x^2} (c+\frac{1}{2}) - \frac{1}{2} (x^2 + 1)$
+
+\subsection{DGL vom Typ $y' = f(\frac{y}{x})$}
+Substituiere: $z=\frac{y}{x}$
+$\Rightarrow y=z \cdot x $
+$\Rightarrow y' = z' \cdot x + z$
+$\Rightarrow z'\cdot x + z = f(z)$
+
+$z'= \underbrace{\frac{1}{x}} \cdot \underbrace{[f(z) - z]} $ \profnote{Typ getrennte Variable}
+
+\begin{satz}[Genauer Satz]
+$y' = f(\frac{y}{x}) *$
+
+$z' = \frac{1}{x} (f(z)-z) **$
+
+$\varphi$ ist genau dann Lösung von * mit $\varphi(x_0)=y_0$, wenn $\psi (x) = \frac{\varphi(x)}{x}$ Lösung von ** mit 
+$ \psi(x_0) = \frac{y_0}{x_0}$ ist.
+\end{satz}
+
+\subsection{Beispiel}
+$y' = 1 + \frac{y}{x} + \rbr{\frac{y}{x}}^2$, Bedingung: $\varphi(x_0) = y_0$
+
+$z=\frac{y}{x}$, 
+$z' = \frac{1}{x} (f(z)-z)$
+$= \frac{1}{x} (1+z+z^2-z)$
+$= \underbrace{\frac{1}{x}} \underbrace{(1+z^2)}$ (getrennte Variable), Bedingung: 
+$\psi(x_0) = \frac{y_0}{x_0}$
+
+$\int_{\frac{y_0}{x_0}}^{\psi(x)} \frac{1}{1+t^2} dt $
+$=\int_{x_0}^{x} \frac{1}{t} dt $
+$= \sbr{\arctan}_{\frac{y_0}{x_0}}^{\psi(x)}$
+$=\sbr{\ln \abs{t}}_{x_0}^x$
+$=\arctan \psi(x) - \arctan \frac{y_0}{x_0}$
+$=\ln \abs{x} - \ln \abs{x_0}$
+
+$\arctan \psi(x) = \arctan \frac{y_0}{x_0} + \ln \abs{\frac{x}{x_0}}$
+
+$\psi(x) = \tan [\arctan \frac{y_0}{x_0} + ln \abs{\frac{x}{x_0}}]$
+
+$\varphi(x) = x\cdot \psi(x) $
+$=x\cdot \tan [\arctan \frac{y_0}{x_0} + ln \abs{\frac{x}{x_0}}]$
+
+\subsection{Beispiel}
+$y' = (x+y)^2$ Substituiere $z=x+y, z'=1+y', y'=z'-1$
+
+$z'-1 = z^2$
+
+$z' = \underbrace{(z^2+1)}_{} \cdot \underbrace{1}_{} $ \profnote{getrennte Variable}
+
+$\int_{x_0}^{x} 1 dt $
+$=\int_{z_0}^{\psi(x)} \frac{1}{t^2+1} dt $
+$=\sbr{t}_{x_0}^x $
+$=\sbr{\arctan t}_{z_0}^{\psi(x)} $
+
+$x-x_0=\arctan \psi(x) + \alpha$
+
+$\arctan \psi(x) = x+\beta$
+
+$\psi(x) = tan(x+\beta)$
+
+$\psi(x) = x + \varphi(x)$
+
+$\varphi(x) = \psi(x) - x$
+\underline{$=\tan(x+\beta) - x$}. Aus der Bedingung folgt $\beta$ bzw. kann ausgerechnet werden. 
+
+\subsection{Numerische Lösung von DGL}
+\includegraphicsdeluxe{NumLsgDGL1.jpg}{Numerische Lösung von DGL}{Statt der Funktion, die wir nicht haben, nehmen wir die Tangente, die wir kennen.}{fig:NumLsgDGL1}
+
+$y' = f(x,y) $ (Abb. \ref{fig:NumLsgDGL1})
+$\varphi(x_0) = y_0$
+
+$x_0, y_0$ Start
+
+$x_1 = x_0 + h$
+
+$y_1 = y_0 + h \cdot y'(x_0)$
+$=y_0 + h\cdot f(x_0,y_0)$
+
+\textbf{allgemein:}
+
+$x_{n+1} = x_n + h$
+$y_{n+1} = y_n + h\cdot f(x_n,y_n)$
+
+\subsubsection{Verbesserung: Mittelpunktsregel}
+\includegraphicsdeluxe{VerbMittelpNumLoe1.jpg}{Verbesserung: Mittelpunktsregel}{Numerische Lösung von DGL, Verbesserung: Mittelpunktsregel}{fig:VerbMittelpNumLoe1}
+$y_{n+\frac{1}{2}} = y_n + \frac{h}{2} \cdot f(x_n, y_n)$ (Abb. \ref{fig:VerbMittelpNumLoe1})
+
+$y_{n+1} = y_n + h \cdot f(x_n+\frac{h}{2}, y_{n+\frac{1}{2}})$
+
+\subsubsection{Rückwärts}
+\includegraphicsdeluxe{VerbRueckNumLoe1.jpg}{Rückwärts}{Numerische Lösung von DGL, Rückwärts}{fig:VerbRueckNumLoe1}
+$y' = f(x,y)$
+
+$y_n = y_{n+1} - h \cdot f(x_{n+1}, y_{n+1})$. Nach $y_{n+1}$ auflösen. (Abb. \ref{fig:VerbRueckNumLoe1})
+
+\paragraph{Beispiel}
+\includegraphicsdeluxe{BspNumLoeDGL1.jpg}{Beispiel}{Beispiel}{fig:BspNumLoeDGL1}
+$y' = f(x,y) = x+y$, Schrittweite h: 0.1
+
+Vorwärts: $y_1 = y_0 + h \cdot f(x_0, y_0)$
+$=1+0.1 (1+1)$
+$=1.2$ (Abb. \ref{fig:BspNumLoeDGL1})
+
+\paragraph{Rückwärts}
+$y_0 = y_1 - h f(x_1,y_1)$
+
+$1 = y_1 - 0.1 (1.1+y_1)$
+
+$1 = 0.9 y_1 - 0.11 $
+
+$0.9 y_1 = 1.11$
+
+$y_1 = 1.23$
+
+\subsubsection{Hausaufgabe}
+Das letzte Beispiel mit der Mittelpunktsregel rechnen. 

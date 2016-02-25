@@ -1,0 +1,86 @@
+% Vorlesung vom 19.10.2015
+\renewcommand{\ldate}{2015-10-19}
+
+\subsection{Lösung Ziegenproblem}
+Der Kandidat wählt Tor 1. Der Showmaster öffnet Tor 3 und man sieht eine Ziege. Was ist besser, bei 1 bleiben oder auf 2 wechseln? \\
+\textbf{Der Standhafte bleibt bei 1.} $ P(\textrm{gewinnt}) = \frac{1}{3} $\\
+\textbf{Der Wechsler wechselt zu 2.} $ P(\textrm{gewinnt}) = P(\textrm{hinter 1 ist eine Ziege}) = \frac{2}{3} $\\
+
+\subsection{Übung 7.5} 
+\includegraphicsdeluxe{runder_tisch_vier_stuehle.jpg}{Beispiel Vier Stühle}{Beispiel vier Stühle}{fig:vierstuehle}
+Zwei Ehepaare nehmen zufällig an einem runden Tisch mit vier Stühlen Platz (Abb. \ref{fig:vierstuehle}). Wie groß ist die Wahrscheinlichkeit, dass die beiden Ehepaare jeweils nebeneinander sitzen. 
+
+Wir setzen A auf 1. Für das zweite A hat man gleich 3 Möglichkeiten. $\Rightarrow $ alle Fälle: 3, günstige Fälle: 2 $\Rightarrow P=\frac{2}{3}$.
+
+\section{Kombinatorik}
+k-Tupel: $ (a_1, a_2, ..., a_k)$\\
+$j_1$ Möglichkeiten für $a_1$\\
+$j_2$ Möglichkeiten für $a_2$\\
+...\\
+$j_k$ Möglichkeiten für $a_k$\\
+$\Rightarrow$ insgesamt: $j_1\cdot j_2 \cdot ... \cdot j_k$ Möglichkeiten. 
+
+\paragraph{Auf wieviele Arten} kann man die Zahlen 1 bis n anordnen?\\
+z.B. $n=5 : (2,1,5,4,3) \Rightarrow 5\cdot 4\cdot 3\cdot 2\cdot 1 $ Möglichkeiten.
+
+\paragraph{allgemein} $1\cdot 2\cdot 3\cdot ... \cdot n = n!$
+
+Menge M $=\cbr{1,2,...,n}$. Wieviele Teilmengen mit genau k Elementen hat sie? 
+Abkürzung: $\binom{n}{k} $ Binomialkoeffizient. 
+
+\subsection{Anzahl der k-Tupel ohne Wiederholungen}
+$ (.,.,.,.) \Rightarrow n(n-1)(n-2)...(n-k+1)$. Zu einer ungeordneten Teilmenge gehören k! geordnete Tupel.
+
+$\binom{n}{k} \cdot k! = n(n-1)(n-2)...(n-k+1)$\\
+$\binom{n}{k} = \frac{n(n-1)(n-2)...(n-k+1)}{k!} = \frac{n^{\underline{k}}}{k!} $\\
+$\binom{n}{k} = \frac{n!}{k! (n-k)!}$ 
+
+\subsection{Beispiele}
+\begin{enumerate}
+\item $\binom{n}{0} = 1, \binom{n}{0}=\frac{n!}{0! n!} = 1$
+\item $\binom{n}{n} = \frac{n!}{n! 0!} = 1$
+\item 10 Leute trinken Sekt. Jeder stößt mit jedem an. Wie oft klingen die Gläser? Wie viele zweielementige Teilmengen hat M? Das sind: $\binom{10}{2}=\frac{10\cdot 9}{1\cdot 2}= 45$
+\end{enumerate}
+
+\begin{satz}
+Es gilt: $\binom{n+1}{k}= \binom{n}{k-1} + \binom{n}{k}, k=1,2,...,n, M=\cbr{1,2,...,n+1}$. Wie viele Teilmengen mit k Elementen?\\
+Teilmengen, die (n+1) enthalten: $\binom{n}{k-1}$\\
+Teilmengen, die (n+1) nicht enthalten: $\binom n k $\\
+$\Rightarrow \binom{n+1}{k}= \binom{n}{k-1} + \binom{n}{k}$
+\end{satz}
+
+\subsection{Pascalsches Dreieck}
+\includegraphicsdeluxe{pascalsches_dreieck.jpg}{Pascalsches Dreieck}{Pascalsches Dreieck: Zeilen: 0,1,2,3,...; Spalten: 0,1,2,3,...; Im Beispiel $\binom{4}{3} = 4$}{fig:}
+Das kann man auch mit dem Binomialkoeffizienten ausrechnen: $\binom{\textrm{Zeile}}{\textrm{Spalte}}$
+
+\subsection{Binomische Formel}
+$ (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k \cdot y^{n-k} $
+
+\begin{proof}
+$(x+y)(x+y)(x+y)\cdot ... \cdot (x+y)$ mit n Faktoren. Ausmultiplizieren: Aus jeder Klammer ein x oder y auswählen, z.B.: 
+$x\cdot x\cdot y\cdot x\cdot ... \cdot y$ n Faktoren. 
+
+alle Möglichkeiten: $2^n$ Summanden. Man fasst alle die Summanden mit gleich vielen x-en zusammen: 
+$x^k\cdot y^{n-k} : \binom{n}{k}$ solche Produkte $k=0,1,...,n$.\\
+$\binom{n}{k} x^k\cdot y^{n-k}$
+\end{proof}
+
+\subsection{Beispiel}
+$(x+y)^3=\sum_{k=0}^{3} \binom{3}{k} x^k y^{3-k}$
+$=\binom{3}{0} x^0 y^3 + \binom{3}{1} x^1 y^2 + \binom{3}{2} x^2 y^1 + \binom{3}{3} x^3 y^0$
+$=y^3 + 3 x y^2 + 3 x^2 y + x^3$
+
+\subsection{Permutationen}
+Menge M mit n Elementen. k-Permutationen aus M (mit Wiederholungen):  
+$Per_k^n(\textrm{m.W.}) = \cbr{\rbr{a_1,a_2,...,a_k} : a_j \in M}$\\
+
+k-Permutationen aus M (ohne Wiederholungen): 
+$Per_k^n(\textrm{o.W.}) = \cbr{\rbr{a_1,a_2,...,a_k} : a_i \neq a_j}$\\
+
+Bei Kombinationen kommt es nicht auf die Reihenfolge an. Sie werden deshalb der Größe nach sortiert angegeben. 
+K-Kombinationen ohne Wiederholungen: $Kom_k^n (\textrm{o.W.}) = \cbr{\rbr{a_1,...,a_k} | a_1<a_2<...<a_k}$\\
+
+K-Kombinationen mit Wiederholungen: $Kom_k^n (\textrm{m.W.}) = \cbr{\rbr{a_1,...,a_k} | a_1\leq a_2\leq ...\leq a_k}$\\
+
+k-Perm: es kommt auf die Reihenfolge an\\
+k-Kom: Reihenfolge egal. 

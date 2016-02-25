@@ -1,0 +1,96 @@
+% Vorlesung vom 27.10.2015
+\renewcommand{\ldate}{2015-10-27}
+
+\section{Die Siebformel}
+
+\subsection{Beispiel}
+$P(A\cup B) = P(A) + P(B) - P(A\cap B)$\\
+$P([A\cup B]\cup C) = P(A\cup B) + P(C) - P([A\cup B]\cap C)$ mit 
+$P([A\cup B]\cap C) = P((A\cap C) \cup (B\cap C))$
+$=P(A\cap C) + P(B\cap C) - P(A\cap B\cap C)$\\
+$\Rightarrow P(A) + P(B) - P(A\cap B) + P(C) - P(A\cap C) - P(B\cap C) + P(A\cap B\cap C)$
+$=P(A) + P(B) + P(C) - P(A\cap B) - P(A\cap C) - P(B\cap C) + P(A\cap B\cap C)$
+
+\subsection{Siebformel allgemein}
+Ereignisse: $A_1, A_2, ..., A_n$\\
+$ S_r = \sum P(A_{i_1} \cap ... \cap A_{i_r}), 1\leq	 i_1 < ... < i_r \leq n $
+$P(\bigcup_{i=1}^{n} A_i) = \sum_{r=1}^{n} (-1)^{r-1} s_r$
+
+\begin{proof} per Induktion\\
+Richtig für $n=1,2,3$, Schluss von n auf n+1:\\
+$ P(\bigcup_{i=1}^{n+1} A_i) = P(\bigcup_{i=1}^n A_i \cup A_{n+1})$
+$=P(\bigcup_{i=1}^{n+1} A_i) + P(A_{n+1}) - P[\bigcup_{i=1}^{n} (A_i \cap A_{n+1})]$
+$\underbrace{=}_{I.V.} \sum_{r=1}^{n} (-1)^{r-1} S_r + P(A_{n+1})$
+$ + \sum_{m=1}^{n} (-1)^m \tilde{S_r}$
+
+$= \sbr{\textrm{mit } \tilde{S_m} = \sum P(A_{i_1} \cap ... \cap A_{i_m} \cap A_{i_n+1})}$
+$= \sum_{r=1}^{n+1} (-1)^{r-1} S_r$
+\end{proof}
+
+\subsection{Beispiel Siebformel mit vier Mengen}
+$ P(A \cup B \cup C \cup D)$
+$= P(A)+P(B)+P(C)+P(D)$
+$- [P(A\cap B)$
+$ + P(A\cap C) $
+$ + P(A\cap D) $
+$+ P(B\cap C) $
+$+ P(B\cap D) $
+$+ P(C\cap D)]$
+$+[P(A\cap B\cap C) $
+$+ P(A\cap C\cap D) $
+$+ P(A\cap B\cap D) $
+$+ P(B\cap C\cap D)]$
+$- P(A\cap B\cap C\cap D)$
+
+\subsection{Sonderfall}
+$P(A_{i_1}\cap ... \cap A_{i_r})$ nur abhängig von r. Dann heißen die Ereignisse $A_1, ..., A_n$ austauschbar. Siebformel: 
+$P(\bigcup_{i=1}^n A_i) = \sum_{r=1}^{n} (-1)^{r-1} \binom n r P(A_1 \cap A_2 \cap ... \cap A_r)$
+
+\subsection{Aufgabe Permutationen der Zahlen von 1 bis n}
+Wir haben eine Abbildung (Permutation): $ \begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+2 & 5 & 3 & 1 & 4
+\end{array} $ 
+oder nur die Reihenfolge (2,5,3,1,4).
+
+Fixpunkt: hier 3. \\
+Es gibt n! Permutationen.\\
+$\Omega$ alle Permutationen, jede gleich wahrscheinlich. \\
+Man zieht eine. Wie groß ist die Wahrscheinlichkeit, dass sie wenigstens einen Fixpunkt hat?\\
+$A_i = \cbr{(a_1,...,a_n) \in \Omega : j \textrm{ Fixpunkt, } a_j=j}$\\
+$A = \bigcup_{j=1}^n A_j$ wenigstens ein Fixpunkt. \\
+$P(A_{i_1} \cap ... \cap A_{i_r}) = \frac{(n-r)!}{n!}$\\
+$P(\bigcup_{i=1}^n A_i) = \sum_{r=1}^{n} (-1)^{r-1} \binom n r \frac{(n-r)!}{n!}$
+$= \sum_{r=1}^{n} (-1)^{r-1} \frac{n! (n-r)!}{r! (n-r)! n!}$
+$= \sum_{r=1}^{n} (-1)^{r-1} \frac{1}{r!}$
+$= P(A)$\\
+
+$P(\textrm{kein Fixpunkt}) $
+$=P(B)$
+$=1 - P(A)$
+$=1 - \sum_{r=1}^{n} (-1)^{r-1} \frac{1}{r!}$
+$=1 + \sum_{r=1}^{n} (-1)^{r} \frac{1}{r!}$
+$=\sum_{r=0}^{n} (-1)^{r} \frac{1}{r!}$
+$\approx e^{-1}$
+$= \frac{1}{3}$ \profnote{Wenn n groß ist, dann ist die Näherung recht genau.}
+
+$P(B) = \frac{\abs{B}}{n!}$\\
+$\abs{B} = n! \sum_{r=0}^{n} (-1)^r \frac{1}{r!} $
+$\approx n! \frac{1}{e}$\\
+$P(B) \approx \frac{1}{e} = 0.37, P(A)=1-\frac{1}{e} = 0.632$
+
+\subsection{Beispiel Glücksspiel}
+Wir haben zwei identische Kartenstapel. Jeder ist für sich gemischt. Die beiden oberen Karten werden abgehoben. Bei zwei gleichen Karten gewinnt die Bank, sonst der Spieler. Wir nummerieren den einen Stapel von 1 bis 32 durch. Im anderen Stapel kommen genau die gleichen Zahlen vor, allerdings in einer anderen Reihenfolge (Permutation). Zwei gleiche Zahlen hat man, wenn die Permutation einen Fixpunkt hat. \\
+
+$P(\textrm{Fixpunkt}) = P(A) \approx 1-\frac{1}{e} = 0.63$ oder exakt:  
+$P(A) = 1 - \sum_{r=0}^{32} (-1)^{r} \frac{1}{r!}$. Mit 63 \% Wahrscheinlichkeit gewinnt die Bank. 
+
+\subsection{Beispiele 5 Briefe und 5 Umschläge}
+Wir haben 5 Briefe und 5 Umschläge. Die Briefe werden zufällig in die Umschläge gesteckt. Wie groß ist die Wahrscheinlichkeit, dass wenigstens ein Brief richtig ankommt?\\
+
+$P(\textrm{Fixpunkt}) \approx 63 \%$, exakt: 
+$P(A) = 1 - \sum_{r=0}^{5} (-1)^{r} \frac{1}{r!}$
+$= 1 - \rbr{1 - 1 + \frac{1}{2} - \frac{1}{6} + \frac{1}{24} - \frac{1}{120}}$
+$=0.633$
+

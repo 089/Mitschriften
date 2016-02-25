@@ -1,0 +1,140 @@
+% GRUNDEINSTELLUNGEN -------------------------------------------
+
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+
+% EINGEBUNDENE PAKETE ------------------------------------------
+
+\usepackage{pdfpages} % andere PDFs einbinden
+\usepackage{verbatim} % program listings
+\usepackage{latexsym} % Symbole zB Box
+\usepackage{amssymb} % z.B. mathbb{}
+\usepackage{amsmath} 
+\usepackage{amsthm} % Für Lemmata, Sätze(Theoreme), Beweise (siehe unten)
+\usepackage{tikz}	% Für Diagramme aus dem Programm Dia
+\usepackage{makeidx} % fuer Stichwortverzeichnis
+\usepackage{csquotes}
+
+% Verweise anklickbar machen
+\usepackage{hyperref} % 1. 
+\usepackage[figure]{hypcap} % 2. 
+
+
+% EIGENE BEFEHLE -----------------------------------------------
+
+% Bildbreite: Originalgröße oder falls größer als Seitenbreite/Spalte ==> skalieren
+\makeatletter
+\def\ScaleIfNeeded{%
+\ifdim\Gin@nat@width>\linewidth
+\linewidth
+\else
+\Gin@nat@width
+\fi
+}
+\makeatother
+
+% Neuer Befehl der Bilder standartisiert einbindet:
+% includegraphicsdeluxe benötigt \ScaleIfNeeded und \ldate
+% 1. innerhalb der figure-Umgebung mit dem Versuch, das Bild mittels [!htb] an genau dieser Position einzufügen
+% 2. mit der Original- oder einer skalierten (mittels ScaleIfNeeded s.o.) Größe
+% 3. mit einer Beschriftung (\caption{})
+% 4. mit einem Label (\label{})
+\newcommand{\includegraphicsdeluxe}[3]{
+	\begin{figure}[!htb] 
+	\centering
+	\includegraphics[width=1\ScaleIfNeeded]{pics/\ldate_#1}
+	\caption{#2}
+	\label{#3}
+	\end{figure}
+}
+
+% AND und OR Symbole
+\newcommand{\und}{\wedge}
+\newcommand{\oder}{\vee}
+
+% Grundmengen
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% Betragsstriche
+\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
+% Datum der einzelnen Lektionen definieren
+\newcommand{\ldate}{2015-05-01}	% define lessiondate
+% Anmerkung Professor
+\newcommand{\profnote}[1]{\marginpar{\tiny{\textquote{#1}}}}
+
+% Dokumenteneigenschaften
+\newcommand{\pTitle}{Diskrete Mathematik}
+\newcommand{\pShortName}{M. Zell}
+\newcommand{\pSemester}{SS 2015}
+\newcommand{\pProfessor}{Prof. Dr. Josef Hörwick}
+
+% EINRÜCKUNG ---------------------------------------------------
+\setlength{\parindent}{0pt} % Erste Zeile in Absätzen nicht einrücken.
+
+% KOPF- UND FUSSZEILE ------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+ 
+%Kopfzeile mittig mit Kaptilname
+\fancyhead[L]{\textsf{\nouppercase{\leftmark}}}
+\fancyhead[R]{\textsf{\thepage}}
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+%Fußzeile 
+\fancyfoot[L]{\tiny{\pTitle}}
+\fancyfoot[R]{\tiny{\pShortName, \pSemester, \ldate}}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+ 
+% START DES EIGENTLICHEN DOKUMENTS -----------------------------
+\author{\pShortName}
+\title{Mitschrift\\\pTitle, \pSemester\\\pProfessor}
+
+% Stichwortverzeichnis erstellen
+\makeindex
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+
+% Sätze usw. aus asmthm
+\newtheorem{satz}{Satz}[section] 
+\newtheorem{defi}{Definition}[section] 
+\newtheorem{lem}{Lemma}[section] 
+\newtheorem{beh}{Behauptung}[section] 
+
+
+% einzelne Kapitel
+\include{Hinweise}
+\include{2015-03-16}
+
+\include{2015-05-11}
+\include{2015-05-18}
+\include{2015-05-28}
+\include{2015-06-01}
+\include{2015-06-08}
+\include{pruefung_ss2011}
+\include{pruefung_ss2010}
+\include{pruefung_ss2012}
+\include{pruefung_ws2014_15}
+\include{2015-06-22}
+\include{pruefung_ss2008}
+\include{2015-06-29}
+\include{anhang}
+
+% Stichwortverzeichnis
+\newpage
+\renewcommand{\indexname}{Stichwortverzeichnis} % Index soll Stichwortverzeichnis heissen
+\addcontentsline{toc}{section}{Stichwortverzeichnis} % Stichwortverzeichnis soll im Inhaltsverzeichnis auftauchen
+\printindex % Stichwortverzeichnis endgueltig anzeigen
+\end{document}

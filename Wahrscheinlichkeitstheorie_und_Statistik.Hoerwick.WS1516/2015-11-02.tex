@@ -1,0 +1,124 @@
+% Vorlesung vom 02.11.2015
+\renewcommand{\ldate}{2015-11-02}
+
+\section{Erwartungswert}
+\includegraphicsdeluxe{gluecksrad1.jpg}{Glücksrad}{Glücksrad mit $\Omega = \cbr{\omega_1, \omega_1, ..., \omega_s} $}{fig:gluecksrad1}
+Glücksrad mit $\Omega = \cbr{\omega_1, \omega_1, ..., \omega_s} $ (Abb. \ref{fig:gluecksrad1}). Gegeben ist $P(\cbr{\omega_1})$. Bei $ \omega_i $ erhält man den Gewinn $ X(\omega_i) $. Wie groß ist der durchschnittliche Gewinn? Wir drehen n mal: \\
+$h_1$ mal $\omega_1$, $h_1 + h_2 + ... + h_s = n$\\
+$h_2$ mal $\omega_2$\\
+$\vdots$\\
+$h_s$ mal $\omega_s$\\
+Gesamtgewinn: $\sum_{j=1}^{s} X(\omega_j) \cdot h_j$\\
+Durchschnittsgewinn: $\sum_{j=1}^{n} X(\omega_j) \cdot \underbrace{\frac{h_j}{n}}_{\textrm{relative Häufigkeit von } \omega_j \approx P(\cbr{\omega_j})  }$
+
+\begin{defi}
+$ X : \Omega \rightarrow \R $ ist Zufallsgröße.
+Erwartungswert von 
+$ X = E X $
+$= \sum_{\omega \in \Omega} X(\omega) \cdot P(\cbr{\omega})$
+\end{defi}
+
+\subsection{Beispiel Würfeln}
+$\Omega = \cbr{1,2,3,4,5,6}, X : \omega \rightarrow \omega^2$\\
+$E X = 1^2 \cdot \frac{1}{6} $
+$+ 2^2 \cdot \frac{1}{6} $
+$+ 3^2 \cdot \frac{1}{6} $
+$+ 4^2 \cdot \frac{1}{6} $
+$+ 5^2 \cdot \frac{1}{6} $
+$+ 6^2 \cdot \frac{1}{6} $
+$= 15.17$
+
+\subsection{Andere Berechnung des Erwartungswertes}
+$ X : \Omega \rightarrow \R, \Omega =\cbr{\omega_1, ..., \omega_n} $. Der Wertebereich von X sei: $\cbr{x_1, ..., x_s}$.\\
+$E X = \sum_{i=1}^{s} x_i \cdot P(X=x_i) $
+$=\sum_{i=1}^{s} x_i \cdot P(\cbr{\omega \in \Omega : X(\omega) = x_i}) $
+$= \sum_{i=1}^{s} x_i \cdot \sum_{X(\omega_j)=x_i} P(\cbr{\omega_j}) $
+$= \sum_{i=1}^{s} \sum_{X(\omega_j)=x_i} x_i \cdot P(\cbr{\omega_j}) $
+$=\sum_{j=1}^{n} X(\omega_j) \cdot P(\cbr{\omega_j})$
+
+\subsection{Beispiel Würfeln mit zwei Würfeln}
+$ X(\omega_1, \omega_2) = max\cbr{\omega_1, \omega_2}$\\
+$ E X = $
+$ 1 \cdot \frac{1}{36}$
+$ + 2 \cdot \frac{3}{36}$ 
+$ + 3 \cdot \frac{5}{36}$ 
+$ + 4 \cdot \frac{7}{36}$ 
+$ + 5 \cdot \frac{9}{36}$ 
+$ + 6 \cdot \frac{11}{36}$ 
+$= 4.47 $
+
+\subsection{Satz}
+\profnote{Wichtiger Satz!}
+\begin{satz}
+$X, Y : \Omega \rightarrow \R $ Zufallsgrößen, $ A \subset \Omega$
+
+\begin{enumerate}
+\item $ E(X+Y) = E X + E Y $
+\item $ E(a \cdot X) = a \cdot E X$
+\item $ E(I_A) = P(A) $
+\item Aus $X \leq Y$ folgt $ E X \leq E Y $ $ \sbr{X(\omega) \leq Y(\omega), \forall \omega \in \Omega} $
+\end{enumerate}
+\end{satz}
+
+\begin{proof} des o.g. Satzes. 
+\begin{enumerate}
+\item $ E(X+Y) = \sum_{\omega \in \Omega} (X+Y)(\omega) \cdot p(\omega)$
+$= \sum_{\omega} X(\omega) \cdot p(\omega) $
+$+ \sum_{\omega} Y(\omega) \cdot p(\omega) $
+$ = E X + E Y $
+\item analog 1.
+\item $E(I_A) $
+$=\sum_{\omega} I_A(\omega) \cdot p(\omega) $
+$= \sum_{\omega \in A} 1 \cdot p(\omega)$
+$= P(A)$
+\item klar.
+\end{enumerate}
+\end{proof}
+Es folgt: $ E(X_1 + X_2 + ... + X_n) $
+$ = E X_1 + E X_2 + ... + E X_n $
+Es seien $A_1, A_2, ..., A_n$ Ereignisse. Zählvariable ist X: \\
+$X(\omega) = $ Anzahl der $A_i$ in denen $\omega$ liegt. $ X = I_{A_1} + I_{A_2} + ... + I_{A_n}$
+
+\subsection{Beispiel Rekorde}
+$\Omega: $ Permutationen der Zahlen 1 bis n $(a_1,a_2,...,a_j,...,a_n)$ \profnote{$a_j$ ist ein Rekord, falls alle vorderen kleiner sind.}\\
+$X(\omega) = $ Anzahl der Rokorde von $\omega$, $A_j: \cbr{\rbr{a_1, ..., a_n} : a_j \textrm{ ist Rekord}}$, $\Rightarrow X = I_{A_1} + I_{A_2} + ... + I_{A_n}$\\
+
+Wir berechnen $P(A_j)$: 
+$\cbr{\rbr{a_1,a_2,...,a_j}}, 1 \leq a_s \leq n $ \profnote{Wir brechen das Tupel bei $a_j$ ab.}
+
+alle: $\binom n j \cdot j!$
+
+günstige: $\binom n j \cdot \rbr{j-1}!$
+
+Wahrscheinlichkeit von $A_j$ (Abzählformel): $ P(A_j) = \frac{\binom n j \cdot \rbr{j-1}!}{\binom n j \cdot j!}$
+$= \frac{1}{j}$
+
+Also: $ E X = $
+$E I_{A_1} + E I_{A_2} + ... + E I_{A_n}$
+$= P(A_1) + P(A_2) + ... + P(A_n)$
+$= 1 + \frac{1}{2} + \frac{1}{3} + ... + \frac{1}{n} $\\
+
+
+z.B.: $n=7$ Permutationen der Zahlen 1 bis 7. 
+$\Rightarrow 1$
+$+ \frac{1}{2}$
+$+ \frac{1}{3}$ 
+$+ \frac{1}{4}$ 
+$+ \frac{1}{5}$ 
+$+ \frac{1}{6}$
+$=2.6$
+
+\subsection{Näherungsformel}
+\includegraphicsdeluxe{einsDurchX1.jpg}{Wir berechnen die Flächen der roten Rechtecke unterhalb der Funktion $f(x) = \frac{1}{x}$}{$f(x) = \frac{1}{x}$}{fig:einsDurchX1}
+Wir berechnen die Flächen der Rechtecke (Abb. \ref{fig:einsDurchX1}). 
+$ \frac{1}{2} + \frac{1}{3} + ... + \frac{1}{n} $
+$ \leq \int_{1}^{n} \frac{1}{x} dx $ 
+$ = \sbr{\ln x}_1^n $ 
+$ = \ln n - \ln 1 $
+$ = \ln n $
+
+Permutationen der Zahlen 1 bis n. X: Anzahl der Rekorde 
+$\Rightarrow E X \leq 1 + \ln n $
+
+z.B.: $n=100 \Rightarrow E X = 5.6$\\
+$n=1 000 000\Rightarrow E X = 14.8$

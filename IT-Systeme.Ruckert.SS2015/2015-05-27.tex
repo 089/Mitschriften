@@ -1,0 +1,161 @@
+% Vorlesung vom 27.05.2015
+\renewcommand{\ldate}{2015-05-27}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+
+\subsection{Fortsetzung Synchronisation von Threads und Prozessen}
+
+\paragraph{CSWAP Instruktion (Compare and Swap):}
+
+\begin{lstlisting}
+CSWAP $X,$Y,$Z	% adresse = $Y+$Z
+\end{lstlisting}
+
+Vergleiche M[adresse] mit rP. \marginpar{rP: Prediction register}
+Falls gleich:  
+\begin{lstlisting}
+speichern: M[adresse] $ <-- $ $X
+setze: $X <-- 1
+\end{lstlisting}
+sonst:
+\begin{lstlisting}
+lade: rP <-- M[adresse]
+setze: $x <-- 0
+\end{lstlisting}
+Die Instruktion ist atomar, d.h. \textbf{ununterbrechbar}.
+
+\textbf{Gemeinsame Daten}
+
+\begin{figure}[htbp]
+% Nr. 1
+\includegraphics[width=1\textwidth]{pics/\ldate_gemeinsame_daten.jpg}
+\caption{Gemeinsame Daten}
+\label{fig:gemeinsame_daten}
+\end{figure}
+
+\begin{lstlisting}
+Aquire:	falls S == 0, setze S auf 1 (blocking)
+	bearbeite buffer (protected code)
+
+Release: setze S auf 0
+\end{lstlisting}
+Was nicht geht:
+\begin{lstlisting}
+1H	LDO $0,S
+	BNZ $0,1B	
+	STCO 1,S
+\end{lstlisting}
+
+\textbf{mit CSWAP}
+\begin{lstlisting}
+1H	PUT rP,0
+	SET $0,1
+	CSWAP $0,S	% atomare Operation
+	BZ $0,1B
+\end{lstlisting}
+
+
+\subsection{Strategien zum Schreiben in den Cache}
+\begin{figure}[htbp]
+% Nr. 2
+\includegraphics[width=1\textwidth]{pics/\ldate_speicherhirarchie.jpg}
+\caption{Speicherhirarchie in der CPU}
+\label{fig:speicherhirarchie}
+\end{figure}
+\marginpar{ganz viele Erklärungen von Herrn Ruckert, die v.a. parallel zum Abmalen des Tafelbilds nicht aufgeschrieben werdne können.}
+
+\paragraph{Write allocate} Die passende cacheline wird geladen, der Wert kommt in die cacheline.
+\paragraph{Write Back} Die passende cacheline wird geladen, geändert und geschrieben.
+\paragraph{Write through} Falls die passende cacheline vorhanden ist, wie write back, sonst wird der Wert am cache vorbei in die nächsttiefere Speicherebene geschrieben (vgl. Abb. \ref{fig:speicherhirarchie}).
+
+\subsection{Funktionsweise von Caches}
+Caches dienen dem schnellen Speicherzugriff. Meist sind sie direkt am Chip (L1-Caches). L2-Caches sind im gleichen Gehäuse der CPU. Es gibt sogenannte cachelines (z.B. 64 Byte). Es wird immer die komplette cacheline geladen oder gespeichert, nie einzelne Bytes (Abb. \ref{fig:cachlines}).  
+
+\begin{figure}[htbp]
+% Nr. 3
+\includegraphics[width=1\textwidth]{pics/\ldate_cachelines.jpg}
+\caption{Cachelines}
+\label{fig:cachlines}
+\end{figure}
+
+\subsection{Non Blocking Synchronisation}
+\paragraph{wait-free:} Jede Operation wird in endlich vielen Schritten fertig. 
+\paragraph{lock-free:} Irgendeine Operation wird in endlich vielen Schritten fertig. 
+\paragraph{obstruction-free:} Ein Thread wird in endlich vielen Schritten fertig, wenn alle anderen Threads gerade pausieren. 
+
+\subsection{Cacheprotokolle MESI}
+\begin{figure}[htbp]
+% Nr. 4
+\includegraphics[width=1\textwidth]{pics/\ldate_cache_mesi.jpg}
+\caption{Funktionsweise von Cache MESI}
+\label{fig:cache_mesi}
+\end{figure}
+
+\section{Datenstrukturen}
+Bisher haben wir z.B. Arrays kennengelernt. Jetzt schauen wir uns dynamische Datenstrukturen an. Das sind Datenstrukturen, die zur Laufzeit die Größe ändern. 
+\paragraph{Dynamische Speicherverwaltung} z.B. die Funktion malloc(size) in C.\marginpar{memmory allocate} Diese Funktion gibt die Adresse zurück, an der size BYTE verfügbar sind. Die Funktion free(adresse) gibt den Speicher an der angegebenen Adresse wieder frei. 
+
+\subsection{Verkettete Listen} 
+
+\begin{figure}[htbp]
+% Nr. 5
+\includegraphics[width=1\textwidth]{pics/\ldate_verkettete_listen.jpg}
+\caption{verkettete Listen}
+\label{fig:verkettete_listen}
+\end{figure}
+
+\paragraph{Insert:} Verkettete Liste mit NEXT (Adresse des nächsten Knotens) und VALUE (Wert 1 OCTA). 
+
+\begin{figure}[htbp]
+% Nr. 6
+\includegraphics[width=1\textwidth]{pics/\ldate_llist_insert.jpg}
+\caption{insert bei verketteten Listen}
+\label{fig:llist_insert}
+\end{figure}
+
+\begin{lstlisting}
+	PREFIX :Insert:
+Head IS $0	% Adresse des list heads (param 1)
+NewElement IS $1	% Adresse des neuen Elements (param 2)
+tmp IS $2
+
+:Insert
+	LDOU tmp,Head,0
+	STOU NewElement,Head,0
+	STOU tmp,NewElement,0
+	POP 0,0
+\end{lstlisting}
+
+Variante 2
+\begin{lstlisting}
+	PREFIX :Insert:
+Head IS $0	% Adresse des list heads (param 1)
+NewElement IS $1	% Adresse des neuen Elements (param 2)
+tmp IS $2
+
+:Insert
+	LDOU tmp,Head,0
+	STOU tmp,NewElement,0
+	STOU NewElement,Head,0
+	
+	POP 0,0
+\end{lstlisting}
+
+\paragraph{Delete:} 
+
+\begin{lstlisting}
+	PREFIX :Delete:
+Head IS $0	% Adresse des list heads (@param 1)
+% Rueckgabewert: 
+%	Null: wenn die Liste leer ist
+%	sonst: Adresse des geloeschten Elements
+return IS $1
+tmp IS $2
+
+:Delete LDOU return,Head,0
+	BZ return,1F
+	LDOU tmp,return,0
+	STOU tmp,Head,0
+1H	SET $0,return
+	POP 1,0
+\end{lstlisting}

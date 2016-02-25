@@ -1,0 +1,116 @@
+% Vorlesung vom 28.05.2015
+\renewcommand{\ldate}{2015-05-28}	% define lessiondate
+
+\section{Symmetrien des gleichseitigen Dreiecks (Wiederholung)}
+
+
+% Nr. 1
+\includegraphicsdeluxe{gleichseitiges_dreieck.jpg}{Spiegelungen an w1, w2, w3, Drehungen 120, 240, id}{fig:gleichseitiges_dreieck}
+
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\circ$ & id & w1 & w2 & w3 & 120 & 240 \\ 
+\hline id & id & w1 & w2 & w3 & 120 & 240 \\ 
+\hline w1 & w1 & id & 120 & 240 & w2 & w3 \\ 
+\hline w2 & w2 & 240 & id & 120 & X & w1 \\ 
+\hline w3 & w3 & 120 & 240 & id & w1 & w2 \\ 
+\hline 120 & 120 & w3 & w1 & w2 & 240 & id \\ 
+\hline 240 & 240 & w2 & w3 & w1 & id & 120 \\ 
+\hline 
+\end{tabular} \\
+X machen wir ausführlich: $w2 \circ 120$, $ 1 \rightarrow 2 $, $ 2 \rightarrow 1 $, $ 3 \rightarrow 3 $, $ \Rightarrow X = w3 $
+
+\paragraph{Gruppencode (ohne Permutationen)}der Länge $n=7$ mit Kontrollsymbol $c=id$: $w1, 120, w1, w3, 120, w3, x$, berechne x passend.\\
+$w1 \circ 120 \circ w1 \circ w3 \circ 120 \circ w3 \circ x = id$\\
+$(w1 \circ 120) \circ (w1 \circ w3) \circ (120 \circ w3) \circ x = id$\\
+$(w2 \circ 240) \circ w2 \circ x = id$ \marginpar{Klammerung wegen Assoziativität beliebig!}\\
+$(w1 \circ w2) \circ x = id$\\
+$120 \circ x = id$\\
+$\Rightarrow x=240$
+
+\paragraph{Gruppencode (mit Permutationen)}der Länge $n=4$ mit Permutationen, Kontrollsymbol $c=id$\\
+$\pi_1$: 
+$\begin{array}{cccccc}
+id & w1 & w2 & w3 & 120 & 240 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+w1 & 120 & id & 240 & w2 & w3
+\end{array}$ 
+\\
+$\pi_2$: 
+$\begin{array}{cccccc}
+id & w1 & w2 & w3 & 120 & 240 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+120 & id & 240 & w1 & w2 & w3
+\end{array}$ 
+\\
+$\pi_3$: 
+$\begin{array}{cccccc}
+id & w1 & w2 & w3 & 120 & 240 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+w3 & 120 & w1 & 240 & w2 & id
+\end{array}$ 
+\\
+$\pi_4$: 
+$\begin{array}{cccccc}
+id & w1 & w2 & w3 & 120 & 240 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+240 & w3 & w1 & w2 & id & 120
+\end{array}$ 
+\\
+$w1,240,w3,x$ berechne x passend:\\ 
+$\pi_1(w1) \circ \pi_2(240) \circ \pi_3(w3) \circ \pi_4(x) = id$\\
+$(120 \circ w3) \circ 240 \circ \pi_4(x) = id$\\
+$w1 \circ \pi_4(x) = id$\\
+$\Rightarrow \pi_4(x) = w1$\\
+$\Rightarrow x=w2$\\
+
+\paragraph{Beispiel ISBN-Code:} Paritätscode mit Gewichten der Länge $n=10$ mit Basis $q=11$. Zeichen: $0,1,2,...,9,10=x$\\
+$\begin{array}{ccccccccccc}
+ & a1 & a2 & a3 & a4 & a5 & a6 & a7 & a8 & a9 & a10 \\ 
+Gew & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1
+\end{array}$
+\\\\
+Ergänze zu einem Code-Wort: 3-528-06783-a:\\
+$3\cdot 10+5\cdot 9+2\cdot 8+8\cdot 7+0\cdot 6+6\cdot 5+7\cdot 4+8\cdot 3+3\cdot 2+a\cdot 1=0$\marginpar{mod 11}\\
+$30+45+16+56+30+28+24+6+a=0$\\
+$8+1+5+1+8+6+2+6+a=0$\\
+$37+a=0$\\
+$4+a=0 \Rightarrow a=7$
+
+\section{Kryptographie}
+
+
+% Nr. 2
+\includegraphicsdeluxe{krypto1.jpg}{Verschlüsselung und Entschlüsselung (f, g sind öffentlich und k, $\tilde{k}$ geheim)}{fig:krypto1}
+
+\paragraph{symmetrisch} $k=\tilde{k}$ oder $\tilde{k}=k$ kann aus k leicht berechnet werden. 
+\paragraph{asymmetrisch} $k \neq \tilde{k}, \tilde{k}$ kann nicht oder nur sehr schwer berechnet werden.
+
+\subsection{Symmetrische Verfahren}
+\subsubsection{Stromchiffren}
+Als Klartext nehmen wir eine Bitfolge. Der geheime Schlüssel auch. \marginpar{Nachteil des Verfahrens: langer Schlüssel}
+
+% 3
+\includegraphicsdeluxe{krypto2.jpg}{Funktionsweise symmetrische Verschlüsselung. Die Rote + Operation ist eigentlich eine - Operation. Bei Bits, also mod 2, kann aber Plus durch Minus ersetzt werden.}{fig:krypto2}
+
+
+
+\paragraph{Beispiel:} Pseudo-Zufallsgenerator\\
+\resizebox{\linewidth}{!}{\input{pics/krypto_pseudo_zuf-generator}}
+
+\paragraph{binäres Schieberegister} Wir rechnen mod 2
+\begin{itemize}
+\item Berechne $w=c_1 s_1+c_2 s_2+...+c_n s_n$
+\item s1 ausgeben
+\item Alle $s_i$ um eins nach rechts schieben
+\item $s_n := w$
+\end{itemize}
+Der Schlüssel ist die erste Belegung von $s_1, ..., s_n$
+
+\paragraph{Beispiel}
+
+
+% 4
+\includegraphicsdeluxe{krypto3.jpg}{Beispiel}{fig:krypto_beispiel}
+
+Zellen gleiche Belegung: Dann geht es von vorne los $\rightarrow$ Der Schlüsselstrom ist periodisch. 

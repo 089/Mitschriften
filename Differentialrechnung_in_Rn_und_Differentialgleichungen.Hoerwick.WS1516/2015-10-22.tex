@@ -1,0 +1,72 @@
+% Vorlesung vom 22.10.2015
+\renewcommand{\ldate}{2015-10-22}
+
+\subsection{Linearisierung}
+$f:\R \rightarrow \R^n, f(t+\Dt )\approx f(t) + \Dt f'(t) $\\
+z.B. $ f(t)= \vektor{\sin t\\ \cos t\\ \sin t^2}, f'(t)=\vektor{\cos t\\-\sin t\\2 t \cos t^2}$\\
+$f(t+\Dt) \approx \vektor{\sin t\\ \cos t\\ \sin t^2} + \Dt \cdot \vektor{\cos t\\-\sin t\\2 t \cos t^2}$\\
+\underline{Bei $t=0$:}\\
+$f(\Dt) \approx \vektor{0\\1\\0} + \Dt \vektor{1\\0\\0}$\\
+$\Dt=0.1: f(0.1)\approx \vektor{0+0.1\\1+0\\0+0}=\vektor{0.1\\1\\0}$
+$= \vektor{sin 0.1\\ \cos 0.1\\ \sin 0.01} = \vektor{0.1\\ 0.99\\ 0.01} \checkmark $
+
+\subsection{Die Zykloide}
+\label{sec:die_zykloide}
+\includegraphicsdeluxe{zykloid1.jpg}{Ein Zykloid}{Ein Zykloid entsteht durch Abrollen eines Kreispunktes (rote Linie). Radius R, Parameter $\varphi$, t-s-Hilfskoordinatensystem (blau)}{fig:zykloid1}
+Ein Kreis rollt auf einer Geraden ab. Bahn des Punktes P. Im s-t-Hilfskoordinatensystem (vgl. Abb. \ref{fig:zykloid1}): 
+$s(\varphi) = R \cos \varphi, t(\varphi) = R \sin \varphi$, im x-y-System: 
+$x(\varphi) = R \varphi - t = R\varphi - R \sin \varphi, y(\varphi)=R-s = R-R \cos \varphi$, also: \\
+$f(\varphi) = \vektor{x(\varphi)\\y(\varphi)}$
+$= \vektor{R\varphi - R \sin \varphi\\R-R \cos \varphi}$
+$=R\cdot \vektor{\varphi - \sin \varphi\\1-\cos \varphi}$ (Zykloide)
+
+\includegraphicsdeluxe{zykloid2.jpg}{Zykloidbahn}{Die Bahn eines Zykloids}{fig:zykloid2}
+Eine Umdrehung in $2\pi$ Sekunden, Radgeschwindigkeit: $\frac{2R\pi}{2\pi} =R$\\
+$f'(\pi) = R\cdot \vektor{1 - \cos \varphi\\\sin \varphi}$
+$f'(\pi)=R\cdot \vektor{1-(-1)\\0}$
+$=R\cdot \vektor{2\\0}$, 
+$\abs{f'(\pi)} = 2R \Rightarrow$ Doppelt so schnell wie Radgeschwindigkeit. 
+
+\section{Bogenlänge einer Kurve}
+\includegraphicsdeluxe{bogenlaenge_kurve1.jpg}{Bogenlänge einer Kurve}{Wir wollen die Bogenlänge einer Kurve berechnen (s).}{fig:bogenlaenge_kurve1}
+\includegraphicsdeluxe{bogenlaenge2.jpg}{Bogenlänge einer Kurve}{Die Bogenlänge für den Abschnitt a bis b.}{fig:bogenlaenge2}
+$ y=f(x), s=\sqrt{\Dy^2 + \Dt^2}, f'(x_i)\approx \frac{\Dy}{\Dx}$\\
+$s\approx \sqrt{\Dx^2 + f'(x_i)^2 \cdot \Dx^2} \approx \Dx \sqrt{1+f'(x_i)^2}$ (Abb. \ref{fig:bogenlaenge_kurve1})\\
+$L_{a,b} \approx \sum_{i=0}^{n-1} s_i \approx \sum_{i=0}^{n-1} \Dx \sqrt{1+f'(x_i)^2} \xrightarrow[n\rightarrow \infty]{} $
+$\int_{a}^{b} \sqrt{1+f'(x)^2} dx $ (Bogenlänge, vgl. Abb. \ref{fig:bogenlaenge2}) 
+
+
+\subsection{Beispiel Kreis}
+\includegraphicsdeluxe{beispiel_kreis.jpg}{Beispiel Kreis}{Beispiel Kreis}{fig:beispiel_kreis}
+$r^2 = x^2 + y^2 \Rightarrow y = \sqrt{r^2 - x^2}, f(x)= (r^2-x^2)^{\frac{1}{2}}, f'(x) = \frac{1}{2}(r^2 - x^2)^{-\frac{1}{2}}$
+$L_{0,r} = \int_{0}^{r} \sqrt{1+\frac{x^2}{r^2 - x^2}} dx$
+$= \int_{0}^{r} \sqrt{\frac{r^2 - x^2 + x^2}{r^2-x^2}} dx$
+$= \int_{0}^{r} \sqrt{\frac{r^2}{r^2 - x^2}} dx$
+$= r \int_{0}^{r} \sqrt{\frac{1}{r^2 - x^2}} dx$
+$\underbrace{=}_{Formelsammlung}  \sbr{r \arcsin \frac{x}{r}}_0^r = r(\arcsin 1 - \arcsin 0)$
+$= r(\frac{\pi}{2} - 0)$
+$= r \frac{\pi}{2}$\\
+ganzer Kreis: $4r \frac{\pi}{2} = 2\pi r$
+
+\subsection{Bogenlänge einer Kurve in Parameterdarstellung}
+\includegraphicsdeluxe{bogenlaenge_param.jpg}{Bogenlänge einer Kurve }{Bogenlänge einer Kurve in Parameterdarstellung}{fig:bogenlaenge_param}
+$L_{a,b} \approx \sum_{i=0}^{n-1} \abs{f(t_{i+1}) - f(t_i)} $
+$\approx \sum_{i=0}^{n-1} \abs{f'(t_i)} \cdot \Dt $
+$\xrightarrow[n\rightarrow \infty]{} \int_{a}^{b} \abs{f'(t)} \Dt$, also: \\
+$L_{a,b} f(t) = \int_{a}^{b} \abs{f'(t)} \Dt $ (Integral über Betrag der Geschwindigkeit).
+
+\subsection{Beispiel Schraubenlinie}
+\includegraphicsdeluxe{schraubenlinie1.jpg}{Schraubenlinie}{Eine Schraubenlinie im $\R^3$. Sie wird entlang der roten Linie abgewickelt}{fig:schraubenlinie1}
+\includegraphicsdeluxe{schraubenlinie2.jpg}{Abgewickelte Schraubenlinie}{Durch das Abwickeln der Schraubenlinie entlang der roten Linie entsteht ein Rechteck. Die abgewickelte Schraubenlinie ist eine Gerade.}{fig:schraubenlinie2}
+$f(\varphi)=\rbr{R \cos \varphi, R \sin \varphi, v\cdot \varphi}$, v ist der Vorschub. Die Schraubenlinie befindet sich auf dem Schraubzylinder. Wickelt man den Schraubzylinder entlang der roten Linie (Abb. \ref{fig:schraubenlinie1}) ab, so entsteht ein Rechteck (Abb. \ref{fig:schraubenlinie2}). 
+$L^2 = (2R\pi)^2 + (v2\pi)^2 = 4R^2 \pi^2 + 4v^2 \pi^2 = 4\pi^2(R^2+v^2)$
+$\Rightarrow L=2\pi \sqrt{R^2 + v^2}$
+
+\subsection{Hausaufgabe}
+% \profnote{Ausrechnen nach der Formel.}
+\profnote{Aus der Formelsammlung: $\sin^2 t + \cos^2 t =1$}
+$f(\varphi)=\rbr{R \cos \varphi, R \sin \varphi, v\cdot \varphi}$, $f'(\varphi)=\rbr{-R \sin \varphi, R \cos \varphi, v}$\\
+$\abs{f'(\varphi)}= \sqrt{R^2 \sin ^2 \varphi + R^2 \cos^2 \varphi + v^2}$
+$= \sqrt{R^2 + v^2}$\\
+$L_{0,2\pi}=\int_{0}^{2\pi} \sqrt{R^2 + v^2} dt = \sbr{\sqrt{R^2 + v^2} \ t}_{t=0}^{t=2\pi}$
+\underline{$= \sqrt{R^2 + v^2} 2\pi$}

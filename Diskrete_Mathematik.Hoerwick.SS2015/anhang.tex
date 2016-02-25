@@ -1,0 +1,380 @@
+ % Vorlesung vom 29.06.2015
+\renewcommand{\ldate}{Anhang}	% define lessiondate
+
+\section{Hilfsmittel für die Prüfung}
+\subsection{Eulerkreis und Eulertour}
+\paragraph{Der Eulerkreis} enthält alle Kanten des Graphen G \textbf{genau einmal}. Der Eulerkreis kann gezeichnet werden ohne abzusetzen. Es gilt: 
+\begin{itemize}
+\item G ist eulersch,
+\item G ist zusammenhängend und jeder Knoten hat geraden Grad.
+\end{itemize}
+\paragraph{Eine Eulertour} bzw. offene eulersche Linie nennt man einen Weg, der \textbf{kein Kreis} ist, wenn jede Kante darin \textbf{genau einmal} vorkommt. 
+
+G ist \textbf{offene eulersche Linie} $\Leftrightarrow$ G hat \textbf{genau zwei Knoten} mit \textbf{ungeradem Grad}
+
+\subsection{Chinesischer Restsatz} 
+Seien $m_1, m_2, ..., m_n$  \textbf{teilerfremde} natürliche Zahlen und $a_1, a_2, ..., a_n \in \Z$ beliebig $\exists x\in \Z$ mit: \\
+
+$
+\left.
+\begin{matrix}
+x\equiv a_1 \textrm{ mod } m_1\\
+x\equiv a_2 \textrm{ mod } m_2\\
+\vdots\\
+x\equiv a_n \textrm{ mod } m_n\\
+\end{matrix}
+\right\rbrace
+$ simultane Kongruenz\\
+
+$m=m_1\cdot m_2\cdot ...\cdot m_n$\\
+$M_i=\frac{m_1\cdot m_2\cdot ...\cdot m_n}{m_i}=\frac{m}{m_i}$\\
+
+\subsection{Permutationen}
+\subsubsection{Anzahl Permutationen ohne Fixpunkte}
+\paragraph{genaue Berechnung}
+$a(n)=n!\underbrace{(1-\frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+...+(-1)^n \frac{1}{n!})}_{\approx e^{-1}}$
+\paragraph{Nährungslösung}
+$a(n) \approx n! e^{-1}= \frac{n!}{e}$
+\paragraph{Wahrscheinlichkeit kein Fixpunkt}
+$P=\frac{\textrm{günstige Fälle}}{\textrm{alle Fälle}} = \frac{a(n)}{n!}$
+
+\subsection{ggT} Seien $a,b \in \Z$ mit $a \neq 0$. Seien q und r Zahlen mit $b=qa+r \Rightarrow ggT(b,a)=ggT(a,r)$.
+
+\subsubsection{euklidischer Algorithmus} Der euklidische Algorithmus ist ein Algorithmus aus dem mathematischen Teilgebiet der Zahlentheorie. Mit ihm lässt sich der größte gemeinsame Teiler zweier natürlicher Zahlen a und b berechnen. Als erstes berechnet man a mod b. Dabei erhält man das ganzzahlige Ergebnis der Division und den Rest r. Das macht man so lange, bis man für den Rest 0 erhält. Das aktuelle b ist dann der ggT(a,b). Tabellarisch kann man den Algorithmus wie im folgenden Beispiel durchführen ggT(128,34):
+
+\begin{tabular}{|c|c|c|c|}
+\hline a & b & q & r \\ 
+\hline 128 & 34 & 3 & 26 \\ 
+\hline 34 & 26 & 1 & 8 \\ 
+\hline 26 & 8 & 3 & 2 \\ 
+\hline 8 & 2 & 4 & 0 \\ 
+\hline 
+\end{tabular} 
+
+\subsubsection{Erweiterter euklidischer Algorithmus}
+Der erweiterte euklidische Algorithmus ist ein Algorithmus aus dem mathematischen Teilgebiet der Zahlentheorie. Er berechnet neben dem größten gemeinsamen Teiler ggT(a,b) zweier natürlicher Zahlen a und b noch zwei ganze Zahlen x und y, die die folgende Gleichung erfüllen: $ggT(a,b) = x \cdot a + y \cdot b$. 
+
+Den erweiterten euklidischen Algorithmus startet man unten auf der rechten Seite der Tabelle. Das Ergebnis steht dann rechts in der obersten Zeile. Dabei ist $x_i=y_{i+1}$ und $y_i = x_{i+1} - q_i * y_{i+1}$:
+
+\begin{tabular}{|c|c|c|c||c|c|}
+\hline a & b & q & r & x & y \\ 
+\hline 128 & 34 & 3 & 26 & 4 & -15 \\ 
+\hline 34 & 26 & 1 & 8 & -3 & 4 \\ 
+\hline 26 & 8 & 3 & 2 & 1 & -3 \\ 
+\hline 8 & 2 & 4 & 0 & 0 & 1 \\ 
+\hline 
+\end{tabular} 
+
+\subsection{schnelle Exponentation}\index{schnelle Exponentation}
+Im Zahlenkörper ($\Z_{\textbf{53}},+,\cdot$) berechne man:
+$28^{34}=?$\\
+$34=2^5 + 2^1$ mod \textbf{53}\\
+$28^{(2^0)} = 28$\\
+$28^{(2^1)} = 784 = \textbf{\underline{42}}$\\
+$28^{(2^2)} = \textbf{42}^2 = 1764 = \textbf{15}$\\
+$28^{(2^3)} = \textbf{15}^2 = 225 = \textbf{13}$\\
+$28^{(2^4)} = \textbf{13}^2 = 169 = \textbf{10}$\\
+$28^{(2^5)} = \textbf{10}^2 = 100 = \textbf{\underline{47}}$\\
+$28^{34} = 28^{2^5+2^1}= 28^{(2^5)} \cdot  28^{(2^1)} = \textbf{\underline{47}} \cdot  \textbf{\underline{42}} = 1974 = 13$
+
+\subsection{$\Z_n^*$}
+Wir bezeichnen die Menge derjenigen Restklassen von $\Z_n$, die ein multiplikatives Inverses haben, mit $\Z_n^*$. In $\Z_n^*$ liegen also genau diejenigen Restklassen [a] von $\Z_n$ mit $ggT(a,n)=1$.
+Die Restklassen [1] und [n-1] sind stets in $\Z_n^*$ enthalten, denn beide sind teilerfremd zu n. 
+
+$\Z_n^*$ ist abgeschlossen bezüglich Multiplikation $\Rightarrow$ $[a]\cdot [b]$ liegt wieder in $\Z_n^*$. $\Z_n^*$ ist eine \textbf{Gruppe} $\Rightarrow$ Es gilt das Assoziativgesetz, es gibt ein neutrales Element und jedes Element hat ein Inverses. 
+
+\subsubsection{$\Z_{4}^*$}
+\begin{tabular}{|c|c|c|}
+\hline $\cdot$  & 1 & 3\\
+\hline 1 & 1 & 3\\
+\hline 3 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{5}^*$}
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4\\
+\hline 1 & 1 & 2 & 3 & 4\\
+\hline 2 & 2 & 4 & 1 & 3\\
+\hline 3 & 3 & 1 & 4 & 2\\
+\hline 4 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{6}^*$}
+\begin{tabular}{|c|c|c|}
+\hline $\cdot$  & 1 & 5\\
+\hline 1 & 1 & 5\\
+\hline 5 & 5 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{7}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4 & 5 & 6\\
+\hline 1 & 1 & 2 & 3 & 4 & 5 & 6\\
+\hline 2 & 2 & 4 & 6 & 1 & 3 & 5\\
+\hline 3 & 3 & 6 & 2 & 5 & 1 & 4\\
+\hline 4 & 4 & 1 & 5 & 2 & 6 & 3\\
+\hline 5 & 5 & 3 & 1 & 6 & 4 & 2\\
+\hline 6 & 6 & 5 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{8}^*$}
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 5 & 7\\
+\hline 1 & 1 & 3 & 5 & 7\\
+\hline 3 & 3 & 1 & 7 & 5\\
+\hline 5 & 5 & 7 & 1 & 3\\
+\hline 7 & 7 & 5 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{9}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 4 & 5 & 7 & 8\\
+\hline 1 & 1 & 2 & 4 & 5 & 7 & 8\\
+\hline 2 & 2 & 4 & 8 & 1 & 5 & 7\\
+\hline 4 & 4 & 8 & 7 & 2 & 1 & 5\\
+\hline 5 & 5 & 1 & 2 & 7 & 8 & 4\\
+\hline 7 & 7 & 5 & 1 & 8 & 4 & 2\\
+\hline 8 & 8 & 7 & 5 & 4 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{10}^*$}
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 7 & 9\\
+\hline 1 & 1 & 3 & 7 & 9\\
+\hline 3 & 3 & 9 & 1 & 7\\
+\hline 7 & 7 & 1 & 9 & 3\\
+\hline 9 & 9 & 7 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{11}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline 1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\
+\hline 2 & 2 & 4 & 6 & 8 & 10 & 1 & 3 & 5 & 7 & 9\\
+\hline 3 & 3 & 6 & 9 & 1 & 4 & 7 & 10 & 2 & 5 & 8\\
+\hline 4 & 4 & 8 & 1 & 5 & 9 & 2 & 6 & 10 & 3 & 7\\
+\hline 5 & 5 & 10 & 4 & 9 & 3 & 8 & 2 & 7 & 1 & 6\\
+\hline 6 & 6 & 1 & 7 & 2 & 8 & 3 & 9 & 4 & 10 & 5\\
+\hline 7 & 7 & 3 & 10 & 6 & 2 & 9 & 5 & 1 & 8 & 4\\
+\hline 8 & 8 & 5 & 2 & 10 & 7 & 4 & 1 & 9 & 6 & 3\\
+\hline 9 & 9 & 7 & 5 & 3 & 1 & 10 & 8 & 6 & 4 & 2\\
+\hline 10 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{12}^*$}
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 5 & 7 & 11\\
+\hline 1 & 1 & 5 & 7 & 11\\
+\hline 5 & 5 & 1 & 11 & 7\\
+\hline 7 & 7 & 11 & 1 & 5\\
+\hline 11 & 11 & 7 & 5 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{13}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\
+\hline 1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\
+\hline 2 & 2 & 4 & 6 & 8 & 10 & 12 & 1 & 3 & 5 & 7 & 9 & 11\\
+\hline 3 & 3 & 6 & 9 & 12 & 2 & 5 & 8 & 11 & 1 & 4 & 7 & 10\\
+\hline 4 & 4 & 8 & 12 & 3 & 7 & 11 & 2 & 6 & 10 & 1 & 5 & 9\\
+\hline 5 & 5 & 10 & 2 & 7 & 12 & 4 & 9 & 1 & 6 & 11 & 3 & 8\\
+\hline 6 & 6 & 12 & 5 & 11 & 4 & 10 & 3 & 9 & 2 & 8 & 1 & 7\\
+\hline 7 & 7 & 1 & 8 & 2 & 9 & 3 & 10 & 4 & 11 & 5 & 12 & 6\\
+\hline 8 & 8 & 3 & 11 & 6 & 1 & 9 & 4 & 12 & 7 & 2 & 10 & 5\\
+\hline 9 & 9 & 5 & 1 & 10 & 6 & 2 & 11 & 7 & 3 & 12 & 8 & 4\\
+\hline 10 & 10 & 7 & 4 & 1 & 11 & 8 & 5 & 2 & 12 & 9 & 6 & 3\\
+\hline 11 & 11 & 9 & 7 & 5 & 3 & 1 & 12 & 10 & 8 & 6 & 4 & 2\\
+\hline 12 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{14}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 5 & 9 & 11 & 13\\
+\hline 1 & 1 & 3 & 5 & 9 & 11 & 13\\
+\hline 3 & 3 & 9 & 1 & 13 & 5 & 11\\
+\hline 5 & 5 & 1 & 11 & 3 & 13 & 9\\
+\hline 9 & 9 & 13 & 3 & 11 & 1 & 5\\
+\hline 11 & 11 & 5 & 13 & 1 & 9 & 3\\
+\hline 13 & 13 & 11 & 9 & 5 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{15}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 4 & 7 & 8 & 11 & 13 & 14\\
+\hline 1 & 1 & 2 & 4 & 7 & 8 & 11 & 13 & 14\\
+\hline 2 & 2 & 4 & 8 & 14 & 1 & 7 & 11 & 13\\
+\hline 4 & 4 & 8 & 1 & 13 & 2 & 14 & 7 & 11\\
+\hline 7 & 7 & 14 & 13 & 4 & 11 & 2 & 1 & 8\\
+\hline 8 & 8 & 1 & 2 & 11 & 4 & 13 & 14 & 7\\
+\hline 11 & 11 & 7 & 14 & 2 & 13 & 1 & 8 & 4\\
+\hline 13 & 13 & 11 & 7 & 1 & 14 & 8 & 4 & 2\\
+\hline 14 & 14 & 13 & 11 & 8 & 7 & 4 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{16}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15\\
+\hline 1 & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15\\
+\hline 3 & 3 & 9 & 15 & 5 & 11 & 1 & 7 & 13\\
+\hline 5 & 5 & 15 & 9 & 3 & 13 & 7 & 1 & 11\\
+\hline 7 & 7 & 5 & 3 & 1 & 15 & 13 & 11 & 9\\
+\hline 9 & 9 & 11 & 13 & 15 & 1 & 3 & 5 & 7\\
+\hline 11 & 11 & 1 & 7 & 13 & 3 & 9 & 15 & 5\\
+\hline 13 & 13 & 7 & 1 & 11 & 5 & 15 & 9 & 3\\
+\hline 15 & 15 & 13 & 11 & 9 & 7 & 5 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{17}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16\\
+\hline 1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16\\
+\hline 2 & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15\\
+\hline 3 & 3 & 6 & 9 & 12 & 15 & 1 & 4 & 7 & 10 & 13 & 16 & 2 & 5 & 8 & 11 & 14\\
+\hline 4 & 4 & 8 & 12 & 16 & 3 & 7 & 11 & 15 & 2 & 6 & 10 & 14 & 1 & 5 & 9 & 13\\
+\hline 5 & 5 & 10 & 15 & 3 & 8 & 13 & 1 & 6 & 11 & 16 & 4 & 9 & 14 & 2 & 7 & 12\\
+\hline 6 & 6 & 12 & 1 & 7 & 13 & 2 & 8 & 14 & 3 & 9 & 15 & 4 & 10 & 16 & 5 & 11\\
+\hline 7 & 7 & 14 & 4 & 11 & 1 & 8 & 15 & 5 & 12 & 2 & 9 & 16 & 6 & 13 & 3 & 10\\
+\hline 8 & 8 & 16 & 7 & 15 & 6 & 14 & 5 & 13 & 4 & 12 & 3 & 11 & 2 & 10 & 1 & 9\\
+\hline 9 & 9 & 1 & 10 & 2 & 11 & 3 & 12 & 4 & 13 & 5 & 14 & 6 & 15 & 7 & 16 & 8\\
+\hline 10 & 10 & 3 & 13 & 6 & 16 & 9 & 2 & 12 & 5 & 15 & 8 & 1 & 11 & 4 & 14 & 7\\
+\hline 11 & 11 & 5 & 16 & 10 & 4 & 15 & 9 & 3 & 14 & 8 & 2 & 13 & 7 & 1 & 12 & 6\\
+\hline 12 & 12 & 7 & 2 & 14 & 9 & 4 & 16 & 11 & 6 & 1 & 13 & 8 & 3 & 15 & 10 & 5\\
+\hline 13 & 13 & 9 & 5 & 1 & 14 & 10 & 6 & 2 & 15 & 11 & 7 & 3 & 16 & 12 & 8 & 4\\
+\hline 14 & 14 & 11 & 8 & 5 & 2 & 16 & 13 & 10 & 7 & 4 & 1 & 15 & 12 & 9 & 6 & 3\\
+\hline 15 & 15 & 13 & 11 & 9 & 7 & 5 & 3 & 1 & 16 & 14 & 12 & 10 & 8 & 6 & 4 & 2\\
+\hline 16 & 16 & 15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{18}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 5 & 7 & 11 & 13 & 17\\
+\hline 1 & 1 & 5 & 7 & 11 & 13 & 17\\
+\hline 5 & 5 & 7 & 17 & 1 & 11 & 13\\
+\hline 7 & 7 & 17 & 13 & 5 & 1 & 11\\
+\hline 11 & 11 & 1 & 5 & 13 & 17 & 7\\
+\hline 13 & 13 & 11 & 1 & 17 & 7 & 5\\
+\hline 17 & 17 & 13 & 11 & 7 & 5 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{19}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18\\
+\hline 1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18\\
+\hline 2 & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 1 & 3 & 5 & 7 & 9 & 11 & 13 & 15 & 17\\
+\hline 3 & 3 & 6 & 9 & 12 & 15 & 18 & 2 & 5 & 8 & 11 & 14 & 17 & 1 & 4 & 7 & 10 & 13 & 16\\
+\hline 4 & 4 & 8 & 12 & 16 & 1 & 5 & 9 & 13 & 17 & 2 & 6 & 10 & 14 & 18 & 3 & 7 & 11 & 15\\
+\hline 5 & 5 & 10 & 15 & 1 & 6 & 11 & 16 & 2 & 7 & 12 & 17 & 3 & 8 & 13 & 18 & 4 & 9 & 14\\
+\hline 6 & 6 & 12 & 18 & 5 & 11 & 17 & 4 & 10 & 16 & 3 & 9 & 15 & 2 & 8 & 14 & 1 & 7 & 13\\
+\hline 7 & 7 & 14 & 2 & 9 & 16 & 4 & 11 & 18 & 6 & 13 & 1 & 8 & 15 & 3 & 10 & 17 & 5 & 12\\
+\hline 8 & 8 & 16 & 5 & 13 & 2 & 10 & 18 & 7 & 15 & 4 & 12 & 1 & 9 & 17 & 6 & 14 & 3 & 11\\
+\hline 9 & 9 & 18 & 8 & 17 & 7 & 16 & 6 & 15 & 5 & 14 & 4 & 13 & 3 & 12 & 2 & 11 & 1 & 10\\
+\hline 10 & 10 & 1 & 11 & 2 & 12 & 3 & 13 & 4 & 14 & 5 & 15 & 6 & 16 & 7 & 17 & 8 & 18 & 9\\
+\hline 11 & 11 & 3 & 14 & 6 & 17 & 9 & 1 & 12 & 4 & 15 & 7 & 18 & 10 & 2 & 13 & 5 & 16 & 8\\
+\hline 12 & 12 & 5 & 17 & 10 & 3 & 15 & 8 & 1 & 13 & 6 & 18 & 11 & 4 & 16 & 9 & 2 & 14 & 7\\
+\hline 13 & 13 & 7 & 1 & 14 & 8 & 2 & 15 & 9 & 3 & 16 & 10 & 4 & 17 & 11 & 5 & 18 & 12 & 6\\
+\hline 14 & 14 & 9 & 4 & 18 & 13 & 8 & 3 & 17 & 12 & 7 & 2 & 16 & 11 & 6 & 1 & 15 & 10 & 5\\
+\hline 15 & 15 & 11 & 7 & 3 & 18 & 14 & 10 & 6 & 2 & 17 & 13 & 9 & 5 & 1 & 16 & 12 & 8 & 4\\
+\hline 16 & 16 & 13 & 10 & 7 & 4 & 1 & 17 & 14 & 11 & 8 & 5 & 2 & 18 & 15 & 12 & 9 & 6 & 3\\
+\hline 17 & 17 & 15 & 13 & 11 & 9 & 7 & 5 & 3 & 1 & 18 & 16 & 14 & 12 & 10 & 8 & 6 & 4 & 2\\
+\hline 18 & 18 & 17 & 16 & 15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{20}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 7 & 9 & 11 & 13 & 17 & 19\\
+\hline 1 & 1 & 3 & 7 & 9 & 11 & 13 & 17 & 19\\
+\hline 3 & 3 & 9 & 1 & 7 & 13 & 19 & 11 & 17\\
+\hline 7 & 7 & 1 & 9 & 3 & 17 & 11 & 19 & 13\\
+\hline 9 & 9 & 7 & 3 & 1 & 19 & 17 & 13 & 11\\
+\hline 11 & 11 & 13 & 17 & 19 & 1 & 3 & 7 & 9\\
+\hline 13 & 13 & 19 & 11 & 17 & 3 & 9 & 1 & 7\\
+\hline 17 & 17 & 11 & 19 & 13 & 7 & 1 & 9 & 3\\
+\hline 19 & 19 & 17 & 13 & 11 & 9 & 7 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{21}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 2 & 4 & 5 & 8 & 10 & 11 & 13 & 16 & 17 & 19 & 20\\
+\hline 1 & 1 & 2 & 4 & 5 & 8 & 10 & 11 & 13 & 16 & 17 & 19 & 20\\
+\hline 2 & 2 & 4 & 8 & 10 & 16 & 20 & 1 & 5 & 11 & 13 & 17 & 19\\
+\hline 4 & 4 & 8 & 16 & 20 & 11 & 19 & 2 & 10 & 1 & 5 & 13 & 17\\
+\hline 5 & 5 & 10 & 20 & 4 & 19 & 8 & 13 & 2 & 17 & 1 & 11 & 16\\
+\hline 8 & 8 & 16 & 11 & 19 & 1 & 17 & 4 & 20 & 2 & 10 & 5 & 13\\
+\hline 10 & 10 & 20 & 19 & 8 & 17 & 16 & 5 & 4 & 13 & 2 & 1 & 11\\
+\hline 11 & 11 & 1 & 2 & 13 & 4 & 5 & 16 & 17 & 8 & 19 & 20 & 10\\
+\hline 13 & 13 & 5 & 10 & 2 & 20 & 4 & 17 & 1 & 19 & 11 & 16 & 8\\
+\hline 16 & 16 & 11 & 1 & 17 & 2 & 13 & 8 & 19 & 4 & 20 & 10 & 5\\
+\hline 17 & 17 & 13 & 5 & 1 & 10 & 2 & 19 & 11 & 20 & 16 & 8 & 4\\
+\hline 19 & 19 & 17 & 13 & 11 & 5 & 1 & 20 & 16 & 10 & 8 & 4 & 2\\
+\hline 20 & 20 & 19 & 17 & 16 & 13 & 11 & 10 & 8 & 5 & 4 & 2 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{22}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 3 & 5 & 7 & 9 & 13 & 15 & 17 & 19 & 21\\
+\hline 1 & 1 & 3 & 5 & 7 & 9 & 13 & 15 & 17 & 19 & 21\\
+\hline 3 & 3 & 9 & 15 & 21 & 5 & 17 & 1 & 7 & 13 & 19\\
+\hline 5 & 5 & 15 & 3 & 13 & 1 & 21 & 9 & 19 & 7 & 17\\
+\hline 7 & 7 & 21 & 13 & 5 & 19 & 3 & 17 & 9 & 1 & 15\\
+\hline 9 & 9 & 5 & 1 & 19 & 15 & 7 & 3 & 21 & 17 & 13\\
+\hline 13 & 13 & 17 & 21 & 3 & 7 & 15 & 19 & 1 & 5 & 9\\
+\hline 15 & 15 & 1 & 9 & 17 & 3 & 19 & 5 & 13 & 21 & 7\\
+\hline 17 & 17 & 7 & 19 & 9 & 21 & 1 & 13 & 3 & 15 & 5\\
+\hline 19 & 19 & 13 & 7 & 1 & 17 & 5 & 21 & 15 & 9 & 3\\
+\hline 21 & 21 & 19 & 17 & 15 & 13 & 9 & 7 & 5 & 3 & 1\\
+\hline
+\end{tabular}
+
+
+\subsubsection{$\Z_{24}^*$}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$  & 1 & 5 & 7 & 11 & 13 & 17 & 19 & 23\\
+\hline 1 & 1 & 5 & 7 & 11 & 13 & 17 & 19 & 23\\
+\hline 5 & 5 & 1 & 11 & 7 & 17 & 13 & 23 & 19\\
+\hline 7 & 7 & 11 & 1 & 5 & 19 & 23 & 13 & 17\\
+\hline 11 & 11 & 7 & 5 & 1 & 23 & 19 & 17 & 13\\
+\hline 13 & 13 & 17 & 19 & 23 & 1 & 5 & 7 & 11\\
+\hline 17 & 17 & 13 & 23 & 19 & 5 & 1 & 11 & 7\\
+\hline 19 & 19 & 23 & 13 & 17 & 7 & 11 & 1 & 5\\
+\hline 23 & 23 & 19 & 17 & 13 & 11 & 7 & 5 & 1\\
+\hline
+\end{tabular}
+
+
+

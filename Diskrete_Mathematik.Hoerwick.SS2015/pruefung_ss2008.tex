@@ -1,0 +1,98 @@
+ % Vorlesung vom 25.06.2015
+\renewcommand{\ldate}{2015-06-25}	% define lessiondate
+
+% Angabe einbinden
+% \includepdf[pages={1,3-5}]{Dateiname}
+
+\section{Lösung zur Prüfung SS 2008}
+
+\subsection{Aufgabe 1}
+$n=1: $ linke Seite: 1, rechte Seite 1 $\checkmark$\\
+Zeige: $\sum_{k=1}^{n+1}=\frac{(n+1)^2 (n+2)^2}{4} \Leftrightarrow \frac{n^2 (n+1)^2}{4}+(n+1)=\frac{(n+1)^2 (n+2)^2}{4}$
+$\Leftrightarrow (n+1)^3=\frac{(n+1)^2 (n+2)^2 - n^2 (n+1)^2}{4} \Leftrightarrow (n+1) = \frac{(n+2)^2 - n^2}{4} = \frac{n^2+4n+4-n^2}{4} \Rightarrow n+1=n+1$
+
+\subsection{Aufgabe 2}\index{Euklidischer Algorithmus}
+ggT(385,595)\\
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline a & b & q & r & x & y \\ 
+\hline 595 & 385 & 1 & 210 &  &  \\ 
+\hline 385 & 210 & 1 & 175 &  &  \\ 
+\hline 210 & 175 & 1 & 35 & 1 &  \\ 
+\hline 175 & 35 & 5 & 0 & 0 & 1 \\ 
+\hline  &  &  &  &  &  \\ 
+\hline 
+\end{tabular}\\
+ 
+\marginpar{$y=x_{i+1} - q_i \cdot  y_{i+1}$}
+$\Rightarrow ggT = 35 ... = 2 \cdot  595 - 3 \cdot  385 \Rightarrow 350 = 10 \cdot  35 = 20 \cdot  595 - 30 \cdot  385$ 
+
+\subsection{Aufgabe 3}
+
+\subsubsection{a}
+$(\Z_{15}^* ,\cdot) \Rightarrow \{1,2,4,7,8,11,13,14\}$\\
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $\cdot$ & 1 & 2 & 4 & 7 & 8 & 11 & 13 & 14 \\ 
+\hline 1 & 1 & 2 & 4 & 7 & 8 & 11 & 13 & 14 \\ 
+\hline 2 & 2 & 4 & 8 & 14 & 1 & 7 & 11 & 13 \\ 
+\hline 4 & 4 & 8 & 1 & 13 & 2 & 14 & 7 & 11 \\ 
+\hline 7 & 7 & 14 & 13 & 4 & 11 & 2 & 1 & 8 \\ 
+\hline 8 & 8 & 1 & 2 & 11 & 4 & 13 & 14 & 7 \\ 
+\hline 11 & 11 & 7 & 14 & 2 & 13 & 1 & 8 & 4 \\ 
+\hline 13 & 13 & 11 & 7 & 1 & 14 & 8 & 4 & 2 \\ 
+\hline 14 & 14 & 13 & 11 & 8 & 7 & 4 & 2 & 1 \\ 
+\hline 
+\end{tabular} \\
+Weil es sich hierbei um eine Gruppe handelt, ist die Tafel symmetrisch zur Diagonalen. Außerdem kommt in jeder Spalte und Zeile jede Zahl nur einmal vor. 
+
+\subsubsection{b}
+$11 x^2=14 \Leftrightarrow x^2=11\cdot 14=4 \Rightarrow x=2,7,8,13$
+Gleichung lösen und dann zu x passende Werte aus der Tafel finden. 
+
+\subsubsection{c}
+$
+\begin{array}{ccccccccc}
+\pi & 1 & 2 & 4 & 7 & 8 & 11 & 13 & 14 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+\pi_{1} & 4 & 7 & 11 & 14 & 13 & 8 & 1 & 2 \\
+\pi_{2} & 11 & 14 & 8 & 2 & 1 & 13 & 4 & 7 \\
+\pi_{3} & 8 & 2 & 13 & 7 & 4 & 1 & 11 & 14 \\
+\pi_{4} & 13 & 7 & 1 & 14 & 11 & 4 & 8 & 2 \\
+\end{array}
+$\\
+$c = \{(a,b,c,d) : \pi_{1}(a) \cdot  \pi_{2}(b) \cdot  \pi_{3}(c) \cdot  \pi_{4}(d) = 1 \}$
+d ist frei wählbar. Für a, b, c gibt es jeweils 8 Möglichkeiten $\Rightarrow$ Anzahl der Wörter: $8^3=512$
+
+\paragraph{Ergänze $(7,13,11,\cdot)$:}
+$\pi_{1}(7) \cdot  \pi_{2}(13) \cdot  \pi_{3}(11) \cdot  \pi_{4}(x)=1$\\
+$14 \cdot  4 \cdot  1 \cdot  \pi_{4}(x)=1$\\
+$11 \cdot  \pi_{4}(x)=1$\\
+$\Rightarrow \pi_{4}(x)=11 \Rightarrow x=8$
+
+\subsection{Aufgabe 4}
+
+\subsubsection{a}
+$28^{52} = 1$ 
+
+\subsubsection{b}\index{schnelle Exponentation}
+$28^{34}=?$\\
+$34=2^5 + 2^1$ mod 53\\
+$28^{(2^0)} = 28$\\
+$28^{(2^1)} = 784 = 42$\\
+$28^{(2^2)} = 42^2 = 1764 = 15$\\
+$28^{(2^3)} = 15^2 = 225 = 13$\\
+$28^{(2^4)} = 13^2 = 169 = 10$\\
+$28^{(2^5)} = 10^2 = 100 = 47$\\
+$28^{34} = 28^{2^5+2^1}= 28^{(2^5)} \cdot  28^{(2^1)} = 47 \cdot  42 = 1974 = 13$
+
+\subsection{Aufgabe 5}
+
+\subsubsection{a} 
+7 Personen (Schubfachprinzip)\index{Schubfachprinzip}
+
+\subsubsection{b} 
+Es gibt 3n gerade, 3n ungerade Elemente. Die ungeraden sollen nun an einer geraden Stelle stehen. Daher gibt es $(3n)!$ Möglichkeiten ungerade Elemente auf geraden Stellen platzieren. Bei den geraden ist es genauso: $(3n)!$. Insgesamt also: $(3n)! \cdot  (3n)!$
+
+\subsubsection{c} 
+Es gibt 5 unterschiedliche Buchstaben (5 x A , 2 x B, 1 x C, 1 x D, 2 x R) und 11 Stellen. Man kann das mit dem Multinomialkoeffizienten berechnen (allgemein): $\binom{n}{a,b,c} = \frac{n!}{a! b! c!} \Rightarrow \binom{11!}{5,2,1,1,2} = \frac{11!}{5! 2! 1! 1! 2!} = \binom{11!}{5! 4} = \binom{11 \cdot  10 \cdot  9 \cdot  8 \cdot  7 \cdot  6}{4} = 11 \cdot  10 \cdot  9 \cdot  2 \cdot  7 \cdot  6 = 83160$

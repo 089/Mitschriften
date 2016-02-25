@@ -1,0 +1,90 @@
+% Vorlesung vom 12.11.2015
+\renewcommand{\ldate}{2015-11-12}
+
+\subsection{Beispiel}
+$ f: \R \rightarrow \R^2, x \rightarrow \vektor{x \\ \cos x}$, 
+$ g: \R^2 \rightarrow \R, \vektor{x\\y}\rightarrow x^y$
+
+\textbf{gesucht:} $(g\circ f)'$
+\begin{enumerate}
+\item direkt
+\item mit Kettenregel
+\end{enumerate}
+
+\paragraph{1) direkt} 
+$ (g\circ f)(x) $
+$= g\vektor{x\\ \cos x} $
+$=x^{\cos x}$
+$=h(x)$\\
+$h(x) $
+$= e^{\ln x \cdot \cos x}$, 
+$h'(x) $
+$= e^{\ln x \cdot \cos x} \cdot \rbr{\frac{1}{x} \cos x - \ln x \sin x}$
+$=x^{\cos x} \cdot  \rbr{\frac{1}{x} \cos x - \ln x \sin x}$
+
+\paragraph{2) mit der Kettenregel}
+$(g\circ f)'(x)$
+$=g'(f(x)) \cdot f'(x)$
+mit $f(x) $
+$= \vektor{x\\\cos x}$
+$= \vektor{f_1(x)\\f_2(x)}$
+$\Rightarrow f'(x) = \vektor{1\\-\sin x}$
+\marginpar{Aus der Formelsammlung:\\ $x^n \rightarrow n x^{n-1}, a^y \rightarrow a^y \cdot \ln a$}
+
+$g\vektor{x\\y}=x^y$
+$\Rightarrow g'\vektor{x\\y}$
+$=\rbr{y\cdot x^{y-1}, x^y\cdot \ln x}$
+
+$g'(f(x)) $
+$=g'\vektor{x\\\cos x}$
+$=\rbr{\cos x\cdot x^{(\cos x)-1}, x^{\cos x} \cdot \ln x}$
+
+$g'(f(X)) \cdot f'(x)$
+$=\rbr{\cos x\cdot x^{(\cos x)-1}, x^{\cos x} \cdot \ln x} \cdot \vektor{1\\-\sin x}$
+$=\cos x\cdot x^{(\cos x)-1} - x^{\cos x} \ln x \sin x $
+$=x^{\cos x} \cdot  \rbr{\frac{1}{x} \cos x - \ln x \sin x}$
+
+\section{Parameterdarstellung von Flächen}
+\includegraphicsdeluxe{ParamDarVonFla.jpg}{Parameterdarstellung von Flächen}{Das rote ist die $\lambda$-Parameterlinie (Immer die Variable), das blaue die $\mu$-Parameterlinie}{fig:ParamDarVonFla}
+$f:F \subset \R^2 \rightarrow \R^3$\\
+$\vektor{\lambda\\\mu} \rightarrow \vektor{f_1(\lambda & \mu)\\f_2(\lambda & \mu)\\f_3(\lambda & \mu)}$
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{BspErdkugel1.jpg}{Beispiel Erdkugel}{Beispiel Erdkugel: Erdachse: $z=R\sin \varphi $, Breite: $ -\frac{\pi}{2} \leq \varphi \frac{\pi}{2} $, Länge: $ 0\leq \lambda \leq 2\pi $}{fig:BspErdkugel1}
+Parameterdarstellung: Wir betrachten die Erdkugel um 0 mit Radius R.\\
+$z=R\cos \varphi$\\
+$x=R\cos \varphi$\\
+$y=R\cos \varphi \sin \lambda$\\
+$\lambda$-Parameterlinie ist der Breitenkreis, $\varphi$-Parameterlinie der Längenhalbkreis.
+
+\subsection{Parameterdarstellung des Drehellipsoids}
+\includegraphicsdeluxe{ParamDrehellipsoids1.jpg}{Parameterdarstellung des Drehellipsoids}{Parameterdarstellung des Drehellipsoids: $x=a\cos \varphi, z=b\sin \varphi$}{fig:ParamDrehellipsoids1}
+Wir lassen eine Ellipse um ihre Nebenachse rotieren (Abb. \ref{fig:ParamDrehellipsoids1}). 
+\profnote{Wir konstruieren die Ellipse wie in Abb. \ref{fig:senkrDreiecke1}} 
+
+$r=a\cos \varphi$\\
+$x=r\cos \lambda$\\
+$y=r \sin \lambda$\\
+$\Rightarrow$ Parameterdarstellung\\
+$x=a \cos \varphi \cos \lambda$\\
+$y=a\cos \varphi \sin \lambda$\\
+$z=b\sin \varphi$\\
+
+$\varphi$-Parameterlinie: Längenhalbellipse, Länge $\lambda$\\
+$\lambda$-Parameterlinie: Breitenkreis, die geographische Breite ist nicht $\varphi$ sondern $\tilde{\varphi}$.
+
+\section{Implizite Darstellung von Kurven und Flächen}
+
+\subsection{Kurven in $\R^2$}
+$f(x,y) = 0$ Kreis um den Mittelpunkt $\vektor{a\\b}$ mit Radius R. \\
+Distanz $d\rbr{\vektor{x\\y},\vektor{a\\b}^2} = R^2$\\
+$\abs{\vektor{x-a\\y-b}}^2 = R^2$\\
+$(x-a)^2 + (y+b)^2 = R^2$
+
+\textbf{Gerade:} $ax+by+c = 0$
+
+\textbf{Ellipse:} $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ mit a,b Halbachsen. 
+
+\textbf{Sonderfall Kreis:} $\frac{x^2}{R^2} + \frac{y^2}{R^2} = 1$
+$\Rightarrow x^2+y^2=R^2 \checkmark$
+

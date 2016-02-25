@@ -1,0 +1,136 @@
+% Vorlesung vom 04.12.2015
+\renewcommand{\ldate}{2015-12-04}
+
+\section{Elementare Lösungsmethoden}
+
+\begin{satz}
+$y' = f(x) \cdot g(y)$ $ f,g: \R \rightarrow \R$
+
+$F(x) = \int_{x_0}^{x} f(t) dt$ und $G(y) = \int_{y_0}^{y} \frac{1}{g(t)} dt$
+
+Es sei $\varphi(x)$ eine Lösung mit $\varphi(x_0) = (y_0)$. Dann gilt:
+
+$G(\varphi(x)) = F(x)$
+
+$\int_{y_0}^{\varphi(x)} \frac{1}{g(t)} = \int_{x_0}^{x} f(t) dt$ 
+\end{satz}
+
+\begin{proof}
+$\varphi(x_0) = y_0$
+
+$\varphi'(x) = f(x) \cdot g(\varphi(x))$
+
+$\Rightarrow f(x) = \frac{\varphi'(x)}{g(\varphi(x))}$
+
+$\Rightarrow \int_{x_0}^{x} f(t) dt $
+$= \int_{x_0}^{x} \frac{1}{g(\varphi(t))} \cdot \varphi'(t) dt $
+$\underbrace{=}_{Subst.} \int_{\varphi(x_0)}^{\varphi(x)} \frac{1}{g(t)} dt$
+$\Rightarrow \int_{x_0}^{x} f(t) dt $
+$=\int_{y_0}^{\varphi(x)}\frac{1}{g(t)} dt$
+\end{proof}
+
+\subsection{Beispiel}
+$y' = \underbrace{x^2}_{f(x)} \cdot \underbrace{y}_{g(y)}$ Anfangsbedingung: $ \underbrace{\varphi(1)}_{x_0} = \underbrace{1}_{y_0}$.\\
+
+$\int_{1}^{\varphi(x)} \frac{1}{t} dt =\int_{1}^{x} t^2 dt$
+
+$=\sbr{\ln t}_1^{\varphi(x)}=\sbr{\frac{1}{3} t^3}_1^x$
+
+$ \ln \varphi(x) - \underbrace{\ln 1}_{=0} = \frac{1}{3} x^3 - \frac{1}{3}$
+
+$\varphi(x) = e^{\frac{1}{3} x^3 - \frac{1}{3}}$\\
+
+\textbf{Test:}\\
+$ \varphi(1) = e^0 = 1 \checkmark$
+
+$\varphi'(x) = e^{\frac{1}{3} x^3 - \frac{1}{3} \cdot x^2}$
+$=\varphi'(x) \cdot x^2 \checkmark$
+
+\subsection{Beispiel}
+\includegraphicsdeluxe{Bspc1c2c3.jpg}{Beispiel für verschiedene Werte von c}{Beispiel für verschiedene Werte von c}{fig:Bspc1c2c3}
+$ y' = y^2 \Rightarrow y' = \underbrace{1}_{f(x)} \cdot \underbrace{y^2}_{g(y)}$ Anfangsbedingung: $ \varphi(0) = c$\\
+
+\textbf{1. Fall \underline{$c=0$}} (vgl. rote Linie in Abb. \ref{fig:Bspc1c2c3})\\
+In diesem Fall erraten wir eine Lösung. An der Stelle 0 soll 0 rauskommen ($\varphi(0)=0$). Deswegen machen wir einfach die Nullfunktion ($\varphi(x)=0$).\\
+
+\textbf{2. Fall \underline{$c>0$}} (vgl. grüne Linie in Abb. \ref{fig:Bspc1c2c3})\\
+$ \varphi(x)$ muss in diesem Fall großer als Null sein ($\varphi(x) > 0$). 
+
+$ \int_{x_0}^{x} f(t) dt = \int_{y_0}^{\varphi(x)} \frac{1}{g(t)} dt$
+
+$\int_{0}^{x} 1 dt = \int_{c}^{\varphi(x)} \frac{1}{t^2} dt = \int_{c}^{\varphi(x)} t^2 dt$
+
+$x=\sbr{(-t^{-1})}_c^{\varphi(x)}$
+$=(-\frac{1}{\varphi(x)} - (-\frac{1}{c}) )$
+$=\frac{1}{c} - \frac{1}{\varphi(x)}$ wird aufgelöst nach $\varphi(x) \Rightarrow$ 
+$\frac{1}{\varphi(x)} = \frac{1}{c} - x = \frac{1-cx}{c} $
+$\Rightarrow \varphi(x) = \frac{c}{1-cx}$
+
+$ \boxed{
+\varphi(x) > 0 \Leftrightarrow
+\frac{c}{1-cx} > 0, c>0 \Leftrightarrow
+1-cx > 0 \Leftrightarrow
+1 > cx \Leftrightarrow \frac{1}{c} > x \Rightarrow x < \frac{1}{c}
+} $
+$\Rightarrow$ Funktion ist nur definiert für $x < \frac{1}{c}.$ 
+
+\textbf{3. Fall \underline{$c<0$}} (vgl. blaue Linie in Abb. \ref{fig:Bspc1c2c3})\\
+$ \varphi(x) < 0, $
+$ \varphi(x) = \frac{c}{1-cx}$\\
+
+$ \boxed{\frac{c}{1-cx} < 0 \Rightarrow ... \Rightarrow x > \frac{1}{c}} $
+
+\subsection{Lineare DGL}
+$y' = a(x) \cdot y + b(x)$ homogen, falls $b(x) = 0$
+
+\begin{satz}
+$y'a(x) \cdot y$. Die Lösung $\varphi(x)$ mit $\varphi(x_0) = c$ ist: 
+
+$\varphi(x) = c \cdot exp(\int_{x_0}^{x} a(t) dt)$ \profnote{Ich schreibe jetzt $exp(a)$ statt $e^a$}
+\end{satz}
+
+\begin{proof}Durch Einsetzen beweisen wir: 
+$\varphi(x_0) = c\cdot exp(\int_{x_0}^{x_0} a(t) dt) = c$
+
+$\varphi'(x) = c \cdot exp(\int_{x_0}^{x} a(t) dt) \cdot a(x) = \varphi(x) \cdot a(x)$
+\end{proof}
+
+\subsection{Beispiel}
+$y' = \underbrace{x^2}_{a(x)} \cdot y, \varphi(x_0) = c$
+
+$\varphi(x) = c\cdot exp(\int_{x_0}^{x} t^2 dt) $
+$=c \cdot exp\rbr{\sbr{\frac{1}{3} t^3}_{x_0}^x}$
+$=c\cdot exp(\frac{1}{3} x^3 - \frac{1}{3} x_0^3)$
+$=\varphi(x)$
+
+\subsection{Inhomogene DGL}
+$ y' = a(x) \cdot y + b(x) $
+
+Sei $ \varphi(x) $ eine Lösung der homogenen DGL: $ y' = a(x) \cdot y $ und 
+$ \psi(x) $ eine Lösung der inhomogenen DGL: $ y' = a(x) \cdot y + b(x) $\\
+
+\textbf{Ansatz:}\\
+$ \psi(x) = \varphi(x) = u(x) $
+$ \Rightarrow \psi'(x) = $ \underline{$\varphi' \cdot u + \varphi \cdot u'$} \profnote{Wir lassen jetzt (x) weg. Also $ \varphi$ statt $\varphi(x)$}
+
+$ \psi'(x) = a \cdot \psi + b = \underbrace{a\cdot \varphi}_{\varphi'} \cdot u + b $
+\underline{$=\varphi' \cdot a + b$}
+
+$\Rightarrow \varphi \cdot u' = b$\\
+$\Rightarrow u' = \frac{b}{\varphi}$\\
+$\Rightarrow u(x) = \int_{x_0}^{x} \frac{b(t)}{\varphi(t)} dt + c$
+
+\begin{satz}
+Die DGL sieht so aus: $y' = a(x) \cdot y + b(x)$. 
+
+Die Lösung $\psi(x)$ mit $\psi(x_0) = c$ ist: \\
+
+$\psi(x) = \varphi(x) \cdot (c+\int_{x_0}^{x} \frac{b(t)}{\varphi(t)} dt)$ mit
+$\varphi(x) = exp(\int_{x_0}^{x} a(t) dt)$
+\end{satz}
+
+\begin{proof}
+$ \psi(x_0) = \varphi(x_0) \cdot (c+ \int_{x_0}^{x_0} \frac{b(t)}{\varphi(t)} dt)$
+$=\varphi(x_0) \cdot c $
+$=c \checkmark$
+\end{proof}

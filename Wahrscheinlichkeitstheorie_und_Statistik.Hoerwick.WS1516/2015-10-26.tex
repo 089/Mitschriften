@@ -1,0 +1,66 @@
+% Vorlesung vom 26.10.2015
+\renewcommand{\ldate}{2015-10-26}
+
+\subsection{Die Semmelaufgabe} %\profnote{Die haben wir vielleicht schon mal gemacht. Ich mache immer die gleichen. }
+In einem Teig sind 7 Rosinen. Aus dem Teig werden 10 Semmeln gemacht. Eine Semmel wird ausgewählt. Wie groß ist die Wahrscheinlichkeit, dass sie genau zwei Rosinen enthält? \profnote{Das machen wir mit dem Teilchen-Fächer-Modell.} Die Fächer entsprechen den Semmeln, die Teilchen den Rosinen. Das Fach 1 wird ausgewählt. 
+
+\subsubsection{Modell: Teilchen unterscheidbar}
+\includegraphicsdeluxe{modellTeilchenUnterscheidbar1.jpg}{Rosinensemmeln 1}{Modell: Teilchen unterscheidbar}{fig:modellTeilchenUnterscheidbar1}
+Alle Fälle: $10^7$\\
+günstige Fälle: $\binom{7}{2} 9^5$\\
+$ \frac{\textrm{günstige Fälle}}{\textrm{alle}} $
+$= \frac{7\cdot 6\cdot 9^5}{1\cdot 2\cdot 10^7} $
+$= 21 \rbr{\frac{9}{10}}^5 \frac{1}{100}$
+$= 0.1240 $
+
+\subsubsection{Modell: Teilchen nicht unterscheidbar}
+\profnote{Nicht mehr unterscheidbar, also lauter weiße Kugeln.}
+Formel: $\binom{n+k-1}{k}$\\
+alle Fälle: $\binom{10+7-1}{7} = \binom{16}{7}$\\
+günstige Fälle: $\binom{9+5-1}{5} = \binom{13}{5}$
+$ \frac{\textrm{günstige Fälle}}{\textrm{alle}} $
+$= \frac{13\cdot 12\cdot 11\cdot 10\cdot 9\cdot 1\cdot 2\cdot 3\cdot 4\cdot 5\cdot 6\cdot 7}{1\cdot 2\cdot 3\cdot 4\cdot 5\cdot 16 \cdot 15 \cdot 14 \cdot 13 \cdot 12\cdot 11\cdot 10}$
+$= \frac{9\cdot 6\cdot 7}{16\cdot 15\cdot 14}$
+$= 0.1125$
+
+\subsubsection{Auswertung Ergebnisse}
+Wir bekommen verschiedene Ergebnisse. Welches ist nun richtig? Das 1. Modell, also die unterscheidbaren Teilchen ist richtig, weil die Ausgänge nicht gleich wahrscheinlich sind. 
+
+\subsection{Beispiel: 2 Fächer, 2 Kugeln}
+\includegraphicsdeluxe{2faecher2kuegeln1.jpg}{Beispiel: 2 Fächer, 2 Kugeln}{Beispiel: 2 Fächer, 2 Kugeln und die dazugehörigen Wahrscheinlichkeiten je nachdem, ob die Kugeln unterscheidbar sind oder nicht.}{fig:2faecher2kuegeln1}
+Die Abbildung \ref{fig:2faecher2kuegeln1} zeigt, wann die Ausgänge gleich wahrscheinlich sind und wann nicht.
+
+\subsection{Übung 9.5}
+K Personen werden anonym nach ihrem Geburtsmonat gefragt. Wie viele mögliche Ergebnisse gibt es? 
+
+Wir brauchen 12 Fächer. K gleiche Kugeln werden verteilt. Mehrfachbelegung ist erlaubt. 
+Wir nutzen die Formel: $\binom{n+k-1}{k}$
+$= \binom{12+k-1}{k}$, z.B. $k=30$ Personen: 
+$\binom{41}{30}$
+$= \binom{41}{41-30}$
+$=\binom{41}{11}$
+
+\section{Erste Kollision}
+Lotto: 6 aus 49. Bei der 3016 Ziehung wurden zum ersten Mal 6 Zahlen gezogen, die schon einmal gezogen wurden. Es gibt $n=\binom{49}{6}=13 983 816$ mögliche Ziehungen und Fächer. Wir nummerieren die Teilchen: Teilchen 106 $=$ 106. Ziehung. Die Teilchen werden der Reihenfolge nach (1,2,3,...) auf die Fächer verteilt. Beim Teilchen 3016 trat zum ersten mal eine Kollision ein. 
+
+Also: Fächer 1 bis n. Unterscheidbare Teilchen (1,2,3,...) werden nacheinander auf die Fächer verteilt. \\
+Zufallsgröße X: Zeitpunkt der ersten Kollision, $2\leq X \leq n+1$\\
+$P(X\geq k+1) $
+$= P(\textrm{In den ersten k Belegungen keine Kollision})$
+$= \frac{\textrm{günstige Fälle}}{\textrm{alle Fälle}}$
+$= \frac{n(n-1)(n-2) ... (n-k+1)}{n^k}$
+$\Rightarrow P(X \leq k) = 1-\frac{n(n-1)(n-2) ... (n-k+1)}{n^k}$
+$= 1 - \frac{n}{n} \cdot \frac{(n-1)}{n} \cdot \frac{(n-2)}{n} \cdot ... \cdot \frac{(n-1+k)}{n}$
+$= 1 - \sbr{\rbr{1-\frac{1}{n}} \cdot \rbr{1-\frac{2}{n}} \cdot ... \rbr{1-\frac{k-1}{n}}}  $
+
+\paragraph{Unsere Formel:}
+$P(X\leq k) = 1 - \prod_{j=1}^{k-1} \rbr{1-\frac{j}{n}}$
+
+\paragraph{In unserem Beispiel} $n=13 983 816, P(X\leq 3016) = 1 - \prod_{j=1}^{3016} \rbr{1-\frac{j}{13 983 816}}$
+$= 0.2775$
+
+\subsection{Beispiel: Schulklasse}
+Wir haben eine Klasse mit k Kindern. Wie groß ist die Wahrscheinlichkeit, dass wenigstens 2 Kinder am gleichen Tag (ohne Jahr) Geburtstag haben. Es gibt also $n=365$ Fächer. Es werden Kugeln auf die Fächer verteilt. \\
+$P(X\leq k) = 1 - \prod_{j=1}^{k-1} \rbr{1-\frac{j}{365}}$, z.B.: $P(X\leq 23) $
+$= 1 - \prod_{j=1}^{22} \rbr{1-\frac{j}{365}}$
+$= 0.507$

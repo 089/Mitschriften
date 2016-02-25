@@ -1,0 +1,140 @@
+ % Vorlesung vom 15.06.2015
+\renewcommand{\ldate}{2015-06-15}	% define lessiondate
+
+% Angabe einbinden
+% \includepdf[pages={1,3-5}]{Dateiname}
+
+\section{Lösung zur Prüfung SS 2010}
+
+\subsection{Aufgabe 1}
+
+\subsubsection{a} $S_{10}$ hat $10!$ Elemente. $S_{10}$ hat zwei Fixpunkte: 6 und 9. \\
+$\pi{10!}=id$. Die zwei Fixpunkte bleiben gleich. Deshalb lassen wir sie weg. $\Rightarrow \pi{8!}=id$.
+
+\subsubsection{b}
+$\pi^2: 
+\begin{array}{cccccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+5 & 4 & 8 & 10 & 3 & 6 & 1 & 7 & 9 & 2
+\end{array} 
+$
+\\
+$\pi^{-1}
+\begin{array}{cccccccccc}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+3 & 4 & 7 & 10 & 8 & 6 & 5 & 1 & 9 & 2
+\end{array} 
+$
+\subsubsection{c} Haben wir nicht gemacht. Wir machen das jetzt trotzdem:\\
+Zykel: $\underbrace{(1,8,5,7,3)}_{Zykel} \circ \underbrace{(2,10,4)}_{Zykel}$. Die Fixpunkte lässt man weg. 
+
+\subsection{Aufgabe 2}
+
+\begin{proof}
+Zeige: $91 | (n^{13}-n)$\\
+$n^{13}-n \equiv 0$ mod $91$\\
+$n^{13}=n$ mit mod 91, 91 zerlegen wir in die Primzahlen: $91=7\cdot 13$\\
+$\Z_{91} \rightarrow \Z_7 \times \Z_{13}$ (Isomorphismus)\\
+$\underbrace{x}_{\textrm{mod 91}} \rightarrow (\underbrace{x}_{\textrm{mod 7}},\underbrace{x}_{\textrm{mod 13}})$\\
+Zeige: $(\underbrace{n^{13}}_{\textrm{mod 7}},\underbrace{n^{13}}_{\textrm{mod 13}})=(n,n)$\\
+I $\underbrace{n^6}_{\textrm{n kein Vielfaches von 7}}=1$ $n^6 n^6 n = n$\\
+II $\underbrace{n^{12}}_{\textrm{n kein Vielfaches von 13}}=1$ $n^{12} n = n $\\
+\end{proof}
+
+\subsection{Aufgabe 3}
+
+\subsubsection{a} Rechne in $(\Z_{10},+,\cdot)$, \textbf{kein} Körper.\\
+I: $x+5y=0$\\
+II: $4x+2y=6$\\
+II - 4I: $2y-20y=6 \Leftrightarrow -18y=6 \Leftrightarrow 2y=6 \Rightarrow y_1=3, y_2=8$\\
+I: $x_1+5\cdot 3=0$\\
+$x_1=-15=5$\\
+
+II: $x_2+5\cdot 8=0$\\
+$x_2=-40=0$\\
+Zwei Lösungen: (5,3) und (0,8)
+
+\subsubsection{b} $\Z_{10}^* $ teilerfremd zu 10: $\{1,3,7,9\}$\\
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$ & 1 & 3 & 7 & 9 \\ 
+\hline 1 & 1 & 3 & 7 & 9 \\ 
+\hline 3 & 3 & 9 & 1 & 7 \\ 
+\hline 7 & 7 & 1 & 9 & 3 \\ 
+\hline 9 & 9 & 7 & 3 & 1 \\
+\hline 
+\end{tabular} 
+\\
+ord 3: 3,9,7,1 $\Rightarrow 4$\\
+ord 7: 7,9,3,1 $\Rightarrow 4$\\
+ord 9: 9,1 $\Rightarrow 2$
+
+\subsection{Aufgabe 4}
+Zeige: $\sum_{k=1}^n k^3 = \frac{n^2(n+1)^2}{4}$
+\begin{proof}
+\textbf{n=1:}\\
+linke Seite: 1\\
+rechte Seite: $\frac{1(1+1)^2}{4}=1 \checkmark$\\
+\textbf{Induktionsschritt von $n\rightarrow(n+1)$}\\
+Zeige: $\sum_{k=1}^{n+1} k^3 = \frac{(n+1)^2(n+2)^2}{4} \overleftrightarrow{Ind.V.} \frac{n^2(n+1)^2}{4}+(n+1)^3=\frac{(n+1)^2(n+2)^2}{4} \Leftrightarrow n^2 (n+1)^2+4(n+1)^3=(n+1)^2(n+2)^2$ $| :(n+1)^2$\\
+$\Leftrightarrow n^2+4(n+1)=(n+2)^2 \Leftrightarrow n^2+4n+4=n^2+4n+4 \checkmark$
+\end{proof}
+
+\subsection{Aufgabe 5}
+
+\subsubsection{a}
+Es gibt $3!=6$ Permutationen. Der Code hat $6\cdot 6=36$ Elemente.\\
+$\underbrace{\pi_1}_{6} \circ \underbrace{\pi_2}_{6} \circ \pi_3 = id$
+
+\subsubsection{b} $(\pi_1,\pi_2,\cdot)$ ergänze.\\
+$\pi_1:
+\begin{array}{ccc}
+1 & 2 & 3 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+1 & 3 & 2
+\end{array} 
+$
+\\
+$\pi_2:
+\begin{array}{ccc}
+1 & 2 & 3 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+3 & 2 & 1
+\end{array} 
+$
+\\
+$\pi_1 \circ \pi_2 = id$\\
+$\pi_1 \circ \pi_2: 
+\begin{array}{ccc}
+1 & 2 & 3 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+2 & 3 & 1
+\end{array} 
+$
+\\
+$\pi$ Inverses von $\pi_1 \circ \pi_2$\\
+$\pi:
+\begin{array}{ccc}
+1 & 2 & 3 \\ 
+\downarrow & \downarrow & \downarrow \\ 
+3 & 1 & 2
+\end{array} 
+$
+
+\subsubsection{c} G ist nicht kommutativ. Vertauschungsfehler werden zum Teil erkannt. 
+
+\subsection{Aufgabe 6}
+$ggT(450,588):$\\
+$588=1\cdot 450+138$\\
+$450=3\cdot 138+36$\\
+$138=3\cdot 36+30$\\
+$36=1\cdot 30+6$\\
+$30=5\cdot 6+0$\\
+$ggT=6$\\
+
+Kombination von 6:\\
+$6=36-30=36-(138-3\cdot 36)=4\cdot 36-138=4(450-3\cdot 138)-138=4\cdot 450-13\cdot 138=4\cdot 450-13(588-450)=17\cdot 450-13\cdot 588=6$\\
+Kombination von 42:\\
+$42=7\cdot 6-7(17\cdot 450-13\cdot 588)=119\cdot 450-91\cdot 588=42$ 

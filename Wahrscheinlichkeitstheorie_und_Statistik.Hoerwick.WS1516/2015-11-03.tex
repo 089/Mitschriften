@@ -1,0 +1,124 @@
+% Vorlesung vom 03.11.2015
+\renewcommand{\ldate}{2015-11-03}
+
+\subsection{Sortieralgorithmus}
+Wir haben die verschiedenen Zahlen $a_1, a_2, ..., a_n$. Wir betrachten die Permutationen dieser Zahlen. Eine Permutation $(a_1, ..., a_n)$ soll sortiert sortiert werden (von klein nach groß). Vorgehen:\\
+
+\begin{itemize}
+\item $a_1$ lassen
+\item Ist $a_2$ kleiner als $a_1$, dann vertauschen.
+\item Dann $a_3$ durch Vertauschen einsortieren. 
+\item $\vdots$
+\item bis $a_n$
+\end{itemize}
+
+\subsection{Beispiel}
+(13,10,15,11) 
+\begin{enumerate}
+\item (10,13,15,11)
+\item (10,13,11,15)
+\item (10,11,13,15), fertig!
+\end{enumerate}
+
+Die Zufallsgröße X zählt die Anzahl der Vertauschungen. 
+$X(13,10,15,11) = 3$
+
+\paragraph{Wir wollen EX berechnen}
+$Y_j$ Einsortieren von $a_j$ (Anzahl der Vertauschungen), $2\leq j \leq n$\\
+$Y_j(a_1,...,a_j,...,a_n) = $ \profnote{Wieviele Werte vor $a_j$ sind größer als $a_j$? So viele muss ich vertauschen.}
+Anzahl der $a_i$ mit $a_i < a_i, i < j $. Das kann man auch so ausrechnen: 
+$Y_j = \sum_{i=1}^{j-1} I\cbr{a_j < a_i}$ \profnote{Die Indikatorfunktion I zählt auch die Anzahl der Vertauschungen.}
+
+$X(a_1,...,a_n)$
+$=\sum_{j=2}^{n} Y_j \cdot (a_1, ..., a_n)$ \profnote{Die Wahrscheinlichkeit der Indikatorfunktion ist immer die Wahrscheinlichkeit der Ereignisse $a_i$}
+
+Wir brauchen $P(a_j < a_i)$ ist $\frac{1}{2}$ (plausibel), also:\\
+
+$ E Y_j = \sum_{i=1}^{j-1} P(a_j < a_i)$
+$= \sum_{i=1}^{j-1} \frac{1}{2} $
+$= (j-1) \cdot \frac{1}{2}$
+
+$\Rightarrow E X $
+$=\sum_{j=2}^{n} E Y_j $
+$= \sum_{j=2}^{n} (j-1) \cdot \frac{1}{2}$
+$=\frac{1}{2} \sum_{j=1}^{n-1} j $
+$= \frac{1}{2} \frac{(n-1) \cdot n}{2}$
+$= \frac{n^2 - n}{4}$. 
+Der Erwartungswert EX wächst quadratisch mit n. Für $n=10 \Rightarrow EX=\frac{100-10}{4} = 22.5$, 
+$n=30 \Rightarrow EX = 217.5$
+
+\subsection{Transformationsformel}
+% 1 \includegraphicsdeluxe{transformationsformel1.jpg}{Transformation}{Transformation}{fig:transformationsformel1}
+Wir betrachten die Zufallsgröße $g\circ X, \sbr{(g\circ X)(\omega) = g(X(\omega))}$. 
+$x_1, ..., x_k$ ist der Wertebereich von X.
+
+$E(g\circ X) $
+$=\sum_{j=1}^{k} g(x_j) \cdot P(X=x_j)$. Speziell für $g=id$ folgt: 
+$ EX$
+$= \sum_{j=1}^{k} x_j P(X=x_j)$ (schon bekannt).
+
+\begin{proof}
+% 2 \includegraphicsdeluxe{beweisTransFormel1.jpg}{Zerlegung in Teilmengen}{$\Omega$ wird in die Teilmengen $A_1, A_2, ..., A_k$ zerlegt}{fig:beweisTransFormel1}
+Zerlegung von $\Omega$: $A_j = \cbr{\omega \in \Omega: x(\omega) = x_j}$
+
+$E(g(X)) $
+$= \sum_{\omega \in \Omega} g(X(\omega)) \cdot p(\omega)$
+$= \sum_{j=1}^{k} \sum_{\omega \in A_j} g(X(\omega)) \cdot p(\omega)$
+$=\sum_{j=1}^{k} g(x_j) \cdot \sum_{\omega \in a_j} p(\omega)$
+$=\sum_{j=1}^{k} g(x_j) \cdot P(A_j)$
+$= \sum_{j=1}^{k} g(x_j) \cdot P(X=x_j)$
+\end{proof}
+
+\subsection{Beispiel würfeln mit zwei Würfeln}
+X: größere Augenzahl, $g(x) = x^2$, gesucht: $E(g(X))$
+
+$E(g\circ X)$
+$=1^2 \cdot \frac{1}{36} $
+$+ 2^2 \cdot \frac{3}{36} $
+$+ 3^2 \cdot \frac{5}{36} $
+$+ 4^2 \cdot \frac{7}{36} $
+$+ 5^2 \cdot \frac{9}{36} $
+$+ 6^2 \cdot \frac{11}{36} $
+$= ... $
+$=22.0$
+
+\section{Stichprobenentnahme}
+Urne mit r roten und s schwarzen Kugeln. Die roten Kugeln sind nummeriert mit $1,2,...,r$ und die schwarzen Kugeln mit $r+1,...,r+s$. Es werden nacheinander (Stichprobe) n Kugeln \underline{ohne Rücklegen} gezogen. Der mögliche Grundraum ist 
+$\Omega = \cbr{(a_1,...,a_n) : a_i \textrm{ verschieden}}$. Das Ereignis $A_j$ bedeutet jede j-te Kugel ist rot, also muss $a_j \leq r$.\\
+
+$P(A_j) $
+$= \frac{r}{r+s}$ ist plausibel. Wir machen trotzdem eine formale Rechnung: \profnote{Wir machen das mit der Abzählregel.}\\
+\textbf{alle Fälle:} $ (r+s)^{\underline{n}} $ \profnote{Beispiel: $ 7^{\underline{3}} = 7\cdot 6\cdot 5$}\\
+\textbf{günstige Fälle:} Kugel 1 an Stelle j: $(r+s-1)^{\underline{n-1}}$\\
+$\vdots$\\
+Kugel r an Stelle j: $(r+s-1)^{\underline{n-1}}$\\
+$P(A_j)$
+$=\frac{r \cdot (r+s-1)^{\underline{n-1}} }{(r+s)^{\underline{n}}}$
+$=\frac{r\cdot (r+s-1) \cdot (r+s-2) \cdot ...  \cdot  (r+s-n+1)}{(r+s)(r+s-1) \cdot ... \cdot (r+s-n+1)}$
+$=\frac{r}{r+s}$
+
+\begin{satz}
+r rote, s schwarze Kugeln. n Stück ziehen ohne Rücklegen.\\
+$X(\omega) = $ Anzahl der roten Kugeln in der Ziehung. 
+Die Verteilung von X heißt hypergeometrische Verteilung. 
+Es gilt:
+\begin{enumerate}
+\item $ E X = n \cdot \frac{r}{r+s}$
+\item $ P(X=k) = \frac{\binom r k \binom s {n-k}}{\binom {r+s} n}$
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+\begin{enumerate}
+\item $X = \sum_{j=1}^{n} I_{A_j}$
+$ E X = \sum_{j=1}^{n} E I_{A_j} $
+$= \sum_{j=1}^{n} P(A_j)$
+$= \sum_{j=1}^{n} \frac{r}{r+s}$
+$= n \cdot \frac{r}{r+s}$
+\item Modell wechseln! $\Omega = $ Alle Teilmengen mit genau n Kugeln.\\
+\textbf{Alle Fälle:} $\binom{r+s}{n}$\\
+\textbf{Günstige Fälle:} genau k rote Kugeln $\binom r k \cdot \binom{s}{n-k}$, also: 
+$P(X=k) = \frac{\binom{r}{k} \cdot \binom{s}{n-k}}{\binom{r+s}{n}}$
+\end{enumerate}
+
+\end{proof}

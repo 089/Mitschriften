@@ -1,0 +1,232 @@
+% Vorlesung vom 06.05.2015
+\renewcommand{\ldate}{2015-05-06}	% define lessiondate
+\fancyfoot[R]{\tiny{SS 2015 / \ldate}}
+
+\section{Zahlendarstellungen und Konventionen} 
+
+Heute ging es um die Zahlendarstellung und Konventionen in MMIX. Ein Schwerpunkt war Umwandlung von Zahlen in unterschiedliche Zahlensysteme, insbesondere:
+\begin{itemize}
+\item Binär $ \rightarrow $ Dezimal $ \rightarrow $ Binär
+\item Binär $ \rightarrow $ Hexadezimal $ \rightarrow $ Binär
+\end{itemize}
+Diese Umwandlung ist hauptsächlich für Input und Output wichtig. 
+
+\subsection{Binär $ \rightarrow $ Hexadezimal}
+
+Eine Speicherzelle in MMIX (Octa) hat 64 Bit. Je 4 Bit (Nibble, halbes Byte) entsprechen einer hexadezimalen Ziffer. \marginpar{Beispiel: $ 1100_{2} = C_{16} $ $ 1101_{2} = D_{16} $} Die Umwandlung einer Speicherzelle - ein Byte pro [] - kann also direkt erfolgen: [.][.][.][10110011] $ \rightarrow $ [.][.][.][B3]
+In MMIX kann man die Ziffern mittels SLU und AND \#F extrahieren. Man kann auf verschiedene Arten ein Zeichen in ASCII-Code umwandeln:
+
+\subsubsection{Mit einem Branch}
+
+\marginpar{
+CMP mit 10\\
+PBN $ \rightarrow $ + '0'\\
+sonst + ('A'-10)
+}
+
+\begin{tabular}{|c|c|}
+\hline Wert x & ASCII-Code \\ 
+\hline 0 & '0' + x \\ 
+\hline 1 & '0' + x \\ 
+\hline \vdots & \vdots \\ 
+\hline 9 & '0' + x \\ 
+\hline 10 & 'A' - 10 + x \\ 
+\hline 11 & 'B' - 10 + x \\ 
+\hline \vdots & \vdots \\ 
+\hline 15 & 'F' - 10 + x \\ 
+\hline 
+\end{tabular}
+
+\subsubsection{Mit einer Tabelle} 
+\begin{lstlisting}
+Tabelle BYTE "0123456789ABCDEF"
+	LDA tmp,Tabelle
+	LDBU $X,tmp,ziffer
+\end{lstlisting}
+
+\subsubsection{Laufzeitvergleich}
+Mit der Tabelle werden ca. 4 Zyklen pro Ziffer benötigt, mit einem Branch $ 4 + \frac{10 * 1 + 5 * 3}{15} $ Zyklen.
+
+\subsection{Hexadezimal $ \rightarrow $ Binär}
+Gegeben sind ASCII-Codes 0,...,9,A,...,F,a,...,f. Diese können ebenfalls mittels Tabelle umgewandelt werden oder mit CMP, Branch und anschließendem Zusammensetzen mittels SRU, OR (Laufzeit: 4 Zyklen pro Ziffer)
+
+\subsection{Dezimal $ \rightarrow $ Binär}
+Jetzt soll "12345" von hinten nach vorne umgewandelt werden. Als erstes werden die Zeichen in eine Zahl umgewandelt: $ Zeichen * 10^{Stelle}, Stelle \in Z $. Mit dem Hornerschema: sieht das für das Beispiel wie folgt aus: $ (((1 * 10 + 2)* 10 + 3) * 10 + 4) * 10 + 5 $
+
+\subsubsection{Pseudocode}
+\begin{verbatim}
+Schleife:
+	ASCII Code lesen
+	'0' subtrahieren
+	Mit 10 multiplizieren
+	ASCII code lesen
+	'0' subtrahieren
+	Addieren ...
+\end{verbatim}
+	
+\subsubsection{MMIX Code}
+Jetzt geht es darum in MMIX die Umwandlung von Dezimalzahlen in binäre Zahlen zu erledigen. Als erstes wandeln wir nur ein einziges Zeichen um:
+\begin{lstlisting}
+	PREFIX :ToBinary:
+str IS $10	% String mit Dezimalziffern
+d IS $1
+% Returnwert die entsprechende Zahl
+
+% Version 1: nur ein Zeichen z.B. "5"
+:ToBinary	LDBU d,str,0
+	SUB d,d,'0'
+	SET $0,d
+	POP 1,0
+\end{lstlisting}
+
+Nun wandeln wir genau zwei Zeichen um:	
+\begin{lstlisting}
+% Version 2: genau zwei Zeichen z.B. "04" oder "15"
+n IS $2
+:ToBinary	LDBU d,str,0
+	SUB d,d,'0'			% 1. Stelle
+	MUL n,d,10
+	LDBU d,str,1
+	SUB d,str,1
+	SUB d,d'0'
+	ADD n,n,d
+	
+	SET $0,n
+	POP 1,0
+\end{lstlisting}	
+
+Nun eines oder zwei. Der String endet mit einem Nullbyte!
+\begin{lstlisting}
+% Version 3: Ein oder zwei Zeichen, String endet mit einem Null Byte
+z IS $3
+:ToBinary	LDBU d,str,0
+	SUB z,d,'0'		% 1. Stelle
+	
+	LDBU d,str,1
+	BZ d,single		% single digit
+	
+	MUL n,z,10
+	SUB z,d,'0'
+	ADD n,n,z
+	
+	SET $0,n
+	POP 1,0			
+
+single:		SET $0,z
+	POP 1,0
+\end{lstlisting}
+
+1. Optimierung. Eine Variable weniger. Das z brauchen wir nicht mehr. 
+\begin{lstlisting}	
+% Version 3b: Ein oder zwei Zeichen, String endet mit einem Null Byte
+str IS $0
+d IS $1
+n IS $2
+:ToBinary	LDBU d,str,0
+	SUB n,d,'0'		% 1. Stelle
+	
+	LDBU d,str,1
+	BZ d,finish		% single digit
+	
+	MUL n,n,10
+	SUB d,d,'0'
+	ADD n,n,d
+	
+finish:		SET $0,z
+	POP 1,0
+\end{lstlisting}
+	
+Nun wandeln wir beliebig viele Zeichen eines Strings um. 
+\begin{lstlisting}	
+% Version 4: mit beliebig vielen Ziffern; endet immer mit Nullbyte
+str IS $0
+d IS $1
+n IS $2
+
+:ToBinary	SET n,0
+
+Loop:		LDBU d,str,0
+	BZ d,finish
+	ADD str,str,1
+	MUL n,n,10
+	SUB d,d,'0'
+	ADD n,n,d
+	JMP loop
+			
+finish:		SET $0,n
+	POP 1,0
+\end{lstlisting}
+	
+Indem wir das Programm umstellen können wir auf den JMP verzichten, was einen Zyklus einspart. 
+\begin{lstlisting}	
+% Version 5: Optimierung der Schleife
+% Laufzeit 15 k + 6 + 2
+str IS $0
+d IS $1
+n IS $2
+
+:ToBinary	SET n,0
+	JMP 1F
+
+Loop:		ADD str,str,1
+	MUL n,n,10
+	SUB d,d,'0'
+	ADD n,n,d
+
+1H			LDBU d,str,0
+	PBNZ d,Loop
+			
+finish:		SET $0,n
+	POP 1,0
+\end{lstlisting}
+
+Nun ersetzen wir den zyklen-intensiven Befehl MUL (ca. 10 Zyklen)
+\begin{lstlisting}	
+% Version 6: Ersatz fuer MUL
+% Laufzeit 7 k + 6 + 2
+str IS $0
+d IS $1
+n IS $2
+
+:ToBinary	SET n,0
+	JMP 1F
+
+Loop:		ADD str,str,1
+
+	% Multiplikation mit 10
+	4ADDU n,n,n
+	SL n,n,1
+
+	SUB d,d,'0'
+	ADD n,n,d
+
+1H			LDBU d,str,0
+	PBNZ d,Loop
+			
+finish:		SET $0,n
+	POP 1,0
+\end{lstlisting}
+
+\subsubsection{Exkurs xADDU-Befehle} 
+Die 2ADDU/4ADDU/8ADDU/16ADDU-Befehle benutzen wir hier für eine schnelle Alternative zur Multiplikation mit MUL. Sonst kann man diese Befehle z.B. für die Adressierung: Index * 2/4/8/16 + Basis nutzen. 
+Beispiel: 
+\begin{lstlisting}
+4ADDU n,n,n	n <-- 4n+n (Multiplikation mit 4)
+
+2ADDU $X,$Y,$Z	$X <-- 2 * $Y + $Z
+4ADDU $X,$Y,$Z	$X <-- 4 * $Y + $Z
+8ADDU $X,$Y,$Z	$X <-- 8 * $Y + $Z
+16ADDU $X,$Y,$Z	$X <-- 16 * $Y + $Z
+\end{lstlisting}
+
+\subsection{Binär $ \rightarrow $ Dezimal mit Division}
+Nun geht es um die Umwandlung von Zahlen in Strings (z.B.12345 nach "12345"). Hier benötigen wir die Division. Diese ist in MMIX mit ca. 60 Zyklen sehr teuer. Dennoch führt sie zum Ziel. 
+
+\begin{lstlisting}
+DIV n,n,10 % teuer ca. 60 Zyklen
+GET d,rR % rR Register ist mit dem Rest der letzten Division gefuellt
+ADD d,d,'0'
+\end{lstlisting}
+
+\subsection{Binär $ \rightarrow $ Dezimal mit Multiplikation}
+Weil die Division teuer ist, kann man stattdessen multiplizieren. Die Idee ist, dass der Zahlenbereich eingeschränkt wird. \marginpar{[123456788].[00...0]} In den oberen 32 Bit ist die Zahl die umgerechnet werden soll und in den unteren lauter Nullen. Die Zahl n ($ n < 10^9 $) wird ein einziges Mal geteilt ($ n / 10^9 $). Dadurch wird erreicht, dass die Zahl im unteren 32-Bit-Block landet. Nun wird mit 10 Multipliziert. \marginpar{[0].[123456789] * 10 = [1].[23456789]} Dadurch gelangt die vorderste Ziffer im oberen 32-Bit-Block. Diese wird ausgegeben und anschließend mittels ADDMH \#F gelöscht. \marginpar{[0].[23456789] * 10 = [2].[3456789]} Dieser Vorgang wird nun wiederholt. Die Laufzeit beträgt nun ca. 60 + 6K für k Ziffern statt 60 k.

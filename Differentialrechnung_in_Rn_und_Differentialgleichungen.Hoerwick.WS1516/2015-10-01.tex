@@ -1,0 +1,84 @@
+% Vorlesung vom 01.10.2015
+\renewcommand{\ldate}{2015-10-01}	% define lessiondate
+
+\section{Abbildungen des Typs $\R^n \rightarrow \R$}
+$f: 
+\begin{cases}
+ \R^2 \rightarrow \R\\
+ (x,y)\rightarrow f(x,y)
+\end{cases}
+$
+Zwei Variablen. \profnote{Gebirge über der x,y-Ebene.} 
+
+\includegraphicsdeluxe{schnittfunktionen.jpg}{Schnittfunktionen im $ \R^n $}{Schnittfunktion parallel zur yz-Ebene (rot); Schnittfunktion parallel zur xz-Ebene (blau).}{fig:schnittfunktionen} 
+
+Die Ableitungen der Schnittfunktionen heißen partielle Ableitungen. $\frac{\delta f}{\delta x} (x,y)$ ist die Ableitung der blauen Funktion (nur x ist Variable). $\frac{\delta f}{\delta y} (x,y)$ ist die Ableitung der roten Funktion (nur y ist Variable).
+
+\subsection{Beispiele partielle Ableitungen}
+
+\paragraph{a)} $f(x,y)= 2x^3 y^2 + x + 2y $\\
+$\frac{\delta f}{\delta x} = 2y^2 3x^2 + 1 = 6x^2 y^2 + 1$\\
+$\frac{\delta f}{\delta y} = 2x^3 2y + 2 = 4x^3 y + 2$
+
+\paragraph{b)} $f(x,y) = \sin(x y^2)$\\
+$\frac{\delta f}{\delta x} = \cos(x y^2) y^2$\\
+$\frac{\delta f}{\delta y} = \cos(x y^2) x 2y$
+
+\subsection{Verallgemeinerung}
+$f: 
+\begin{cases}
+ \R^n \rightarrow \R\\
+ (x_1, ..., x_n) \rightarrow f(x_1, ..., x_n)\\
+\end{cases}
+$\\
+
+$\frac{\delta f}{\delta x_1} (x_1, ..., x_n)$ nur $x_1$ ist Variable.\\
+$\vdots$\\
+$\frac{\delta f}{\delta x_n} (x_1, ..., x_n)$ nur $x_n$ ist Variable.\\
+Zum Beispiel: $\frac{\delta f}{\delta x_1}$\\
+%2 \includegraphicsdeluxe{.jpg}{}{}{fig:}
+
+\subsection{Beispiele}
+\paragraph{a)} $f(x,y,z) = x^5y^2z^3 + xy + z^2$\\
+$\frac{\delta f}{\delta x} = 5x^4 y^2 z^3 + y$\\
+$\frac{\delta f}{\delta y} = 2y x^5 z^3 + x$\\
+$\frac{\delta f}{\delta z} = 3z^2 x^5 y^2 + 2z$\\
+
+\paragraph{b)} $ f(x,y,z) = e^{2x} e^y + z^2 \sin(x) $\\
+$\frac{\delta f}{\delta x} = e^{2x} 2 e^y + \cos(x) z^2 $\\
+$\frac{\delta f}{\delta y} = e^{2x} e^y $\\
+$\frac{\delta f}{\delta z} = 2z  \sin(x) $\\
+
+\paragraph{c)} $ f(x,y,z) = e^x \sin(xy) + yz  e^z $\\
+$\frac{\delta f}{\delta x} = e^x \sin(xy) + e^x \cos(xy) y $\\
+$\frac{\delta f}{\delta y} = e^x \cos(xy) x + z e^z $\\
+$\frac{\delta f}{\delta z} = y e^z + yz e^z$\\
+
+
+\subsection{Linearisierung von Funktionen $\R^2 \rightarrow \R$} 
+\profnote{Heißt nichts anderes als ich ersetze die Funktion durch die Tangente. Dadurch kann man eine schwierige Funktion durch eine einfachere ersetzen.}
+
+Ersetze das Funktionsgebirge im Punkt (x,y,z) durch die Tangentialebene $\varepsilon$. Dieses $\varepsilon$ wird aufgespannt durch die beiden Tangenten an die beiden Schnittfunktionen (siehe Abb. \ref{fig:tangentialebene1}). 
+
+\includegraphicsdeluxe{tangentialebene1.png}{Tangentialebene anstelle eines Funktiongebirges}{Die orangenen Tangenten an die blaue und die rote Schnittfunktion spannen eine Tangentialebene auf. Diese entspricht dem $ \varepsilon $. Es gilt: blaue Schnittfunktion: $ \frac{\delta f}{\delta x} (x,y) dx $, rote Schnittfunktion: $ \frac{\delta f}{\delta y} (x,y) dy $ und dz = $\frac{\delta f}{\delta x} (x,y) dx + \frac{\delta f}{\delta y} (x,y) dy $ }{fig:tangentialebene1}
+
+\subsection{Linearisierungsformel}
+$ f(x+dx, y+dy) \approx f(x,y) + \frac{\delta f}{\delta x} (x,y) dx + \frac{\delta f}{\delta y} (x,y) dy $
+
+\profnote{Mit dieser Formel können wir die Funktion im Punkt (x,y) durch die Tangentialebene ersetzen.}
+
+\subsection{Beispiel} Linearisiere $f(x,y)=x^2 y^3$ bei $x=2,y=1$\\
+$ \frac{\delta f}{\delta x} = 2x y^3$\\
+$ \frac{\delta f}{\delta y} = 3y^2 x^2$\\
+$ f(x+dx, y+dy) \approx x^2 y^3 + 2xy^3 \cdot dx + 3y^2x^2 \cdot dy $\\
+$ f(2,1) = 4 $\\
+$ \frac{\delta f}{\delta x} (2,1) = 2 \cdot 2 \cdot 1 = 4$\\
+$ \frac{\delta f}{\delta y} (2,1) = 3 \cdot 4 = 12$\\
+$ \Rightarrow f(2+dx,1+dy) \approx 4+4 \cdot dx+12 \cdot dy$
+
+\textbf{Test} mit $dx=0.1, dy=-0.1$\\
+$ f(2.1, 0.9) = 2.1^2 0.9^3 = \textbf{3.214...}$\\
+$ f(2+0.1, 1-0.1) \approx 4+4 \cdot 0.1-12\cdot 0.1 = 4+0.4-1.2=\textbf{3.2} \checkmark $
+
+\subsection{Verallgemeinerung} 
+$ f(x_1+dx_1, x_2+dx_2,..., x_n+dx_n) \approx f(x_1,...,x_n) + \frac{\delta f}{\delta x_1} \cdot dx_1 + ... + \frac{\delta f}{\delta x_n} \cdot dx_n$

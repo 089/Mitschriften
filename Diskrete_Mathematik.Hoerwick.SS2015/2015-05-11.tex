@@ -1,0 +1,267 @@
+% Vorlesung vom 11.05.2015
+\renewcommand{\ldate}{2015-05-11}	% define lessiondate
+
+\section{Fehlererkennung}
+
+\subsection{Fehlererkennender Code}
+Teilmenge C von V. Sender schickt $ c \in C$. Empfänger empfängt c' aus V. Ist c' in C akzeptiert er, sonst lehnt er ab.
+\paragraph{Beispiel (Übermitteln einer Vierstellige Zahl ):} Man fügt eine fünfte Zahl (Kontrollzahl) hinzu, sodass die $ Quersumme = 0 \ \mbox{mod} \ 10 $ ist. \marginpar{\textit{Es soll ein Vielfaches von 10 rauskommen}}\\
+$ V=\{(a_1,...,a_5) : a_i = 0,1,...,9\} $\\
+$ C=\{(a_1,...,a_5) \in V: a_1 + a_2 + a_3 + a_4 + a_5 = 0 \ \mbox{mod} \ 10\} $\\
+\textbf{Code n zur Basis q:} $ C=\{(a_1,...,a_5) : 0 \leq a_i \leq q-1\} $\\
+\textbf{Paritätscode:} Code der Länge n zur Basis q und 
+\[ C \equiv \{(a_1,...,a_5) : 0 \le a_1 \le q-1 \ \mbox{und} \ a_1 + ... + a_n = 0 \equiv q \}\]
+
+\paragraph{Beispiel:} $n=5, q=11$. Ist der Code $ (3,0,10,4,5) \in C$?\\
+$ 3+0+10+4+5=22 $
+
+\paragraph{Satz} 
+Jeder Paritätscode erkennt Einzelfehler (eine Stelle ändern). 
+
+\paragraph{Beweis}
+Das Codewort ist $a_1,...,a_i,...,a_n $ Codewort\\
+Es kommt zu einem Fehler $a_1,...,\underbrace{a_i'}_{Fehler},...,a_n \ $\\
+\[a_1 + a_i' + ... + a_n - \underbrace{(a_1 + ... + a_i + ... + a_n)}_{0} = 
+a_i' - a_i \neq 0 \ \mbox{mod} \ q\]\\
+\textbf{Vertauschungsfehler:} $a_i$ und $a_j$ werden vertauscht. Ein Paritätscode erkennt keinen Vertauschungsfehler!
+
+\paragraph{Idee: Gewichte!} Basis q, n Stellen, Gewichte $g_i \ \mbox{mit} \ 1 \le g_i \le q-1$ \\
+$ g_1 a_1 + ... + g_n a_n \equiv 0 \ \mbox{mod} \ q$ 
+
+\paragraph{Satz:}
+Ist $g_n$ teilerfremd zu q, so kann man immer die Kontrollziffer $a_n$ ausrechnen.
+
+\paragraph{Beweis}
+$ g_1 a_1 + ... + g_n a_n = 0$ \marginpar{mod $q$ !}\\ 
+$ g_n a_n = - g_1 a_1 - ... - g_{n-1} a_{n-1}$\\
+\[a_n = \underbrace{g_{n}^{-1}}_{\mbox{existiert, da } g_n \ \mbox{teilerfremd zu } q.} (- g_1 a_1 - ... - g_{n-1} a_{n-1})
+\]
+
+
+\paragraph{Satz:} Ein Paritätscode mit Gewichten erkennt jeden Einzelfehler der Stelle $a_i$, wenn $g_i$ und $q$ teilerfremd sind.
+
+\paragraph{Beweis:} 
+$a_1 \rightarrow a_1' (falsch)$\\
+$g_1 a_1' + ... + g_n a_n = $\\
+$g_1 a_1' + ... + g_n a_n - (g_1 a_1 + ... + g_n a_n) = $\\
+$g_1 a_1' - g_1 a_1 = \underbrace{\underbrace{g_1}_{\neq 0} \underbrace{(a_1' - a_1)}_{\neq 0}}_{\mbox{Einheit (} g_1 \ \mbox{teilerfremd zu }q \ \mbox{). Kein Nullteiler.}} \neq 0$\\
+
+\paragraph{Folgerung:} Damit man alle Einzelfehler erkennen kann, müssen $g_i$ teilerfremd zu $q$ sein.
+
+\paragraph{Satz:} Ein Paritätscode mit Gewichten erkennt den Vertauschungsfehler $a_i \leftrightarrow a_j$, wenn $g_i - g_j$ teilerfremd zu q ist. 
+
+\paragraph{Beweis:} Vertauschungsfehler, z.B.: $ a_1 \leftrightarrow a_2$\\
+$g_1 a_2 + g_2 a_1 + g_3 a_3 + ... + g_n a_n =$\\
+$g_1 a_2 + g_2 a_1 + ... + g_n a_n - (g_1 a_1 + ... + g_n a_n) =$\\
+$g_1 a_2 + g_2 a_1 - g_1 a_1 - g_2 a_2 =$\\
+$g_1(a_2 - a_1) + g_2(a_1 - a_2) =$\\
+$g_1(a_2 - a_1) - g_2(a_2 - a_1) =$\\
+$\underbrace{\underbrace{(g_1 - g_2)}_{\neq 0} \underbrace{(a_2-a_1)}_{\neq 0}}_{Einheit, kein Nullteiler} \neq 0$\marginpar{mod q}\\
+
+
+\paragraph{Beispiel:} Ein Paritätscode der Länge 10 zur Basis $q=11$.\\ 
+
+\begin{tabular}{ccccccccccc}
+ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6 $ & $a_7 $ & $a_8 $ & $a_9 $ & $a_{10}$\\ 
+$g_i$ & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ 
+\end{tabular} 
+Erkennt jeden Einzelfehler und jeden Vertauschungsfehler! Das ist der ISBN-Code bei den Büchern (10=X).
+
+\paragraph{Beispiel (ISBN-Code):} "Die letzte Stelle \textbf{2} kann nicht einfach gewählt werden, sondern muss stimmen! "\\
+\begin{tabular}{c|cccccccccc}
+ & $a_1$ & $a_2$ & $a_3$ & $a_4$ & $a_5$ & $a_6 $ & $a_7 $ & $a_8 $ & $a_9 $ & $a_{10}$\\ \hline
+ & 3 & 1 & 5 & 7 & 2 & 2 & 1 & 8 & 9 & \textbf{2}\\
+$g_i$ & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1\\ 
+Produkt 30 & 9 & 40 & 49 & 12 & 10 & 4 & 24 & 18 & \\
+mod 11 & 8 & 9 & 7 & 5 & 1 & 10 & 4 & 2 & 7 & \textbf{2}\\
+\end{tabular} 
+\marginpar{$\sum=8+9+7+5+1+10+4+2+7=53=9$} 
+
+\subsection{Codes über Gruppen}
+\paragraph{Wiederholung:}
+$(G,\cdot)$ ist eine Gruppe, wenn:
+\begin{itemize}
+\item $\cdot$ ist assoziativ
+\item Es gibt ein neutrales Element e
+\item Jedes a hat ein Inverses b, d.h. $ab=ba=e$
+\end{itemize}
+Das Inverse ist eindeutig und heißt $a^{-1}$
+
+\paragraph{Satz}
+Gleichungen der Form $ax = b$ sind eindeutig lösbar.
+
+\paragraph{Beweis:}
+\begin{itemize}
+\item Sei x eine Lösung $\Rightarrow a x = b \Rightarrow x = a^{-1} b$
+\item Setze $x = a^{-1} b \Rightarrow a a^{-1} b = b$
+\end{itemize}
+$\Box$
+
+\paragraph{Satz:} 
+Die Abbildung 
+\begin{equation*}
+ a_l:\qquad	
+ \left\{
+ \begin{aligned}
+	G \rightarrow G\\
+	x \rightarrow ax
+	\end{aligned}
+	\right.
+\end{equation*}
+ist bijektiv. 
+
+\paragraph{Beweis:}
+\begin{itemize}
+\item injektiv: Sei $ax=ay \Rightarrow x=y$
+\item surjektiv: Falls $\vert G \vert$ endlich (klar!), $ax = b; x = a^{-1} b$
+\end{itemize}
+$\Box$
+
+\paragraph{Beispiel 1:}
+$(\mathbb{Z},+), (\mathbb{Z}_n,+)$, $(\mathbb{Z}_n^* ,\cdot), (\mathbb{R},+), (\mathbb{R}^* ,\cdot)$ Gruppen
+
+\paragraph{Beispiel 2:}
+Menge M: $G = \{f \colon M \rightarrow M, \mbox{mit f bijektiv}\}$ \\
+Komposition: (Hintereinanderausführung) $(G,\cdot) \ \mbox{Gruppe.} \ e=id$  $id(x)=x$. Das Inverse von f ist die Umkehrabbildung $f^{-1}$
+
+\paragraph{Beispiel 3:}
+Eine bijektive Abbildung der Ebene in sich heißt \underline{Kongruenz}, wenn sie die Abstände erhält: $ d(x,y) = d(\varphi(x), \varphi(y)) \Rightarrow$ Winkel bleiben erhalten. \\
+Die Kongruenzen (vgl. Abb. \ref{fig:kongruenzen}) bilden bezüglich $\circ$ eine Gruppe.
+\begin{itemize}
+\item Verschiebungen
+\item Spiegelungen
+\item Drehungen
+\item Gleitspiegelungen
+\end{itemize}
+
+
+\includegraphicsdeluxe{kongruenzen.jpg}{Das sind alle Kongruenzen}{fig:kongruenzen}
+
+\paragraph{Beispiel 4 (Symmetrie einer ebenen Figur):}
+Alle Kongruenzen, welche die Figur auf sich abbilden, bilden eine Gruppe (vgl. Abb. \ref{fig:rechteck}). 
+
+
+\includegraphicsdeluxe{rechteck.jpg}{Spiegelungen an h,g, Drehungen um Z um 180$^\circ$ und id}{fig:rechteck}
+
+
+\textbf{Gruppentafel} \marginpar{\textbf{g}: wegen $dr \circ h = g$ (erst h, dann dr)\\ $1 \rightarrow 4$\\ $2 \rightarrow 3$\\ $3 \rightarrow 2$\\ $4 \rightarrow 1$}\\
+\begin{tabular}{|c|c|c|c|c|}
+\hline $ \circ $ & id & dr & h & g \\ 
+\hline id & id & dr & h & g \\ 
+\hline dr & dr & id & \textbf{g} & h \\ 
+\hline h & h & g & id & dr \\ 
+\hline g & g & h & dr & id \\ 
+\hline 
+\end{tabular}
+\\
+
+\paragraph{Definition:} 
+Code über Gruppe $(G,\cdot)$ der Länge $n$ und Kontrollsymbol $c \in G$: $\{(a_1,...,a_n) \colon a_i \in G \ \mbox{und} \ a_1 a_2 ... a_n = c\}$
+
+\paragraph{Satz:}Ein Gruppencode erkennt Einzelfehler. 
+
+\paragraph{Beweis:}  
+\[
+\begin{array}{c}
+(1) \ a_1 (a_2 ... a_n) = c\\
+(2) \ a_1' (a_2 ... a_n) = c \\
+\Rightarrow a_1 = a_1' \Box\\
+\end{array}
+\]
+
+Ein Gruppencode kann einen Vertauschungsfehler erkennen oder nicht. Ist G kommutativ, so werden Vertauschungsfehler \textbf{nicht} erkannt. \marginpar{Eine Gruppe eignet sich umso besser, je weniger sie kommutativ ist.}\\
+$a_1 a_2 (a_3 ... a_n) = c$\\
+$a_2 a_1 (a_3 ... a_n) = c$\\
+$\Rightarrow a_1 a_2 = a_2 a_1$\\
+
+\subsection{Permutationen}
+Eine Permutation ist eine bijektive Abbildung einer endlichen Menge auf sich. 
+$ \pi_1:  
+\begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+ \downarrow  &  \downarrow  &  \downarrow  &  \downarrow  &  \downarrow  \\ 
+2 & 3 & 1 & 5 & 4
+\end{array} $
+\\
+$ \pi_2: 
+\begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+5 & 1 & 2 & 4 & 3
+\end{array} $
+\\
+$ \pi_1 \circ \pi_2
+\begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+1 & 2 & 5 & 3 & 4
+\end{array} $
+\\
+$ \pi_2^{-1} 
+\begin{array}{ccccc}
+1 & 2 & 3 & 4 & 5 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+2 & 3 & 5 & 4 & 1
+\end{array} $
+
+\paragraph{Gruppencode mit Permutationen:} 
+Länge n, Gruppe G, Permutationen der Gruppe: $ \pi_1,  \pi_2, ...,  \pi_n$, Kontrollsymbol $ c \subset G$.\\
+$ C = \{(a_1, ..., a_n) \colon a_i \in \ \mbox{G und} \ \pi_1(a_1) \pi_2(a_2) ....  \pi_n(a_n) = c\}$
+
+\paragraph{Satz:}
+Ein Gruppencode mit Permutationen erkennt Einzelfehler. 
+
+\paragraph{Beweis:}
+$\pi_1(a_1) ....  \pi_n(a_n) = c$\\
+$\pi_1(a_1')  \pi_2(a_2) ....  \pi_n(a_n) = c$\\
+$\Rightarrow \pi_1(a_1) = \pi_1(a_1') \Rightarrow a_1 = a_1'$\\
+$\Box$
+
+\paragraph{Satz:}
+Ein Gruppencode mit Permutationen erkennt den Vertauschungsfehler der Stellen $i, i+1$, wenn Folgendes gilt:
+\begin{itemize}
+\item $\pi_i(g) \cdot  \pi_{i+1}(h) \neq \pi_i(h) \cdot  \pi_{i+1}(g) \ \forall g \neq h$
+\end{itemize}
+"klar" $\Box$
+
+\paragraph{Beispiel (Code der deutschen Geldscheine):}
+Gruppe: \textit{Diedergruppe} Ordnung 10. Das sind die Symmetrien des regelmäßigen 5-Ecks:
+
+\includegraphicsdeluxe{fuenfeck.jpg}{Fünfeck: 5 Spiegelungen, 4 Drehungen, id (10)}{fig:fuenfeck}
+
+Bilden Gruppe (10 Elemente). Wir bezeichnen die Symmetrien mit $0,1,...,9 \ (0 \widehat{=} id)$. Der Code soll die Länge n = 11 haben. Das Kontrollsymbol c sei 0. Wir benötigen 11 Permutationen. 
+
+$ \pi_1:
+\begin{array}{cccccccccc}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\ 
+1 & 5 & 7 & 6 & 2 & 8 & 3 & 0 & 9 & 4
+\end{array} $
+\\
+$ \pi_2 = \pi_1 \circ \pi_1 = \pi_1^2 $ \\
+$ \pi_3 = \pi_1 \circ \pi_1 \circ \pi_1 = \pi_1^3 $ \\
+$ \vdots $ \\
+$ \pi_{11} = \pi_1^{11} $ \\
+$ Code = \{(a_1,a_2,...,a_{11}) \colon 0 \le a_i \le 9 \ \mbox{und} \ \pi_1(a_1) \pi_2(a_2) ... \pi_{11}(a_{11}) = 0 \} $ \\ 
+Wie berechnet man die "Kontrollziffer" $a_{11}$?\marginpar{$c = 0$}\\
+$\pi_1(a_1) ... \pi_{11}(a_{11}) = c $\\
+$\pi_{11}(a_{11}) = [\pi_1(a_1) ... \pi_{10}(a_{10})]^{-1} \cdot  c$\\
+$a_{11}=\pi_{11}^{-1} [(\pi_{1}(a_{1} ... \pi_{10}(a_{10}))^{-1} \cdot  c]$
+
+\paragraph{Beispiel (Symmetrie eines gleichseitigen Dreiecks)}
+Spiegelungen w1, w2, w3, Drehungen um Z 120, 240 und id (vgl. Abb. \ref{fig:gleichseitigesDreieck})
+
+\includegraphicsdeluxe{gleichseitiges-dreieck.jpg}{Gleichseitiges Dreieck}{fig:gleichseitigesDreieck}
+
+
+\textbf{Gruppentafel}\\
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline $\circ$ & id & w1 & w2 & w3 & 120 & 240 \\ 
+\hline id & id & w1 & w2 & w3 & 120 & 240 \\ 
+\hline w1 & w1 & id & 120 & 240 & w2 & w3 \\ 
+\hline w2 & w2 & 240 & id & 120 & w3 & w1 \\ 
+\hline w3 & w3 & 120 & 240 & id & w1 & w2 \\ 
+\hline 120 & 120 & w3 & w1 & w2 & 240 & id \\ 
+\hline 240 & 240 & w2 & w3 & w1 & id & 120 \\ 
+\hline 
+\end{tabular} 

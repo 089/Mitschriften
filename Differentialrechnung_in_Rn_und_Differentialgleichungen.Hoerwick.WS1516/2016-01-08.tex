@@ -1,0 +1,94 @@
+% Vorlesung vom 08.01.2016
+\renewcommand{\ldate}{2016-01-08}
+
+\section{Aufgaben}
+
+\subsection{1.}
+$f: \R^2 \rightarrow \R^2, \vektor{x\\y} \rightarrow \vektor{x^2 \sin y + y\\3y\cos x + x}$
+
+Man linearisiere f an der Stelle $\vektor{\pi\\\pi}$:
+
+$ f\vektor{\pi\\\pi} = \vektor{\pi^2 \sin \pi + \pi\\3\pi\cos \pi + \pi} $
+
+$ f'\vektor{x\\y} = \vektor{\frac{\df_1}{\dx} & \frac{\df_1}{\dy}\\\frac{\df_2}{\dx} & \frac{\df_2}{\dy}} 
+= \vektor{2x\sin y & x^2\cos y + 1\\ - 3 y \sin x + 1 & 3 \cos x}$ (Ableitungsmatrix)
+
+Ableitungsmatrix an der Stelle $\vektor{\pi\\\pi}$:
+$ \vektor{2\pi\sin \pi & \pi^2\cos \pi + 1\\ - 3 \pi \sin \pi + 1 & 3 \cos \pi} 
+= \vektor{0 & -\pi^2 + 1\\1 & -3}$
+
+$ f\vektor{\pi + h_1\\\pi + h_2} \approx \vektor{\pi\\-2\pi} + \vektor{0 & -\pi^2 + 1\\1 & -3} \vektor{h_1\\h_2} $
+
+\subsection{2.}
+$ y' = \underbrace{2x}_{f(x)} \cdot \underbrace{(y+1)^2}_{g(y)}$ mit $\varphi(0) = 1$
+
+\subsubsection{herkömmliches Lösungsverfahren}
+$ \int_{0}^{x} 2t dt = \int_{1}^{\varphi(x)} (t+1)^{-2} dt $ \profnote{Wegen dem Typ: $\frac{1}{g(t)}$}
+
+$ \sbr{t^2}_0^x = \sbr{-(t+1)^{-1}}_1^{\varphi(x)} $
+
+$ x^2 = -(\varphi(x) + 1)^{-1} + (1+1)^{-1} $
+
+$ x^2 = - \frac{1}{(\varphi(x) + 1)} + \frac{1}{2} $
+
+$ \frac{1}{(\varphi(x) + 1)} = \frac{1}{2} - x^2 = \frac{1 - 2x^2}{2} $
+
+$ \varphi(x) + 1 = \frac{2}{1-2x^2} $
+
+$ \varphi(x) = \frac{2}{1-2x^2} - 1 $
+
+\textbf{$ \varphi(0.1) = \frac{2}{1-2\cdot 0.01} - 1 = 1.0408$}
+
+\subsubsection{Numerische Lösung}
+Versuch der Annäherung durch das Taylor-Polynom. 
+
+$ P(h) = \varphi(0) + \varphi'(0) \cdot h + \frac{\varphi''(0)}{2} \cdot h^2 $
+
+$ \varphi(0) = 1 $
+
+$ \varphi'(x) = 2x \cdot (\varphi(x) +1)^2 $
+
+$ \varphi'(0) = 0 $
+
+$ \varphi''(x) = 2 \cdot (\varphi(x) +1)^2 + 2x \cdot 2\cdot (\varphi(x) + 1) \cdot \varphi'(x) $
+
+$ \varphi''(0) = 8 + 0 = 8$
+
+$\Rightarrow P(0.1) = 1 + 0 + \frac{8}{2} \cdot 0.1^2 = 1.04$
+
+\subsubsection{Runge-Kutta-Verfahren}
+Versuch der Annäherung durch das Runge-Kutta-Verfahren mit der Schrittlänge 0.1. 
+
+$ y' = 2x \cdot (y+1)^2 = f(x,y)$ mit $x_0=0, y_0=1$
+
+$K_1 = f(x_0, y_0) $
+
+$K_2 = f(x_0 + 0.05, y_0 + 0.05\cdot K_1) $
+
+$K_3 = f(x_0 + 0.05, y_0 + 0.05\cdot K_2) $
+
+$K_4 = f(x_0 + 0.1, y_0 + 0.1\cdot K_3) $
+
+$ K_1 = f(0, 1) = 0 $
+
+$ K_2 = f(0.05, 1) = 8 \cdot 0.05 = 0.4 $
+
+$ K_3 = f(0.05, 1 + 0.05 \cdot 0.4) = 0.408 $
+
+$ K_4 = f(0.1, 1 + 0.1 \cdot 0.408) = 2 \cdot 0.1 (2 + 0.0408)^2 = 0.833 $
+
+$ y_1 = y_0 + 0.1 (\frac{K_1}{6} + \frac{K_2}{3} + \frac{K_3}{3} + \frac{K_4}{6}) $ \profnote{Klammer: gewichtetes Mittel}
+
+$ y_1 = 1 + 0.1 (0 + \frac{0.4}{3} + \frac{0.408}{3} + \frac{0.833}{6}) = 1.040816 ... $ 
+
+\subsection{3.}
+$ f: \R^2 \rightarrow \R^2, \vektor{x\\y} \rightarrow \vektor{2xy\\y^2}$
+
+$ g: \R^2 \rightarrow \R^3, \vektor{x\\y} \rightarrow \vektor{x+y\\x\cdot y\\x\cdot x}$
+
+\textbf{gesucht:} $(g\circ f)', \R^2 \rightarrow \R^3$
+\subsubsection{a) $g\circ f$ berechnen, dann ableiten}
+
+\subsubsection{b) mit Kettenregel}
+
+Hausaufgabe

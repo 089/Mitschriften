@@ -1,0 +1,92 @@
+% Vorlesung vom 06.11.2015
+\renewcommand{\ldate}{2015-11-06}
+
+\subsection{Beispiel}
+Wir rechnen im $\R^3$ mit dem Vektorfeld $F(x,y,z) = \vektor{0\\0\\-1}$ und der Kurve $K(\varphi) = (\cos \varphi, \sin \varphi, \varphi)$ (Schraubenlinie) \profnote{Bei einer Umdrehung geht es $2\pi$ nach oben}
+
+$\int_{0}^{2\pi} F(K(\varphi)) \cdot K'(\varphi) d\varphi$
+$=\int_{0}^{2\pi} \vektor{0\\0\\-1} \cdot \vektor{-\sin \varphi\\ \cos \varphi\\ 1} d\varphi$
+$=\int_{0}^{2\pi} -1 d\varphi$
+$=-2\pi$ 
+
+\section{Differenzieren von Funktionen des Typs $\R^n \rightarrow \R^m$}
+$ f:\R^n \rightarrow \R^m $
+
+$\vektor{x_1\\\vdots \\x_n} \rightarrow \vektor{f_1(x_1,...,x_n)\\\vdots\\f_m(x_1,...,x_n)}$
+
+\subsection{Linearisierung}
+$f\vektor{x_1 + \Dx_1\\\vdots\\x_n + \Dx_n\\}$
+$=\vektor{f_1(x_1 +\Dx_1, ..., x_n+\Dx_n)\\\vdots\\f_m(x_1 +\Dx_1, ..., x_n+\Dx_n)}$ \profnote{Linearisierung mittels partieller Ableitung}
+
+$\approx \vektor{f_1(x_1, ..., x_n) + \frac{\delta f_1}{\delta x_1} \cdot \Dx_1 + ... + \frac{\delta f_1}{\delta x_n} \cdot \Dx_n \\ \vdots \\ f_m(x_m, ..., x_n) + \frac{\delta f_m}{\delta x_1} \cdot \Dx_1 + ... + \frac{\delta f_m}{\delta x_n} \cdot \Dx_n}$
+
+$= \vektor{f_1(x_1,...,x_n)\\\vdots\\f_m(x_1,...,x_n)} $
+$+ \vektor{\frac{\delta f_1}{\delta x_1} & \frac{\delta f_1}{\delta x_2} & ... & \frac{\delta f_1}{\delta x_n}\\ & & \vdots & \\\frac{\delta f_m}{\delta x_1} & \frac{\delta f_m}{\delta x_2} & ... & \frac{\delta f_m}{\delta x_n}}$
+$\vektor{\Dx_1\\\Dx_2\\\vdots\\\Dx_n}$ 
+\profnote{Die mittlere Matrix nennen wir \textbf{Ableitungsmatrix}, hier: Ableitung von $\R^n \rightarrow \R^m$}
+
+\subsection{Beispiel}
+$f : \R^3 \rightarrow \R^3$
+
+$\vektor{x_1\\x_2\\x_3} \rightarrow \vektor{x_1 \cdot x_2^2\\ x_2 \cdot x_3 \\ x_1^2 \cdot x_2 \cdot x_3}$
+
+Ableitungsmatrix: 
+$\vektor{x_2^2 & 2x_1 x_2 & 0\\ 0 & x_3 & x_2\\2 x_1 x_2 x_3 & x_1^2 x_3 & x_1^2 x_2}$
+
+Linearisierung: 
+$f \vektor{x_1 + \Dx_1\\ x_2 + \Dx_2\\ x_3 + \Dx_3}$
+$\approx f\vektor{x_1\\ x_2 \\ x_3	}$
+$+\vektor{x_2^2 & 2x_1 x_2 & 0\\ 0 & x_3 & x_2\\2 x_1 x_2 x_3 & x_1^2 x_3 & x_1^2 x_2}$
+$\vektor{\Dx_1\\ \Dx_2\\ \Dx_3}$
+
+\subsection{Kettenregel}
+$ (g\circ f) (x+\Dx) $
+$=g(f(x+\Dx))$
+$\approx g(\underline{f(x)} + \underline{f'(x) \cdot \Dx})$
+$\approx g(f(x)) + g'(f(x)) \cdot [f'(x) \cdot \Dx]$
+$= g(f(x)) + \underbrace{[g'(f(x)) \cdot f'(x)]}_{\textrm{Die Ableitungsmatrix von $g\circ f$}} \cdot \Dx$
+
+\paragraph{Kettenregel:}
+$(g\circ f)'(x)$
+$=\underbrace{g'(f(x))}_{\textrm{Matrix}} \underbrace{\cdot}_{\textrm{Matrizenmultiplikation}} \underbrace{f'(x)}_{\textrm{Matrix}}$
+
+\subsection{Beispiel}
+$\R^2 \underrightarrow{f} \R^2 \underrightarrow{g} \R^2$
+$f\vektor{x_1\\x_2}$
+$=\vektor{x_1 \cdot x_2\\ x_1^2}$
+$g\vektor{x_1\\ x_2}$
+$=\vektor{2 x_2\\ 3 x_1 x_2}$
+
+Direkt:
+$(g\circ f)\vektor{x_1 \\ x_2}$
+$= g\vektor{x_1 x_2 \\ x_1^2}$
+$= \vektor{2 x_1^2\\ 3 x_1^3 x_2}$
+
+$(g\circ f)'\vektor{x_1 \\ x_2}$
+$= \vektor{4 x_1 & 0\\ 9 x_1^2 x_2 & 3 x_1^3}$
+
+Mit der Kettenregel: 
+$f'\vektor{x_1 \\ x_2} $
+$=\vektor{x_2 & x_1\\ 2 x_1 & 0}$,
+$g'\vektor{x_1 \\ x_2}$
+$=\vektor{0 & 2\\3 x_2 & 3_x1}$
+
+$g'(f(x)) $
+$= g' \vektor{x_1 x_2 \\ x_1^2}$
+$= \vektor{0 & 2 \\ 3 x_1^2 & 3 x_1 x_2}$
+
+$g'(f(x)) \cdot f'(x) $
+$=\vektor{0 & 2 \\ 3 x_1^2 & 3 x_1 x_2}$
+$\cdot \vektor{x_2 & x_1 \\ 2 x_1 & 0}$
+$= \vektor{4 x_1 & 0 \\ 3 x_1^2 x_2 + 6 x_1^2 x_2 & 3 x_1^3}$
+$=\vektor{4 x_1 & 0 \\ 9 x_1^2 x_2 & 3 x_1^3}$
+
+\subsection{Hausaufgabe}
+$ f: \R \rightarrow \R^2, x \rightarrow \vektor{x \\ \cos x}$, 
+$ g: \R^2 \rightarrow \R, \vektor{x\\y}\rightarrow x^y$
+
+\textbf{gesucht:} $(g\circ f)'$
+\begin{enumerate}
+\item direkt
+\item mit Kettenregel
+\end{enumerate}

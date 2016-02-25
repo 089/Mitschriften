@@ -1,0 +1,99 @@
+% Basis
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+% Libs
+\usepackage{graphicx} % Bilder
+%\usepackage{mmixtex/mmix}	% MMIX
+\usepackage{listings}	% Programmcode
+\usepackage{tikz}	% Für Diagramme aus Dia
+
+% Verweise anklickbar machen
+\usepackage{hyperref} % 1. 
+\usepackage[figure]{hypcap} % 2. 
+
+% EIGENE BEFEHLE -----------------------------------------------
+% Datum der einzelnen Lektionen definieren
+\newcommand{\ldate}{2015-05-01}	% define lessiondate
+
+% Bildbreite: Originalgröße oder falls größer als Seitenbreite/Spalte ==> skalieren
+\makeatletter
+\def\ScaleIfNeeded{%
+\ifdim\Gin@nat@width>\linewidth
+\linewidth
+\else
+\Gin@nat@width
+\fi
+}
+\makeatother
+
+% Neuer Befehl der Bilder standartisiert einbindet:
+% includegraphicsdeluxe benötigt \ScaleIfNeeded und \ldate
+% 1. innerhalb der figure-Umgebung mit dem Versuch, das Bild mittels [!htb] an genau dieser Position einzufügen
+% 2. mit der Original- oder einer skalierten (mittels ScaleIfNeeded s.o.) Größe
+% 3. mit einer Beschriftung (\caption{})
+% 4. mit einem Label (\label{})
+\newcommand{\includegraphicsdeluxe}[3]{
+	\begin{figure}[!htb] 
+	\centering
+	\includegraphics[width=1\ScaleIfNeeded]{pics/\ldate_#1}
+	\caption{#2}
+	\label{#3}
+	\end{figure}
+}
+
+% AND und OR Symbole
+\newcommand{\und}{\wedge}
+\newcommand{\oder}{\vee}
+
+% Grundmengen
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+ 
+%Kopfzeile mittig mit Kaptilname
+\fancyhead[L]{\textsf{\nouppercase{\leftmark}}}
+\fancyhead[R]{\textsf{\thepage}}
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+%Fußzeile links bzw. innen
+\fancyfoot[C]{\tiny{M. Zell}}
+\fancyfoot[L]{\tiny{IT-Systeme}}
+\fancyfoot[R]{\tiny{SS 2015}}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+ 
+% Fußzeile auf jeder Seite - auch Kapitel und Inhaltsverzeichnis
+\fancypagestyle{plain}{%
+   \fancyhf{}%
+	\fancyfoot[C]{\tiny{M. Zell}}
+	\fancyfoot[L]{\tiny{IT-Systeme}}
+	\fancyfoot[R]{\tiny{SS 2015}}
+   \renewcommand{\headrulewidth}{0.0pt} %obere Linie ausblenden
+}
+
+\author{M. Zell}
+\title{Mitschrift\\IT-Systeme SS2015\\Prof. Dr. Martin Ruckert}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\include{2015-05-06}
+\include{2015-05-20}
+\include{2015-05-27}
+\include{2015-06-03}
+\include{2015-06-10}
+\include{2015-06-17}
+
+\end{document}

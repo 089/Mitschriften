@@ -1,0 +1,94 @@
+% Vorlesung vom 01.12.2015
+\renewcommand{\ldate}{2015-12-01}
+
+\section{Pseudozufallszahlen}
+Zufallsgenerator: liefert Folge von Zufallszahlen $x_1, x_2, ..., $ aus dem Intervall $[0,1]$. Diese sollen zufällig und gleichverteilt sein. 
+Die Zufallsgrößen $X_1, X_2, ..., $ sollen unabhängig sein und $P(X_i \in (a,b)) = b-a$
+
+Der Generator liefert Pseudozufallszahlen, d.h. abhängig vom Startwert immer die gleiche Folge. Diese Folge sollte möglichst gut sein. 
+
+Wir machen das mit einem linearen Kongruenzgenerator und rechnen dafür modulo m (möglichst groß): 
+$ Z_{j+1} = a\cdot Z_j + b, 0<a,b<m, 0 \leq z_j < m$.
+
+$ x_j = \frac{z_j}{m}$
+
+\includegraphicsdeluxe{ZufzZw011.jpg}{Zufallszahlen zwischen 0 und 1}{Zufallszahlen zwischen 0 und 1: $x_j = \frac{z_j}{m} + \frac{1}{2 \cdot m}$}{fig:ZufzZw011}
+
+z.B. $m=100, a=18, n=11$, Startwert: $z_0 = 40$ (Abb. \ref{fig:ZufzZw011})
+
+$z_1 = 18 \cdot 40 + 11 = 31 $
+$z_2 = 18 \cdot 31 + 11 = 69 $\\
+$z_3 = 18 \cdot 69 + 11 = 53 $\\
+$z_4 = 18 \cdot 53 + 11 = 65 $\\
+$z_5 = 18 \cdot 65 + 11 = 81 $\\
+$z_6 = 18 \cdot 81 + 11 = 69 $\\
+$53, 65, 81, 69, 53, 65, 81, ... $ schlecht, weil sehr schnell Wiederholungen. Nun stellt sich die Frage: Wie bekommt man einen guten Generator? 
+
+\subsection{Simulation eines Experiments mit Hilfe des Pseudozufallgenerators}
+\includegraphicsdeluxe{SimZufEx1.jpg}{Simulation eines Experiments}{Simulation eines Experiments: $x in I_k \Leftrightarrow \omega_k$ ist das Ergebnis des Experiments.}{fig:SimZufEx1}
+Wir haben 5 Ausgänge des Experiments (Abb. \ref{fig:SimZufEx1}): 
+$\omega_1 p(\omega_1) = 0.3$\\
+$\omega_2 p(\omega_2) = 0.2$\\
+$\omega_3 p(\omega_3) = 0.3$\\
+$\omega_4 p(\omega_4) = 0.1$\\
+$\omega_5 p(\omega_5) = 0.1$\\
+
+$x \in I_k \Leftrightarrow \omega_k$ ist das Ergebnis des Experiments. 
+
+\section{Varianz}
+EX gibt einen Mittelwert der Zufallsgröße X an. Die Varianz ist ein Streuungsmaß von X, das wie folgt definiert wird: 
+
+$Var(X) = V(X) = E[(X-EX)^2] = \sigma^2(X)$. Mittelwert der quadratischen Abweichungen von EX. Die Wurzel der Varianz nennt man Standardabweichung: $\sigma(X) = \sqrt{V(X)} $. \\
+
+\textbf{Bemerkung:} Hat die Zufallsgröße X die Einheit Meter, so haben Erwartungswert $EX$ und Standardabweichung $\sigma (X)$ dieselbe Einheit, die Varianz $\sigma^2(X)$ aber Quadratmeter. 
+Nimmt $X$ die Werte $x_1, ..., x_n$ mit den Wahrscheinlichkeiten $p_1, ..., p_n$ an, dann ist die Varianz 
+$Var(X) = \sum_{i=1}^{n} (x_i - EX)^2 \cdot p_i$. 
+
+\subsection{Beispiel}
+$EX = \frac{1}{6} (1+2+3+4+5+6) = \frac{21}{6} = 3.5$
+
+$Var(X) = \frac{1}{6} \sbr{(1-3.5)^2 + (2-3.5)^2 + (3-3.5)^2 + (4-3.5)^2 + (5-3.5)^2 + (6-3.5)^2}$
+$= 2.916$
+
+$\sigma (X) = \sqrt{2.916} = 1.707$	
+
+\subsection{Varianz der Indikatorfunktion $I_A = I\cbr{A}$}
+% \profnote{Die Indikatorfunktion gibt an, ob das Ergebnis in }
+
+$E I_A = 1 \cdot P(A) + 0\cdot (1-P(A)) = P(A)$
+
+$Var(I_a) = \sbr{1-P(A)}^2 \cdot P(A) + \sbr{0-P(A)}^2 \cdot \rbr{1-P(A)}$
+$= \sbr{1 + P(A)^2 - 2 P(A)} \cdot P(A) + P(A)^2 \cdot \rbr{1-P(A)}$
+$=P(A) + P(A)^3 - 2 P(A)^2 + P(A)^2 - P(A)^3$
+\underline{$=P(A) - P(A)^2$}
+$=Var(I_A)$	
+
+\subsection{Rechenregeln der Varianz}\index{Varianz!Rechenregeln}
+\begin{satz}
+$X: \Omega \rightarrow \R$ Zufallsgröße. Dann gilt: 
+\begin{enumerate}
+\item $Var(X) = E[(X-a)^2] - [(EX) - a]^2, a\in \R$
+\item $Var(X) = E(X^2) - (EX)^2$
+\item $Var(X) = \underset{a\in\R}{min} E[(X-a)^2]$
+\item $Var(aX+b) = a^2 Var(X)$
+\item $Var(X) \geq 0$\\
+$Var(X) = 0 \Rightarrow $ Es gibt $a\in\R$ mit $P(X=a)=1$
+\end{enumerate}
+\end{satz}
+
+\includegraphicsdeluxe{ProofVarA1.jpg}{Beweis}{Beweis: Foto weil \textquote{nicht mitschreiben}}{fig:ProofVarA1}
+\begin{proof}
+\begin{enumerate}
+\item \textquote{ned mitschreiben} deswegen: siehe Abb. \ref{fig:ProofVarA1}. 
+\item setze $a=0$: $Var(X)=E[X^2]-(EX)^2$
+\item $a \Rightarrow E[(\underbrace{X}_{\textrm{minimal bei } a=EX}-a)^2] = Var(X) + [(EX)-a]^2$
+\item $V(aX+b) = E[(aX+b - aEX-b)^2]$
+$=E[a^2 (X-EX)^2]$
+$=a^2 E[(X-EX)^2]$
+$=a^2 Var(X)$
+\item $Var(X) \geq 0 $ klar.\\
+$Var(X) = 0 \Leftrightarrow $
+$\sum_{j=1}^{n} (\underbrace{x_j - EX}_{\textrm{0 bei }x_j = EX})^2 \cdot p(x_j) \overset{!}{=} 0$\\
+$\Leftrightarrow P(X=EX)=1$
+\end{enumerate}
+\end{proof}

@@ -1,0 +1,62 @@
+ % Vorlesung vom 29.06.2015
+\renewcommand{\ldate}{2015-06-29}	% define lessiondate
+
+\section{Einzelne Aufgaben}
+
+\subsection{Siebformel}\index{Siebformel}
+
+$|A_1 \cup A_2 \cup A_3 \cup A_4| = |A_1| + |A_2| + |A_3| + |A_4| - [|A_1 \cap A_2| + |A_1 \cap A_3| + |A_1 \cap A_4| + |A_2 \cap A_3| + |A_2 \cap A_4| + |A_3 \cap A_4|] + [|A_2 \cap A_3 \cap A_4| + |A_1 \cap A_3 \cap A_4| + |A_1 \cap A_2 \cap A_4| + |A_1 \cap A_2 \cap A_3|] - [|A_1 \cap A_2 \cap A_3 \cap A_4|]$
+
+\subsubsection{Beispiel}
+\includegraphicsdeluxe{siebformel_mengen.jpg}{Auf diese Menge wenden wir die Siebformel an}{fig:siebformel_mengen} % Nr. 1
+
+\subsubsection{Berechnung}
+$[8+8+8+8]-[5+3+2+4+4+4]+[2+1+2+2]-[1]=32-22+7-1=16$
+
+\subsection{Symmetriegruppe eines Rechtecks}
+Eine Kongruenzabbildung (Drehung, Spiegelung), die das Rechteck auf sich selbst abbildet. Wir bilden die dazugehörige Gruppentafel:
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\circ$ & id & d & s & t \\ 
+\hline id & id & d & s & t \\ 
+\hline d & d & id & $d \circ s = t$ & s \\ 
+\hline s & s & t & id & d \\ 
+\hline t & t & s & d & id \\ 
+\hline 
+\end{tabular} 
+\\
+Eine Zelle machen wir ausführlich: $d \circ s: A \rightarrow D, B \rightarrow C, C \rightarrow B, D \rightarrow A$ Was ist jetzt $d \circ s$? Die Spiegelung an t. 
+
+\includegraphicsdeluxe{symmgruppe_rechteck.jpg}{Spiegelungen an s und t, Drehung d um 180, Drehung id um 360}{fig:symmgruppe_rechteck} % Nr. 2
+
+\subsection{RSA-Algorithmus}\index{RSA}
+Wir brauchen zwei Primzahlen: $p=5, q=7$\\
+Dann müssen wir das n ausrechnen: $n=p \cdot  q=35$\\
+Wir brauchen die eulersche Phi-Funktion: $\varphi(n)=\varphi(35)=4\cdot 6=24$\\
+Jetzt wählen wir ein e: $1 < e < 24$ mit $ggT(e,24)=1$. Wir wählen $e=11$\\
+Berechne d mit $e \cdot  d \equiv 1$ mod $\varpi(n)$\\
+$11 \cdot  d \equiv 1$ mod $24$\\
+Mit euklidischem Algorithmus: ggT(11,24)\\
+$24=2\cdot 11+2$\\
+$11=5\cdot 2+1$\\
+Jetzt Kombination bilden: $1=11-5\cdot 2=11-5(24-2\cdot 11)=11\cdot 11-5\cdot 24=1$\\
+$\Rightarrow 11\cdot 11\equiv 1$ mod $24$\\
+$11\cdot d\equiv1$ mod $24$\\
+Das Inverse von d ist zufällig auch 11. 
+
+\paragraph{Schlüssel}
+öffentlich: n,e\\
+geheim: d\\
+Klartext: $m=4$\\
+$c=m^e$ mod n\\
+$c=4^{11}$ mod 35\\
+$4194304=9$
+
+\paragraph{entschlüsseln:}
+$m=c^d$ mod n\\
+$m=9^{11}$ mod 35\\
+$m=9^{11}=9^5\cdot 9^6=59049 \cdot  531441 = 4 \cdot  1 = 4$
+
+\section{Prüfungsstoff}
+Prüfungen SS2008, SS2010, SS2011, SS2012, WS1415\\
+Außerdem: Aufgaben von heute, Induktionsbeweis Dominosteine, Lineares Gleichungssystem mod x, Quadratische Gleichung mod x, Permutationen (mit und ohne Fixpunkt), Codes (Gruppen mit und ohne  Permutationen), Graphen (eulersche Linie, eulerscher Kreis)

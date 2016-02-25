@@ -1,0 +1,92 @@
+ % Vorlesung vom 15.06.2015
+\renewcommand{\ldate}{2015-06-15}	% define lessiondate
+
+% Angabe einbinden
+% \includepdf[pages={1,3-5}]{Dateiname}
+
+\section{Lösung zur Prüfung SS 2012}
+
+\subsection{Aufgabe 1}
+
+\subsubsection{a}
+	sparen wir uns
+\subsubsection{b}
+	sparen wir uns
+	
+\subsection{Aufgabe 2}
+$(\Z_{13},+,\cdot)$ Körper
+
+\subsubsection{a}
+$x+7y=5$\\
+$5x+y=8$\\
+\textbf{II-5 * I:} $y-35y=8-25$\\
+$-34y=-17$\\
+$8y=4$\\
+$4\cdot 2y=4$\\
+$2y=1$\\
+$y=7$\\
+\textbf{in I:} $x+7\cdot 7=5$\\
+$x=-44=8$
+
+\subsubsection{b}
+$\underbrace{x^2}_{a^2}+\underbrace{3x}_{2b}=2$ mit $(a+b)^2=a^2+2ab+b^2; 2b=3 \Rightarrow 2\cdot 8=16=3 \Rightarrow b=8$\\
+$x^2+2\cdot 8x+8^2=2+8^2$\\
+$(x+8)^2=2+64=66$\\
+$(x+8)^2=1$\\
+$x_1+8=1 \Rightarrow x_1=-7=6$\\
+$x_2+8=-1 \Rightarrow x_2=-9=4$
+\textbf{Test:} $x=4: 16+12=2 \checkmark$\\
+$x=6: 36+18=2 \checkmark$
+
+\subsection{Aufgabe 3}
+
+\subsubsection{a} $\Z_{10}^* =\{1,3,7,9\}$:
+\begin{tabular}{|c|c|c|c|c|}
+\hline $\cdot$ & 1 & 3 & 7 & 9 \\ 
+\hline 1 & 1 & 3 & 7 & 9 \\ 
+\hline 3 & 3 & 9 & 1 & 7 \\ 
+\hline 7 & 7 & 1 & 9 & 3 \\ 
+\hline 9 & 9 & 7 & 3 & 1 \\
+\hline 
+\end{tabular} 
+\\
+\subsubsection{b} $c=\{(a,b,c):a,b,c \in \Z_{10}^* $ und $\pi_1(a) \cdot  \pi_2(b) \cdot  \pi_3(c)=1\}$\\
+Ergänze: $(3,9,x)$\\
+$\pi_1(3) \cdot  \pi_2(9) \cdot  \pi_3(x)=1$\\
+$7\cdot 7\cdot \pi_3(x)=1$\\
+$9\cdot \pi_3(x)=1$\\
+$\pi_3(x)=9 \Rightarrow x=3$
+
+\subsection{Aufgabe 4}
+
+\subsubsection{a} Die Gesamtzahl entspricht der Anzahl der Permutationen mit $n=20$, also $20!$ Möglichkeiten. 
+
+\subsubsection{b} Richtig ankommen sind die Fixpunkte, d.h. Anzahl der Permutationen ohne Fixpunkt (keiner kommt richtig an).\\
+$a(n)=n!\underbrace{(1-\frac{1}{1!}+\frac{1}{2!}-\frac{1}{3!}+...+(-1)^n \frac{1}{n!})}_{\approx e^{-1}} \approx n! e^{-1}= \frac{20!}{e}$
+
+\subsubsection{c}$P=\frac{\textrm{günstige Fälle}}{\textrm{alle Fälle}}=\frac{20!-\frac{20!}{e}}{20!} = 1-\frac{1}{e}=0,63$
+
+\subsection{Aufgabe 5}
+Zahn 10 von A in Lücke 8 von B?\\
+A: $41+t\cdot 45=x \Rightarrow x\equiv 41$ mod $45$ \marginpar{simultane Kongruenz chin. Restsatz}\\
+B: $33+s\cdot 38=x \Rightarrow x\equiv 33$ mod $38$\\
+45 ($3\cdot 3\cdot 5$) und 38 ($2\cdot 19$) sind teilerfremd.
+
+\textbf{chinesischer Restsatz}\\
+$x\equiv a_1$ mod $m_1$ mit $a_1=41,m_1=45$\\
+$x\equiv a_2$ mod $m_2$ mit $a_2=33, m_2=38$\\
+$\Rightarrow m=m_1\cdot m_2=1710$\\
+$M_1=m_2=38, M_2=45$\\
+$y_1\cdot M_1\equiv 1$ mod $m_1 \Leftrightarrow y_1\cdot 38\equiv 1$ mod $45$\\
+$y_2\cdot M_2\equiv 1$ mod $m_2 \Leftrightarrow y_2\cdot 45\equiv 1$ mod $38$
+
+\textbf{Zwischenrechnung: mit euklidischem Algorithmus} 
+$ggT(45,38): 45=1\cdot 38+7 \Rightarrow 38=5\cdot 7+3 \Rightarrow 7=2\cdot 3+1$\\
+$1=7-2\cdot 3=7-2(38-5\cdot 7)=11\cdot 7-2\cdot 38=11(45-38)-2\cdot 38=11\cdot 45-13\cdot 38=1$
+
+\textbf{Fortsetzung}
+$(-13)\cdot 38\equiv1$ mod $45 \Rightarrow y_1=-13=32$\\
+$11\cdot 45\equiv 1$ mod $38 \Rightarrow y_2=11$
+
+\textbf{x ausrechnen} $x=a_1\cdot y_1\cdot M_1 + a_2\cdot y_2\cdot M_2=41\cdot 32\cdot 38+33\cdot 11\cdot 45=66191$. Diese Lösung ist eindeutig mod $m=1710$. Das erste mal trifft der Zahn 10 also in die Lücke 8 (x so klein wie möglich):\\
+$x=1211$

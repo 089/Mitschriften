@@ -1,0 +1,144 @@
+% Vorlesung vom 03.12.2015, nachgetragen am 21.12.2015, 18.22 bis 19.42
+\renewcommand{\ldate}{2015-12-03}
+An dieser Stelle erst einmal einen herzlichen Dank an Marianus für die Bilder vom 03.12.2015! 
+ 
+\subsection{Eindeutigkeitssatz}
+\includegraphicsdeluxe{eindeutigkeitssatz1.jpg}{Eindeutigkeitssatz}{Eindeutigkeitssatz: In $\R^n$ links und in $\R$ rechts}{fig:eindeutigkeitssatz1}
+\begin{satz}[Eindeutigkeitssatz]\index{Eindeutigkeitssatz}\index{Sätze!Eindeutigkeitssatz}
+$f: \R x \R^n \rightarrow \R^n, (x,y) \rightarrow f(x,y) $
+
+DGL $y' = f(x,y), \vektor{\varphi'_1\\\vdots\\\varphi'_n} = f\rbr{\underbrace{x}_{\textrm{Zeit}}, \underbrace{\vektor{\varphi'_1(n)\\\vdots\\\varphi'_n(n)}}_{\textrm{Ort}}} $
+
+Es seien $\varphi, \psi$ zwei Lösungen, der DGL. $\varphi, \psi : \R \rightarrow \R^n$. gilt $\varphi(x_0) = \psi(x_0)$ für ein $x_0 \in \R$, so gilt $\varphi(x)=\varphi(\psi), \forall x$ (ohne Beweis, Abb. \ref{fig:eindeutigkeitssatz1}).
+\end{satz}
+
+\subsection{Existenzsatz von Picard-Lindelöf}
+\includegraphicsdeluxe{ExSPicardLindelf1.jpg}{Existenzsatz von Picard-Lindelöf}{Existenzsatz von Picard-Lindelöf: eindimensional}{fig:ExSPicardLindelf1}
+\begin{satz}[Existenzsatz von Picard-Lindelöf]
+$f: \R x \R^n \rightarrow \R^n, (x,y) \rightarrow f(x,y) $, DGL $y' = f(x,y)$ 
+
+Dann gibt es eine Lösung $\varphi$ mit $\varphi(\underbrace{a}_{\textrm{Zeit}}) = c = \vektor{c_1\\\vdots\\\underbrace{c_n}_{\textrm{Ort}}}$. Zur Zeit a den Raumpunkt c vorschreiben (Abb. \ref{fig:ExSPicardLindelf1}). Aus dem vorigen Satz folgt die Eindeutigkeit. 
+\end{satz}
+
+\begin{proof}[Beweisidee]
+Eindimensionaler Fall: $f:\R^2 \rightarrow \R, (x,y) \rightarrow f(x,y), y' = f(x,y)$\\
+
+\textbf{1.)} $\varphi: \R \rightarrow \R$ erfüllt genau dann die DGL $y'=f(x,y)$ mit $\varphi(a) = c$, wenn: 
+$ \varphi(x) = \int_{a}^{x} f(t, \varphi(t)) dt + c$\\
+
+\textbf{I)} Es gelte $\varphi(x) = \int_{a}^{x} f(t, \varphi(t)) dt + c, \varphi(a) = c, \varphi'(a) = f(x,\varphi(x))$ Hauptsatz (H.S.)\\
+
+\textbf{II)} Es gelte $\varphi(a) = c $ und $\varphi'(x) = f(x,\varphi(x))$, also: 
+$ 
+c + \int_{a}^{x} f(t, \varphi(t)) dt 
+= c + \int_{a}^{x} \varphi'(t) dt 
+= c + \varphi(x) - \varphi(a) 
+= c + \varphi(x) - c 
+= \varphi(x) \checkmark
+$
+
+\includegraphicsdeluxe{naeherungswBervarphi1.jpg}{Näherung}{Wir versuchen $\varphi$ näherungsweise zu berechnen.}{fig:naeherungswBervarphi1}
+Wir versuchen $\varphi$ näherungsweise zu berechnen (Abb. \ref{fig:naeherungswBervarphi1}).
+
+$\varphi_0(x) = c$
+
+$\varphi_1(x) = \int_{a}^{x} f(t, \varphi_0(t)) dt + c$
+
+$\varphi_2(x) = \int_{a}^{x} f(t, \varphi_1(t)) dt + c$
+
+$\vdots$
+
+$\varphi_{k+1}(x) = \int_{a}^{x} f(t, \varphi_k(t)) dt + c$\\
+
+Man zeigt: Die Funktionen $\varphi_1, \varphi_2, \varphi_3, ...$ konvergieren gegen eine bestimmte Funktion $\varphi$. man zeigt dann: $\varphi(x)$ ist eine Lösung der DGL. 
+\end{proof}
+
+\subsection{Beispiel}
+DGL: $y' = 2xy = f(x,y)$ mit $\varphi(0) = c$. 
+
+$\varphi_0(x) = c$
+
+$
+\varphi_1(x) = \int_{a}^{x} f(t, \varphi_0(t)) dt + c
+= \int_{0}^{x} 2tc\ dt + c
+= c + 2c \sbr{\frac{1}{2} t^2}_0^x
+= c + 2c \cdot \frac{1}{2} x^2
+= c + cx^2
+= c(1+x^2)
+$
+
+$
+\varphi_2(x) = c + \int_{0}^{x} f(t, \varphi_1(t)) dt
+= c + \int_{0}^{x} f(t, c(1+t^2)) dt
+= c + \int_{0}^{x} 2t\cdot c(1+t^2) dt
+= c + 2c \int_{0}^{x} t+t^3 dt
+= c + 2c\rbr{\frac{1}{2} x^2 + \frac{1}{4} x^4}
+= c+c \rbr{x^2 + \frac{x^4}{2}}
+= c \rbr{1+x^2 + \frac{x^4}{2}} 
+$
+
+Man zeigt: $\varphi_k = c\rbr{1 + x^2 + \frac{x^4}{2!} + \frac{x^6}{3!} + \frac{x^8}{4!} + ... + \frac{x^{2k}}{k!}}$
+
+$\varphi(x) = \lim\limits_{k\rightarrow \infty} \varphi_k(x) = c\cdot \sum_{k=0}^{\infty} \frac{(x^2)^k}{k!} = c\cdot e^{x^2}$
+
+\textbf{Test:} $\varphi(x) = c\cdot e^{x^2}$
+
+$\varphi_0 = c\cdot c^0 = c$
+
+$\varphi'(x) = c\cdot e^{x^2} \cdot 2x = \varphi(x) \cdot 2x \checkmark$\\
+
+\textbf{Was bedeutet der Existenz- und Eindeutigkeitssatz?}
+\includegraphicsdeluxe{normDGLaDarfFunkte1.jpg}{Bedeutung des Existenz- und des Eindeutigkeitssatzes}{Bedeutung des Existenz- und des Eindeutigkeitssatzes}{fig:normDGLaDarfFunkte1}
+\begin{enumerate}
+\item normale DGL 
+$f: 
+\begin{cases}
+\R^2 \rightarrow \R\\
+(x,y) \rightarrow f(x,y)
+\end{cases}$ und $
+y'=f(x,y)
+$. Bei a darf man den Funktionswert e vorschreiben (links in Abb. \ref{fig:normDGLaDarfFunkte1}).
+\item Zu einem Zeitpunkt a darf man den Raumpunkt a vorschreiben (rechts in Abb. \ref{fig:normDGLaDarfFunkte1}).
+\end{enumerate}
+
+\section{DGL n-ter Ordnung}
+$
+\varphi^{(n)} = f\rbr{\underbrace{x}_{\textrm{Zeitpunkt}}, \underbrace{\underbrace{y}_{\varphi_0}, \underbrace{y'}_{\varphi_1}, ..., \underbrace{y^{(n-1)}}_{\varphi_{n-1}}}_{\textrm{Raumpunkt}}} 
+$
+
+Ableitungen darf man vorschreiben. An einer Stelle $x = a$ darf man vorschreiben: 
+
+$\varphi(a)$ Dann gibt es genau eine passende Lösung. 
+
+$\varphi'(a)$
+
+$\vdots$
+
+$\varphi^{(n-1)}(a)$
+
+\subsection{Beispiel DGL 2. Ordnung}
+\includegraphicsdeluxe{stelleAblVorgDGL2.jpg}{DGL 2. Ordnung}{DGL 2. Ordnung. Man darf die Stelle und die Ableitung vorgeben.}{fig:stelleAblVorgDGL2}
+$y'' = f(x,y,y'), y'' = -\varphi = f(x,y,y')$. Lösungen sind z.B.:
+
+$\varphi_1(x) = \sin x, \varphi_2(x) = \cos x$
+
+$\varphi'_1(x) = \cos x, \varphi_2(x) = - \sin x$
+
+$\varphi''_1(x) = -\sin x, \varphi_2(x) = - \cos x \checkmark$\\
+
+\textbf{Kombinationen:}
+
+$\varphi(x) = c_1 \sin x + c_2 \cos x$
+
+$\varphi'(x) = c_1 \cos x - c_2 \sin x$
+
+$\varphi''(x) = - c_1 \sin x - c_2 \cos x \checkmark$\\
+
+\textbf{Viele Lösungen:}
+
+$\varphi(x) = c_1 \sin x + c_2 \cos x$ mit $c_1, c_2 \in \R$
+
+$\varphi(0) = c_2, \varphi'(0) = c_1$
+
+An der Stelle 0 darf man $\varphi(0)$ und $\varphi'(0)$ vorschreiben. 
+Alle Lösungen: $\sbr{c_1 \sin x + c_2 \cos x : x_1, c_2 \in \R}$ (Abb. \ref{fig:stelleAblVorgDGL2}).

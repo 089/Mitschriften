@@ -1,0 +1,87 @@
+% Vorlesung vom 23.10.2015
+\renewcommand{\ldate}{2015-10-23}
+
+\subsection{Bogenlänge der Zykloide}
+$f(\varphi)=R \rbr{\varphi - \sin \varphi, 1 - \cos \varphi}, $
+$f'(\varphi)= R \rbr{1-\cos \varphi, \sin \varphi} $\\
+$\abs{f'(\varphi)} = R \sqrt{(1-\cos \varphi)^2 + sin^2 \varphi}$
+$= R \sqrt{1+\cos^2 \varphi - 2 \cos \varphi + \sin^2 \varphi}$
+$= R \sqrt{2-2\cos \varphi}$
+$= 2 R \sqrt{\frac{2-2\cos \varphi}{4}}$
+$= 2 R \sqrt{\frac{1- \cos \varphi}{2}}$
+$\underbrace{=}_{\textrm{Formelsammlung}} 2R \sin \frac{\varphi}{2}$\\
+$\int_{0}^{2\pi} \abs{f'(\varphi)} d\varphi$
+$=\int_{0}^{2\pi} 2 R \sin \frac{\varphi}{2} d\varphi$
+$= \sbr{-4 R \cos \frac{\varphi}{2}}_{0}^{2\pi}$
+$= - 4 R \rbr{\cos \pi - \cos 0}$
+$=- 4 R (-1-1)$
+\underline{$=8 r$} (Länge), \underline{Weg: $2\pi R$}
+
+\subsection{Die natürliche Parameterdarstellung}
+
+\begin{defi}
+Eine Parameterdarstellung k(t) heißt natürlich, wenn $ \abs{k'(t)=1}, \forall t $ (konstante Geschwindigkeit 1).
+\end{defi}
+\includegraphicsdeluxe{natParamDar1.jpg}{Parametrisierung nach der Bogenlänge}{Parametrisierung nach der Bogenlänge. Eine Parameterdarstellung ist natürlich, wenn $L_{a,t} = t-a$}{fig:natParamDar1}
+Sei k(t) natürlich: 
+$L_{a,b}$
+$= \int_{a}^{t_0} \abs{f'(t)} dt$
+$= \int_{a}^{t_0} 1 dt$
+$= \sbr{t}_{a}^{t_0}$
+\underline{$= t_0 -a$}
+
+\subsection{Parametertransformation}
+\includegraphicsdeluxe{paramTrans1.jpg}{Parametertransformation}{Parametertransformation}{fig:paramTrans1}
+Die Funktion $t(\theta)$ sei streng monoton wachsend (in Abb. \ref{fig:paramTrans1} ist das so!) oder streng monoton fallend. Neue Parameterdarstellung der Kurve: $k(t(\theta)), \theta \in \sbr{c,d}.$\\
+$t(\theta)$ steng monoton wachsend: Durchlaufsinn bleibt (gestrichelten Linien in Abb. \ref{fig:paramTrans1}).\\
+$t(\theta)$ steng monoton fallend: anderer Durchlaufsinn.
+
+\subsection{Beispiel}
+$f(t) = \vektor{\cos t\\ \sin t}, t\in \sqrt{0,2\pi}$\\
+$f(\theta) = 2\theta + 1$ (monoton steigend)\\
+$k(t(\theta)) = \vektor{\cos(2\theta +1)\\ \sin(2\theta+1)}$\\
+$t(c) = 0, 2c+1=0 \Rightarrow c=\frac{1}{2}$\\
+$t(d) = 2\pi, 2d+1=2\pi \Rightarrow d=\frac{2\pi -1}{2}$
+
+\subsection{Umwandlung einer Parameterdarstellung in eine natürliche Parameterdarstellung}
+\includegraphicsdeluxe{umwandlParam2natParam.jpg}{Umwandlung einer Parameterdarstellung }{Umwandlung einer Parameterdarstellung in eine natürliche Parameterdarstellung. Die Bogenlänge soll so lang sein wie die Zeit (rote Linien).}{fig:umwandlParam2natParam}
+Wir wollen eine Parameterdarstellung in eine natürliche Parameterdarstellung umwandeln (Abb. \ref{fig:umwandlParam2natParam}). 
+$ \theta(t) - c = \int_{a}^{t} \abs{k'(s)} ds $. \profnote{Wir suchen das $ t(\theta) $, haben aber nur $ \theta(t) $.}
+$ t(\theta) $ ist die Umkehrfunktion von $ \theta(t) $. 
+
+\subsection{Beispiel Zykloide}
+Wir suchen die natürliche Parameterdarstellung der Zykloide. 
+$ R=1, f(t)=(t-\sin t, 1- \cos t), a=0 \leq t \leq b=\pi$ (halber Bogen bis 180\grad). Setze $c=0 (d=4), \abs{f't(t)}=2 \sin \frac{t}{2}$ (Wir ersetzen im Folgenden t durch s).\\
+$\theta(t)=\int_{0}^{t} 2 \sin \frac{s}{2} ds$
+$= \sbr{4 \cos \frac{s}{2}}_{s=0}^{s=t}$
+$=-4 \rbr{\cos \frac{t}{2} - \cos 0}$
+$= -4 \cos \frac{t}{2} + 4$\\
+$\theta(t) = 4-4\cos \frac{t}{2} = \theta $ Nun suchen wir die Umkehrfunktion $\to t(\theta)$ nach t auflösen. 
+$-4 \cos \frac{t}{2} = \theta - 4$\\
+$\cos \frac{t}{2} = 1 - \frac{\theta}{4}$\\
+$\frac{t}{2} = \arccos\rbr{1-\frac{\theta}{4}}$\\
+$t = 2 \arccos\rbr{1-\frac{\theta}{4}}, 0\leq \theta \leq 4$ \\
+$t(\theta) = 2 \arccos \rbr{1-\frac{\theta}{4}}$\\
+$f(t(\theta)) = \vektor{2 \arccos \rbr{1-\frac{\theta}{4}} - \sin \rbr{2 \arccos \rbr{1-\frac{\theta}{4}}} \\ 1-\cos \sbr{2 \arccos \rbr{1-\frac{\theta}{4}}}}$
+
+\subsection{Die Krümmung einer Kurve}
+\includegraphicsdeluxe{krKurve1.jpg}{Krümmung einer Kurve}{Die Krümmung einer Kurve}{fig:krKurve1}
+Die Parameterdarstellung $k(t)$ sei \underline{\textbf{natürlich}}. \\
+$ \textrm{Krümmung} = \frac{\textrm{Winkeländerung des Geschwindigkeitsvektors}}{\textrm{Bogenlänge}}$\\
+$ \textrm{Krümmung} = \lim\limits_{h\rightarrow 0} \frac{\abs{k'(t+h) - k'(t)}}{\abs{h}} $ 
+\profnote{Zähler $ \widehat{=} $ blaue Linie in Abb. \ref{fig:krKurve1}}
+$ = \lim\limits_{h\rightarrow 0} \abs{\frac{k'(t+h) - k'(t)}{h}}$\\
+Krümmungsvektor (ohne Betrag): $\lim\limits_{h\rightarrow 0} \frac{k'(t+h) - k'(t)}{h}$
+\underline{$ = k''(t)$}\\
+Krümmung: $\abs{k''(t)}$\\
+Der Krümmungsvektor $k''(t) $ steht senkrecht auf $k'(t)$. 
+
+\paragraph{Annäherung durch Kreis}
+%\includegraphicsdeluxe{annaeherungKreis1.jpg}{Annäherung an eine Kurve}{Annäherung an die Kurve mit einem Kreis. $\alpha = \frac{h}{R} $ zeigt in Richtung des Kreismittelpunkt.}{fig:annaeherungKreis1}
+Wir nähern die Kurve k im Punkt k(t) durch einen Kreis an (Abb. \ref{fig:krKurve1}). 
+$\lim\limits_{h\rightarrow 0} \frac{k'(t+h) - k(t)}{h} $ mit $\alpha = \frac{h}{R}$\\
+$\lim\limits_{h\rightarrow 0} \frac{\abs{k'(t+h) - k(t)}}{\abs{h}} $
+$=\lim\limits_{h\rightarrow 0} \frac{\alpha}{\alpha \cdot R} $
+$=\frac{1}{R}$. Der Betrag der Krümmung ist somit $\frac{1}{R}$. Also:\\
+Der Krümmungsvektor zeigt in Richtung des Krümmungskreismittelpunkts. 
+Der Krümmungskreisradius ist $\frac{1}{\textrm{Krümmung}}$. Die Ebene des Krümmungskreises wird aufgespannt durch den Geschwindigkeitsvektor und den Krümmungsvektor. 
