@@ -1,0 +1,194 @@
+% GRUNDEINSTELLUNGEN -------------------------------------------
+
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+
+
+% EINGEBUNDENE PAKETE ------------------------------------------
+
+\usepackage{pdfpages} % andere PDFs einbinden
+\usepackage{verbatim} % program listings
+\usepackage{latexsym} % Symbole zB Box
+\usepackage{amssymb} % z.B. mathbb{}
+\usepackage{amsmath} 
+\usepackage{amsthm} % Für Lemmata, Sätze(Theoreme), Beweise (siehe unten)
+\usepackage{tikz}	% Für Diagramme aus dem Programm Dia
+\usepackage{makeidx} % fuer Stichwortverzeichnis
+\usepackage{csquotes}
+\usepackage{color}
+
+% Verweise anklickbar machen
+\usepackage{hyperref} % 1. 
+\usepackage[figure]{hypcap} % 2. 
+
+
+% EIGENE BEFEHLE -----------------------------------------------
+% Bildbreite: Originalgröße oder falls größer als Seitenbreite/Spalte ==> skalieren
+\makeatletter
+\def\ScaleIfNeeded{%
+\ifdim\Gin@nat@width>\linewidth
+\linewidth
+\else
+\Gin@nat@width
+\fi
+}
+\makeatother
+
+% Neuer Befehl der Bilder standartisiert einbindet:
+% includegraphicsdeluxe benötigt \ScaleIfNeeded und \ldate
+% 1. innerhalb der figure-Umgebung mit dem Versuch, das Bild mittels [!htb] an genau dieser Position einzufügen
+% 2. mit der Original- oder einer skalierten (mittels ScaleIfNeeded s.o.) Größe
+% 3. mit einer Beschriftung (\caption{})
+% 4. mit einem Label (\label{})
+\newcommand{\includegraphicsdeluxe}[4]{
+	\begin{figure}[!htb] 
+	\centering
+	\includegraphics[width=1\ScaleIfNeeded]{pics/\ldate_#1}
+	\caption[#2]{#3}
+	\label{#4}
+	\end{figure}
+}
+
+
+% AND und OR Symbole
+\newcommand{\und}{\wedge}
+\newcommand{\oder}{\vee}
+
+% Grundmengen
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% größenangepasste Betragsstriche, Klammern, ...
+\newcommand{\abs}[1]{\ensuremath{ \left\vert #1 \right\vert }}
+\newcommand{\rbr}[1]{\ensuremath{ \left( #1 \right) }} % round brackets ()
+\newcommand{\cbr}[1]{\ensuremath{ \left\lbrace #1 \right\rbrace }} % curly brackets {}
+\newcommand{\sbr}[1]{\ensuremath{ \left[ #1 \right] }} % square brackets []
+
+% Vektoren mit Klammern und so 
+%\newcommand{\vektor}[1]{\ensuremath{ \rbr{ \begin{array}{c} #1 \end{array} } }} 
+\newcommand{\vektor}[1]{\ensuremath{ \begin{pmatrix} #1 \end{pmatrix} }} 
+
+% Sonderzeichen
+\newcommand{\grad}{$^\circ$}
+\newcommand{\gradi}{^\circ}
+
+% Deltas
+\newcommand{\Dt}{\Delta t}
+\newcommand{\Dx}{\Delta x}
+\newcommand{\Dy}{\Delta y}
+\newcommand{\DA}{\Delta \alpha}
+\newcommand{\DPH}{\Delta \varphi}
+\newcommand{\Ds}{\Delta s}
+
+\newcommand{\dt}{\delta t}
+\newcommand{\dx}{\delta x}
+\newcommand{\dy}{\delta y}
+\newcommand{\df}{\delta f}
+\newcommand{\dz}{\delta z}
+
+% Anmerkungen Professor
+\newcommand{\noteProfessor}[1]{\marginpar{\tiny{\textquote{#1}}}}
+
+% Dokumenteneigenschaften
+\newcommand{\pTitle}{Integraltransformationen}
+\newcommand{\pVersion}{\date{\today}}
+\newcommand{\pProfessor}{Prof. Dr. Martin Leitner}
+
+% EINRÜCKUNG ---------------------------------------------------
+\setlength{\parindent}{0pt} % Erste Zeile in Absätzen nicht einrücken.
+
+% KOPF- UND FUSSZEILE ------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%Kopfzeile mittig mit Kaptilname
+\fancyhead[L]{\textsf{\nouppercase{\leftmark}}}
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+%Fußzeile 
+\fancyfoot[L]{\tiny{\pTitle}}
+\fancyfoot[R]{\textsf{\thepage}}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+ 
+% START DES EIGENTLICHEN DOKUMENTS -----------------------------
+\author{\pProfessor}
+\title{Skript\\\pTitle}
+
+% Stichwortverzeichnis erstellen
+\makeindex
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\listoffigures
+
+% Definitionen, Sätze usw. aus asmthm 
+\theoremstyle{definition}
+\newtheorem{satz}{Satz}[section] 
+\newtheorem{definition}{Definition}[section] 
+\newtheorem{lemma}{Lemma}[section] 
+\newtheorem{behauptung}{Behauptung}[section] 
+\newtheorem{beispiel}{Beispiel}
+\newenvironment{beweis}{\begin{proof}}{\end{proof}} % we love german ;-)
+
+% einzelne Kapitel
+\part{Komplexe Analysis}
+\include{Komplexe_Zahlen}
+\include{Polarkoordinaten}
+\include{Gebiete_Folgen_und_Kurven_in_C}
+\include{Holomorphe_Funktionen}
+\include{Umkehrfunktionen}
+\include{Komplexe_Integration_Kurvenintegrale}
+\include{Der_Cauchysche_Integralsatz}
+\include{Stammfunktionen}
+\include{Der_Fundamentalsatz_der_Algebra}
+\include{Der_Satz_von_Taylor}
+\include{Der_Residuensatz}
+
+\part{Fourier-Reihen}
+\include{Allgemeines_zu_Integraltransformationen}
+\include{Fourier-Reihen}
+\include{Komplexe_Darstellung_von_Fourier-Reihen}
+\include{Das_Faltungsprodukt_fuer_periodische_Funktionen}
+
+\part{Fourier-Transformation}
+\include{Fourier-Transformation_nicht-periodischer_Funktionen}
+\include{Das_Faltungsprodukt_fuer_nicht-periodische_Funktionen}
+\include{Die_Fourier-Transformation_fuer_Ableitungen}
+\include{Anwendungen_Partielle_Differentialgleichungen}
+
+\part{Laplace-Transformation}
+\include{Grundlagen_der_Laplace-Transformationen}
+\include{Die_Laplace-Transformation_fuer_Ableitungen_und_Integralfunktionen}
+\include{Das_Faltungsprodukt}
+\include{Anwendung_Differentialgleichungen_Differentialgleichungssysteme}
+\include{Differentialgleichungen_mit_unstetigen_Inhomogenitaeten}
+\include{Integralgleichungen_und_Differential-Integralgleichungen}
+\include{Die_Diracsche_Delta-Funktion}
+
+\part{Z-Transformation}
+\include{Definition_Eigenschaften_und_Korrespondenzen}
+\include{Methoden_der_Ruecktransformation}
+\include{Anwendungen_der_Z-Transformation}
+
+\part{Anhang}
+\include{Komplexe_Analysis}
+\include{Fourier_Reihen_und_Fourier-Transformation}
+\include{Laplace-Transformation}
+
+
+
+% Stichwortverzeichnis
+% \newpage
+% \renewcommand{\indexname}{Stichwortverzeichnis} % Index soll Stichwortverzeichnis heissen
+% \addcontentsline{toc}{section}{Stichwortverzeichnis} % Stichwortverzeichnis soll im Inhaltsverzeichnis auftauchen
+% \printindex % Stichwortverzeichnis endgueltig anzeigen
+\end{document}

@@ -1,0 +1,30 @@
+\section{Phasen eines Compilers}
+
+\subsection{Lexical Analysis}
+Input zerlegen in kleinste sinntragende Einheiten (Tokens)\index{Token}. 
+
+\textbf{Beispiel}\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+% \hline  &  &  &  & & & & & & \\ 
+\hline if & ( & count & + & 5 & == & 20& return & 0 & ; \\ 
+\hline Keyword &  & Identifier & Operator & Zahl & Vergleichsoperator & Zahl & Keyword & & Semicolon\\ 
+\hline 
+\end{tabular} 
+
+\paragraph{Besonderheiten}
+
+\begin{itemize}
+\item lift = 1; lift ist ein Identifier, nicht l .. if .. t
+\item if(x != 3), != ist not equal
+\item if(x = ! 3) = assignment, ! not
+\end{itemize}
+
+Lexical Analysis reduziert normalerweise Daten um den Faktor 2 bis 20. 
+
+\subsection{Syntactic Analysis}
+Erzeugung eines parse tree\index{parse tree} aus dem Strom von Tokens. 
+
+\paragraph{Beispiel}
+--- Abb. 1
+
+-> Papier gehts weiter
