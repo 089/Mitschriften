@@ -3,6 +3,7 @@ In diesem Repository findest du folgende Mitschriften, die im Rahmen meines Stud
 
 | Fach | Semester | Professor | Anmerkungen |
 |--------------------------------------------------------|----------|-----------|-------------------------------------------------------------------|
+| Integraltransformationen | SS2016 | Leitner | Gemeinsame Abschrift des vorhandenen, handschriftlichen Skripts |
 | Wahrscheinlichkeitstheorie und Statistik | WS1516 | Hörwick |  |
 | Differentialrechnung in Rn und Differentialgleichungen | WS1516 | Hörwick |  |
 | IT-Systeme | SS2015 | Ruckert | Nicht vollständig. Ich habe erst ab Mai mit Latex mitgeschrieben. |
