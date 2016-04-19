@@ -62,8 +62,19 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
         1. zweistufige PT
     1. Spezielle Caches TLB (Translation Lookaside Buffer) machen die PT-Übersetzung in Hardware mit 8 bis 256 Einträgen. 
     
+## Prozesse Threads Interrupts, Vorlesung vom 30.03.2016
 
- 
+### Prozesse
+* früher: 
+    - Prozess = Job = Task
+    - Speicher für Code und Daten
+    - Rechte für Device-Zugriff
+    - CPU für Ausführung von Code
+* heute: 
+    - komplexer durch Multiprogramming/-threading/-tasking
+    - mehrere CPUs führen den Code gleichezeitig aus
+    
+### Threads    
  
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
 
