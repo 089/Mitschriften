@@ -84,27 +84,71 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
     - Threads ==> Zuordnung von CPUs nach Bedarf = *Scheduling*
 1. Ein Prozess hat mindestens einen - oft aber mehrere - Threads
 1. alle Threads eines Prozesses teilen sich den gemeinsamen Adressraum (Speicher) und die gleichen Zugriffsrechte (Handles)
+1. **Jeder Thread**
+    1. hat seinen eigenen Registersatz, insbesondere Program Counter (PC) und Stack Pointer (SP),
+    1. hat seinen eigenen Stack für lokale Variablen und Rücksprungadressen von Funktionen,
+    1. und wird nach Bedarf und Verfügbarkeit eine CPU zugeordnet.
 
 ### Interrupts (Unterbrechnungen)
 1. asynchrone/externe/HW-Interrupts
 1. synchrone/interne/Exceptions/SW-Interrupts (z.B. Division durch 0, page fault)
 
 #### HW-Interrupts
+
 ```
-                      PIC (Programmable Interrupt Controller)
-+---------+         +---------+                 | MMIX
-|         |---------|   IRQ   |                 | +----+
-|   CPU   |         |   IRM   |                 | | rQ |-
-|         |         +---------+                 | | rK |-
-+---------+          |||||||||      PIC         | +----+
-                           |_____+---------+    |
-                                 |   IRQ   |
+                      PIC (Programmable Interrupt Controller)   |
++---------+         +---------+                                 | MMIX
+|         |---------|   IRQ   |                                 | +----+
+|   CPU   |         |   IRM   |                                 | | rQ |-
+|         |         +---------+                                 | | rK |-
++---------+          |||||||||      PIC                         | +----+
+                           |_____+---------+                    |
+                                 |   IRQ   |                    |
                                  |   IRM   | Interrupt Mask Register
                                  +---------+
                                   ||||||||| 
 ```
 
-## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
+### Was passiert, wenn ein Interrupt auftritt?
+1. externer Interrupt wird einer CPU zugewiesen. Interne Interrupts haben bereits eine CPU. 
+1. CPU unterbricht Ausführung des laufenden Threads. 
+1. CPU wechselt von User Mode in Kernel Mode.
+1. Der Thread Kontext (PC, SP, ...) wird (teilweise) gesichert (context switch light). 
+1. Der Interrupt Handler wird ausgewählt. Geschieht meist über eine Sprungtabelle (Interrupt Vektor)
+1. Der Handler wird ausgeführt. 
+1. Der Thread-Kontext wird wieder hergestellt.
+1. CPU wechselt in User Mode.
+1. Der Thread wird an der ursprünglichen Stelle weiter ausgeführt.
+
+### Interrupt Priorities
+1. Jeder Interrupt hat eine zugeordnete Priority.
+1. Prio. des laufenden Threads in einem Register (CPU/PIC)
+1. Interrupt mit höherer Prio. unterbrechen Interrupts mit niedrigerer Prio (wenn enabled).
+1. (Bemerkung: Man kann Interrupt Priorities im Kernel auch für Synchronisation verwenden)
+
+### Vorteile von Threads
+1. Vermeiden von Wartezeiten auf IO
+1. effizientere Nutzung der CPU
+1. Echte Parallelität mit mehreren CPUs
+1. Threadwechsel sind billiger als Prozesswechsel
+1. Bessere Strukturierung von Programmen
+1. Kommunikation zwischen Threads ist effizienter als zwischen Prozessen (über gemeinsame globale Datenstrukturen)
+
+### Nachteile von Threads
+1. Overhead Threadwechsel
+1. Synchronisation ist komplex (data race)
+
+### Zustände von Threads
+1. running current: Thread hat CPU und läuft
+1. blocked/waiting: Thread hat nichts zu tun und braucht keine CPU
+1. ready: Thread könnte laufen, hat aber keine CPU
+![Zustände von Threads](https://github.com/089/bs/raw/master/images/2016-04-30_thread-zustaende.jpg)
+
+Hinweise:
+1. Wenn dem OS die CPU entzogen wird, stehen **alle** User Level Threads
+1. Wenn ein User Level Thread warten muss, müssen alle warten. 
+
+## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.04.2016
 
 ### Wie erzeugt man in Unix einen Prozess?
 1. `int fork();` keine Parameter
