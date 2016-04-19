@@ -27,6 +27,25 @@
     1. Was ist bzw. macht ein OS?
     1. User Mode und Kernel Mode
 
+## Grundlagen Rechnerarchitektur (RA), 23.03.2016
+
+### Wozu braucht das OS Hardware-Unterstützung?
+Wiederholung: Wozu braucht man ein OS?
+1. Schnittstelle für Systemprogramme
+1. Schnittstelle für Anwenderprogramme
+1. UI
+1. Antwort: **Verwendung von Ressourcen, Rechten, Synchronisation und Kommunikation**
+
+### Rechte
+Die CPU hat einen Kernel-/Privileged-Mode und einen User Mode:
+
+| Kernel-/Privileged-Mode | User Mode |
+| - | - |
+| alle Rechte | 
+1. eingeschränkte Rechte |
+|  |  |
+|  |  |
+|  |  |
 
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
 
