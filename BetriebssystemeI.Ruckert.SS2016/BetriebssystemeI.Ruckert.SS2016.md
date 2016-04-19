@@ -45,8 +45,26 @@ alle Rechte | eingeschränkte Rechte |
 x86 Real Mode: ohne Rechteverwaltung, Protected Mode: 4 priviledged Level | Tendenz: möglichst wenig im Kernel Mode machen (micro Kernel), User Mode Driver (Windows), User Mode File System (Unix) 
 MMIX: negative Adressen | MMIX: positive Adressen 
 Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel Mode? a) Syscalls, interne Spezial-Instruktionen b) Interrupts; DTRAP/FTRAP, synchr. Interrupts Einschränkungen
- | 
+ | Einschränkungen des Registerzugriffs; MMIX: rK, x86: PSW (program status word enthält die Mode Bits)
+ | Einschränkungen bei den Instruktionen; x86 in/out (Zugriff auf Ports) `OR AX, 0xFF` und `OUT #21, AX`. `#21` ist das Interrupt Mask Register des PIC (Program Interrupt Controller)
 
+### Ressourcen
+1. CPU-Zeit: Userprozess darf CPU nur für eine bestimmte Zeit nutzen. Das OS hat und holt sich die Kontrolle zurück:
+    1. syscall ==> Userprogramm muss warten
+    1. timer interrupt; time slice läuft ab ==> Prozesswechsel
+1. Memory
+1. (Segmentation)
+1. page tables (PT) ==> Im User Mode immer nur so: virtuelle Adressen (Programm/CPU), physikalische Adressen (Bus/RAM)
+    1. Die PT ist eine Tabelle, die für jede *page number* eine *frame number* und außerdem Zusatzinformationen enthält.
+    1. *page number*: `20 Bit + 12 Bit` offset
+    1. 4 GB RAM und 32 Bit Adressraum ==> ca. 1 Millionen pages `2^20` und ca. 4 MB PT pro Prozess. Für die meisten Programme sind 4 MB PT viel zu viel.
+        1. *Large tables* beim x86: 2 MB und 4 MB pages
+        1. zweistufige PT
+    1. Spezielle Caches TLB (Translation Lookaside Buffer) machen die PT-Übersetzung in Hardware mit 8 bis 256 Einträgen. 
+    
+
+ 
+ 
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
 
 ### Wie erzeugt man in Unix einen Prozess?
