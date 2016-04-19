@@ -139,6 +139,8 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
 1. Synchronisation ist komplex (data race)
 
 ### Zustände von Threads
+Zustände von Threads (s. Abbildung)
+
 1. running current: Thread hat CPU und läuft
 1. blocked/waiting: Thread hat nichts zu tun und braucht keine CPU
 1. ready: Thread könnte laufen, hat aber keine CPU
@@ -146,6 +148,7 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
 )
 
 Hinweise:
+
 1. Wenn dem OS die CPU entzogen wird, stehen **alle** User Level Threads
 1. Wenn ein User Level Thread warten muss, müssen alle warten. 
 
