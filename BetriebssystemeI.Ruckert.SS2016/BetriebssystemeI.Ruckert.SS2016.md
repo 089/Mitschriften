@@ -74,8 +74,21 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
     - komplexer durch Multiprogramming/-threading/-tasking
     - mehrere CPUs führen den Code gleichezeitig aus
     
-### Threads    
- 
+### Threads
+1. Abstraktion über die Anzahl der verfügbaren CPUs
+1. Ein Thread verkörpert eine "virtuelle" CPU, die den Code ausführt
+1. sind die ausführbaren Einheiten
+1. **Exkurs** heute; Prozess = 
+    - Adressraum ==> Zuordnung von Speicher nach Bedarf
+    - Rechte ==> Zugriff auf "virtuelle Devices" über Handles (z.B. Filesystem)
+    - Threads ==> Zuordnung von CPUs nach Bedarf = *Scheduling*
+1. Ein Prozess hat mindestens einen - oft aber mehrere - Threads
+1. alle Threads eines Prozesses teilen sich den gemeinsamen Adressraum (Speicher) und die gleichen Zugriffsrechte (Handles)
+
+### Interrupts (Unterbrechnungen)
+a) asynchrone/externe/HW-Interrupts
+b) synchrone/interne/Exceptions/SW-Interrupts (z.B. Division durch 0, page fault)
+
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
 
 ### Wie erzeugt man in Unix einen Prozess?
