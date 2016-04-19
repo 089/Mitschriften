@@ -227,4 +227,4 @@ while(1) {
 
 ## Prozess-Zustände
 
-![Prozess-Zustände in Unix](https://github.com/089/bs/raw/master/images/2016-04-13_prozesszustaende.jpg)
+![Prozess-Zustände in Unix](images/2016-04-13_prozesszustaende.jpg)
