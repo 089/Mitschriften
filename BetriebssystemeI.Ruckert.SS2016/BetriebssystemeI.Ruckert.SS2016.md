@@ -86,8 +86,23 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
 1. alle Threads eines Prozesses teilen sich den gemeinsamen Adressraum (Speicher) und die gleichen Zugriffsrechte (Handles)
 
 ### Interrupts (Unterbrechnungen)
-a) asynchrone/externe/HW-Interrupts
-b) synchrone/interne/Exceptions/SW-Interrupts (z.B. Division durch 0, page fault)
+1. asynchrone/externe/HW-Interrupts
+1. synchrone/interne/Exceptions/SW-Interrupts (z.B. Division durch 0, page fault)
+
+#### HW-Interrupts
+```
+                      PIC (Programmable Interrupt Controller)
++---------+         +---------+                 | MMIX
+|         |---------|   IRQ   |                 | +----+
+|   CPU   |         |   IRM   |                 | | rQ |-
+|         |         +---------+                 | | rK |-
++---------+          |||||||||      PIC         | +----+
+                           |_____+---------+    |
+                                 |   IRQ   |
+                                 |   IRM   | Interrupt Mask Register
+                                 +---------+
+                                  ||||||||| 
+```
 
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.03.2016
 
