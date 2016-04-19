@@ -41,8 +41,7 @@ Die CPU hat einen Kernel-/Privileged-Mode und einen User Mode:
 
 | Kernel-/Privileged-Mode | User Mode |
 | ---- | ---- |
-| alle Rechte | 1. eingeschränkte Rechte 
-2. test|
+| alle Rechte | 1. eingeschränkte Rechte  2. test|
 |  |  |
 |  |  |
 |  |  |
