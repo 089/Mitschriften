@@ -3,6 +3,7 @@ In diesem Repository findest du folgende Mitschriften, die im Rahmen meines Stud
 
 | Fach | Semester | Professor | Anmerkungen |
 |--------------------------------------------------------|----------|-----------|-------------------------------------------------------------------|
+| Betriebssysteme I | SS2016 | Ruckert | |
 | Integraltransformationen | SS2016 | Leitner | Gemeinsame Abschrift des vorhandenen, handschriftlichen Skripts. Zur Mitarbeit bitte [CONTRIBUTING.md](CONTRIBUTING.md) lesen.|
 | Wahrscheinlichkeitstheorie und Statistik | WS1516 | Hörwick |  |
 | Differentialrechnung in Rn und Differentialgleichungen | WS1516 | Hörwick |  |
