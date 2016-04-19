@@ -142,7 +142,8 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
 1. running current: Thread hat CPU und läuft
 1. blocked/waiting: Thread hat nichts zu tun und braucht keine CPU
 1. ready: Thread könnte laufen, hat aber keine CPU
-![Zustände von Threads](https://github.com/089/bs/raw/master/images/2016-04-30_thread-zustaende.jpg)
+![Zustände von Threads](images/2016-04-30_thread-zustaende.jpg
+)
 
 Hinweise:
 1. Wenn dem OS die CPU entzogen wird, stehen **alle** User Level Threads
