@@ -152,6 +152,9 @@ Hinweise:
 1. Wenn dem OS die CPU entzogen wird, stehen **alle** User Level Threads
 1. Wenn ein User Level Thread warten muss, müssen alle warten. 
 
+## Prozesse, Threads, Interrupts am Beispiel Windows, Vorlesung vom 06.04.2016
+wird nachgetragen
+
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.04.2016
 
 ### Wie erzeugt man in Unix einen Prozess?
