@@ -234,3 +234,27 @@ while(1) {
 ## Prozess-Zustände
 
 ![Prozess-Zustände in Unix](images/2016-04-13_prozesszustaende.jpg)
+
+## Scheduling, Vorlesung vom 20.04.2016
+
+### Was ist Scheduling? 
+
+Die Zuordnung von CPUs zu Threads. 
+
+> Auf Servern eine wesentliche Aufgabe. Auf PCs ist die CPU hauptsächlich mit Warten beschäftigt. Auf Mobilgeräten ist es aufgrund der Akkulaufzeit relevant. Deswegen gibt es bereits viele Algorithmen für das Scheduling. 
+
+### Was muss man beachten? Ziele? 
+1. **Effizienz**: Jede CPU sollte soweit wie möglich genutzt werden.
+1. **Fairness**: Jeder Prozess/Thread bekommt einen fairen Anteil an der CPU-Zeit. Insbesondere: kein Thread "verhungert" (starvation). 
+1. **Responsiveness**: Die Wartezeit auf die CPU sollte nicht zu groß sein. 
+1. **Realtime**: Die Antwortzeit auf Events hat eine obere Schranke. 
+
+```
+                                                   |
+-----|--------------------|----------------|-------|----> Zeit
+   Event      Warten   Scheduled        Antwort    |
+                         CPU                    Schranke
+```
+### Methoden des Scheduling
+1. **preemptive**: Threads werden nach einer vorher vorgegebenen Zeit (time slice, Quantum) abgebrochen und neu ge-scheduled.
+1. **non-preemptive**: Jeder Thread darf so lange laufen, wie er etwas zu tun hat. 
