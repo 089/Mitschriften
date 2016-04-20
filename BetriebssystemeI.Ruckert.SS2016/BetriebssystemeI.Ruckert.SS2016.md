@@ -144,7 +144,7 @@ Zustände von Threads (s. Abbildung)
 1. running current: Thread hat CPU und läuft
 1. blocked/waiting: Thread hat nichts zu tun und braucht keine CPU
 1. ready: Thread könnte laufen, hat aber keine CPU
-![Zustände von Threads](images/2016-04-30_thread-zustaende.jpg
+![Zustände von Threads](images/2016-03-30_thread-zustaende.jpg
 )
 
 Hinweise:
@@ -258,3 +258,7 @@ Die Zuordnung von CPUs zu Threads.
 ### Methoden des Scheduling
 1. **preemptive**: Threads werden nach einer vorher vorgegebenen Zeit (time slice, Quantum) abgebrochen und neu ge-scheduled.
 1. **non-preemptive**: Jeder Thread darf so lange laufen, wie er etwas zu tun hat. 
+
+### Verfahren 1: Round Robin Scheduling
+Das Round Robin Scheduling (~ "im Kreis herum") ist ein wichtiges Basisverfahren. Dabei sind die Threads sind in einer zirkulären Liste (Queue) und kommen der Reihe nach dran.
+
