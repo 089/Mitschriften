@@ -276,4 +276,27 @@ Die entscheidende Frage bei diesem Verfahren ist, wie man das Quantum (Time Slic
 
 ### Verfahren 2: Priority Based Scheduling
 1. Jeder Prozess bzw. Thread hat eine Priorität. 
-1. 
+1. Der Thread mit der höchsten Priorität bekommt die CPU. 
+1. Bei Threads mit gleicher Priorität wird meist das Round Robin Verfahren verwendet. 
+1. Wenn ein Thread mit höherer Priorität nach *ready* wechselt, wird der Thread mit niedrigerer Priorität unterbrochen (preemption). 
+
+Hier stellt sich die Frage, wie man die Prioritäten wählt?
+
+1. Das Programm selbst legt die Priorität fest. 
+1. Der Benutzer/Administrator legt die Priorität fest. 
+1. Automatisch abhängig von der Prozessart (Foreground, Background, Interaktiv, Batchprocess)
+1. Dynamische Anpassung der Priorität
+    * normale Priorität/Base Priority
+    * aktuelle/current Priority 
+    * Scheduling erolgt aufgrund der current priority
+    
+### Beispiel
+```
+     CPU        CPU        CPU         CPU-Bound
+----#####----->#####----->#####--->
+
+   CPU    CPU    CPU    CPU    CPU     I/O-Bound
+----#----->#----->#----->#----->#->   
+```
+
+Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil die I/O nicht wesentlich von der CPU abhängig ist, sondern von der Lese- bzw. Schreibgeschwindigkeit der Disk. 
