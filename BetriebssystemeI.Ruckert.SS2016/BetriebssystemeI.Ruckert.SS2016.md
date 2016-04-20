@@ -318,4 +318,10 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
 1. Den Scheduler "aufrufen" heißt den entsprechenden Interrupt auslösen. 
 1. Mehrfache "Aufrufe" ergeben nur einen Interrupt für den Scheduler.
 1. Der Scheduler läuft nicht sofort, sondern erst, wenn die höheren Interrupts fertig sind. 
+1. Kernel Threads können die Unterbrechnung durch den Scheduler verhindern, indem sie auf einem höheren Interrupt-Level laufen. 
+
+### Wer ruft den Scheduler auf?
+1. in einem system call (blockiert)
+1. in einem I/O Interrupt (unblock)
+1. im Clock Interrupt (preempt)
 
