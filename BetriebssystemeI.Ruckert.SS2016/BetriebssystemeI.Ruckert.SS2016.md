@@ -300,3 +300,22 @@ Hier stellt sich die Frage, wie man die Prioritäten wählt?
 ```
 
 Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil die I/O nicht wesentlich von der CPU abhängig ist, sondern von der Lese- bzw. Schreibgeschwindigkeit der Disk. 
+
+1. Interaktive Prozesse (z.B. Editor, Input, ...) bekommen eine höhere Aktivität. 
+1. Foreground Prozesse bekommen eine höhere Priorität.
+1. Prozesse, die schon sehr lange ready sind bekommen eine höhere Priorität. 
+
+### Wann passiert das Scheduling?
+1. Wenn ein Thread blockiert. 
+1. Wenn das Time Slice aufgebraucht ist. 
+1. Wenn die Blockierung eines Threads endet. 
+1. Wenn ein neuer Thread startet.
+1. Wenn ein Thread terminiert. 
+1. Wenn sich die dynamischen Prioritäten ändern. 
+
+### Wie passiert das Scheduling?
+1. Scheduler läuft als Interrupthandler mit niedriger Priorität (bei Windows Level 2). 
+1. Den Scheduler "aufrufen" heißt den entsprechenden Interrupt auslösen. 
+1. Mehrfache "Aufrufe" ergeben nur einen Interrupt für den Scheduler.
+1. Der Scheduler läuft nicht sofort, sondern erst, wenn die höheren Interrupts fertig sind. 
+
