@@ -260,5 +260,16 @@ Die Zuordnung von CPUs zu Threads.
 1. **non-preemptive**: Jeder Thread darf so lange laufen, wie er etwas zu tun hat. 
 
 ### Verfahren 1: Round Robin Scheduling
-Das Round Robin Scheduling (~ "im Kreis herum") ist ein wichtiges Basisverfahren. Dabei sind die Threads sind in einer zirkulären Liste (Queue) und kommen der Reihe nach dran.
+Das Round Robin Scheduling (~ "im Kreis herum") ist ein wichtiges Basisverfahren. Dabei sind die Threads sind in einer zirkulären Liste (Queue) und kommen der Reihe nach dran. 
+1. Der vorderste (laut Zeiger) bekommt die CPU für eine vorgegebene Zeit. 
+1. Wenn die Zeit aufgebraucht ist, wird er wieder hinten eingereiht. 
+1. Threads die Blockieren (warten müssen) werden aus der Queue entfernt. 
+1. Threads, die aus dem Wartezustand wieder in den Ready-Zustand kommen, werden wieder in die Queue eingestellt. 
+    - hinten in der Schlange ==> Muss noch eine Zeit lang warten.
+    - vorne in der Schlange ==> Kommt gleich dran. 
 
+Die entscheidende Frage bei diesem Verfahren ist, wie man das Quantum (Time Slice) wählt. 
+1. nicht zu groß sonst leidet die Responsiveness)
+1. nicht zu klein wegen des Kontext Switch Overheads
+
+### Verfahren 2: Priority Based Scheduling
