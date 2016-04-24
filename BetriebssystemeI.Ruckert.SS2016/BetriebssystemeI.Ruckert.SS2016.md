@@ -153,7 +153,99 @@ Hinweise:
 1. Wenn ein User Level Thread warten muss, müssen alle warten. 
 
 ## Prozesse, Threads, Interrupts am Beispiel Windows, Vorlesung vom 06.04.2016
-wird nachgetragen
+
+### Prozesse
+
+Threads
+
+1. teilen sich den Adressraum
+1. teilen sich die Ressourcen (Handles wie Datei, Fenster, Font, Thread, Prozess, ...)
+1. getrennter, eigener Kontext (Register, Stack)
+1. eigener user mode stack
+1. eigener kernel mode stack
+
+### Adressraum bei Win32
+
+```
+                +--------+
+    FF FF FF FF |        |    - gemeinsam für alle Prozesse
+                | Kernel |    - ca. 2 GB
+                | Space  |
+    80 00 00 00 |        |    
+                +--------+
+    7F FF FF FF |        |    - für jeden einzelnen Prozess
+                | User   |    - ca. 2 GB
+                | Space  |
+    00 00 00 00 |        |
+                +--------+
+```
+
+### Adressraum sonst
+
+1. Bei Win64
+    - 0,5 TB Kernel
+    - 8 TB User Space
+1. Ab Win2000
+    1. Jobs: Mehrere Prozesse mit
+        - gemeinsamer Priorität
+        - gemeinsamen Ressourcenlimits (Ruhezeit, Disk Quota)
+    1. Fibers: Mehrere User-Level-Threads innerhalb eines Kernel-Threads
+
+### Schnittstellen (API) Win32
+
+1. Win32 API
+1. Posix API
+    1. Subset funktioniert unter Windows
+    1. hilft teilweise beim Portieren
+1. (OS2 API, IBM)
+
+### Prozess-Erzeugung (Win32 API)
+
+```
+BOOL CreateProcess(
+    ApplicationName (string, *optional*)  // eines von beiden muss!
+    CommandLine (string, *optional*)      // eines von beiden muss!
+    ProcessAttributes (*optional*)
+    ThreadAttributes (*optional*)
+    InheritHandles (bool)
+    CreationFlags {console, windows, unicode, debug, detached, ...}
+    EnvironmentPointer (*optional*)
+    CurrentDirectoryPointer (*optional*)
+    StartupInfoPointer
+    ProcessInfoPointer (out, *optional*) {ProcessHandle, ThreadHandle, ProcessID, ThreadID}
+)
+```
+
+erzeugt den Prozess und den primären Thread. Der primäre Thread kann dann weitere Threads erzeugen.
+
+### Thread-Erzeugung (Win32 API)
+
+```
+HANDLE CreateThread(
+    ThreadAttributes (*optional*)
+    StackSize
+    StartAddress
+    ParameterPointer (*optional*)
+    CreationFlags
+    ThreadIDPointer (out, *optional*)
+)
+```
+
+**StackSize**:
+
+1. Größe des User Space
+1. wird auf ganze Seiten gerundet
+1. wenn `StackSize == 0`, dann wir die `default` StackSize (1 MB) verwendet. 
+1. Der Stack (Adressraum) wird **"reserved"** (invalid) und **"commited"** (reserved SWAP). Mehr darüber im Kapitel Memory Management.
+1. Man bekommt nicht gleich 1 MB RAM, sondern nur 1 Page (ein Eintrrag in der page table)
+1. Die restlichen Einträge der page table werden nur *reserviert* und bei Bedarf angelegt, wenn der Stack wächst. 
+1. der so reservierte Adressraum kann für nichts anderes mehr verwendet werden, als für diesen Stack!
+
+### Was heit commited?
+
+1. Das Betriebssystem verpflichtet sich dazu, das nötige RAM bei Bedarf auch bereit zu stellen. 
+1. Das Betriebssystem hat ein Commit-Limit, welches größer sein muss, als der gemeldete Stack. 
+1. Die gemeldete Stackgröße wird dann vom Commit-Limit abgezogen. 
 
 ## Prozesse und Threads in Unix (Unix/Linux/Posix), Vorlesung vom 13.04.2016
 
