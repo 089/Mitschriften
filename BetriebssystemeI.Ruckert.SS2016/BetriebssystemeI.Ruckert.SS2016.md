@@ -325,7 +325,9 @@ while(1) {
 
 ## Prozess-Zustände
 
+![Prozess-Zustände in Unix](images/2016-04-13_prozesszustaende.png)
 ![Prozess-Zustände in Unix](images/2016-04-13_prozesszustaende.jpg)
+
 
 ## Scheduling, Vorlesung vom 20.04.2016
 

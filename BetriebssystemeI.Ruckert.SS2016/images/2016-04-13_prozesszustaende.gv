@@ -1,0 +1,27 @@
+digraph G {
+
+fork [label = "fork", start = "self"];
+1 [label="1 (running)\nUser Mode"]
+2 [label="2 (running)\nKernel Mode"]
+3 [label="3 (läuft nicht)"]
+4 [label="4 (ready)\nläuft nicht,\nkeine CPU,\nkönnte aber laufen"]
+5 [label="5 (Preemted)\nrunning in\nKernel Mode"]
+6 [label="6 (initialized)"]
+7 [label="7 (wait, out)"]
+8 [label="8 (ready, out)"]
+
+fork -> 6; 
+1 -> 2 [label="Interrupt (syscal/Trap)"];
+2 -> 1 [label="resume"];
+2 -> 3 [label="wait, sleep"];
+2 -> 5 [label="preempt"];
+3 -> 4 [label="wake up"];
+3 -> 7 [label="swap out"];
+7 -> 8 [label=""];
+8 -> 4 [label="swap in"];
+4 -> 2 [label="schedule"];
+5 -> 1 [label="resume"];
+5 -> 4 [label=""];
+6 -> 4 [label=""]; 
+
+}
