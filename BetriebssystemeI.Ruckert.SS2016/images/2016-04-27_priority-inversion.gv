@@ -1,0 +1,12 @@
+digraph G {
+
+1 [label = "Thread mit\nhoher Priorität"];
+2 [label = "Event (Lock)"];
+3 [label = "Thread mit\nniedriger Priorität"];
+4 [label = "Communication\nThread mit mittlerer Priorität\nhat viel zu tun"];
+
+1 -> 2 [label = "wartet"];
+2 -> 3 [label = "blockiert"];
+4 -> 3 [label = "Starvation"];
+1 -> 3 [label = "preemption"];
+}

@@ -469,4 +469,20 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
         1. 180 ms für Windows Server => längere Zeit ==> weniger context switches
         1. 30 ms für Work Station 
         1. 90 ms für den foreground Prozess bei Work Station
-
+1. Dynamische Prioritätsanpassung
+    1. `base priority <= current priority <= 15`
+    1. Threads, die aufwachen, nachdem sie auf **I/O** gewartet haben, bekommen einen *priority boost* für ein Quantum. Der *boost* hängt vom Device ab:
+        1. Disk, CD-Rom, ... --> +1
+        1. Serielle IO, Netzwerk --> +2
+        1. Keyboard, Mouse --> +6
+        1. Sound --> +8
+    1. Threads, die auf eine Windows-Message (User input) warten und ready werden, bekommen boost von +2 für ein Quantum.
+    1. foreground Prozesse die ready werden, nachdem sie auf Mutex/Semaphore gewartet haben, bekommen auch +2 für ein Quantum.  
+1. Anti Starvation boost (Starvation = verhungern; wenn ein Thread ready ist, aber nie die CPU bekommt)
+    1. Einmal pro Sekunde wird geprüft, ob es einen Thread gibt, der schon mindestens 6 Sekunden ready ist. 
+    1. Wenn ja, bekommt er Priorität 15 und dreifaches Quantum
+    1. Der boost bleibt nur bis zur ersten Unterbrechung erhalten
+1. Priority Inversion
+    1. Thread mit hoher Priorität 
+    
+    
