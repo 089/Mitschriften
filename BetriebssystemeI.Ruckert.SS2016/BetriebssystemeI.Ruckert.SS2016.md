@@ -419,3 +419,42 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
 1. in einem I/O Interrupt (unblock)
 1. im Clock Interrupt (preempt)
 
+## Scheduling in Windows, Vorlesung vom 27.04.2016
+
+1. Dispatcher läuft im Interrupt-Request-Level 2 (IRQ-Level2) 
+    1. mit Prioritäten, 32 Level
+    1. 32 Ready-Queues (Threads werden mittels round robin aktiviert. 
+1. Wann läuft der Dispatcher?
+        1. Wenn ein wartender Thread nach I/O completion ready wird. Windows ist [full preemptive](https://de.wikipedia.org/wiki/Multitasking#Pr.C3.A4emptives_Multitasking)
+        1. Wenn ein Thread einen Event signalisiert. 
+        1. Wenn das Quantum aufgebraucht ist. (clock interrupt ==> jetzt Zeitscheibe (preemption) zu Ende)
+        1. Thread wartet auf IO (blockiert)
+        1. Timed Wait wird fertig
+1. Bit mask 32 Bit, 1 Bit pro Queue, "ready summary" zeigt an, welche Queues leer/voll sind. 
+1. Bit mask 32 Bit, 1 Bit pro CPU, "idle summary" zeigt an, welche CPU idle/busy ist. 
+1. Ablauf: Lock setzen, Zugriff bekommen, auf Queues arbeiten, freigeben
+1. Modifikationen
+    1. Prioritäten
+        1. Klasse (pro Prozess) `SetPriorityClass`
+            1. Idle -> 4
+            1. BelowNormal --> 6
+            1. Normale --> 8
+            1. AboveNormal --> 10
+            1. High--> 13
+            1. Realtime --> 24
+            1. 0 ist der Idle Thread
+            1. 1 - 15 werden für User-Programme verwendet
+            1. 16 - 31 sind Realtime-Threads
+        1. Level (Thread) `SetThreadPriority`
+            1. Idle --> 1 oder 16  (minimum)
+            1. Lowest --> -2
+            1. BelowNormal --> -1
+            1. Normal -->  +/- 0
+            1. AboveNormal --> +1
+            1. Highest -->  +2
+            1. Critical --> 15 oder 31 (maximal)
+    2. Quantum
+        1. 180 ms für Windows Server => längere Zeit ==> weniger context switches
+        1. 30 ms für Work Station 
+        1. 90 ms für den foreground Prozess bei Work Station
+
