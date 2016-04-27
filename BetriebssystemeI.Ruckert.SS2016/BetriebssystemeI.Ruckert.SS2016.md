@@ -453,6 +453,18 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
             1. AboveNormal --> +1
             1. Highest -->  +2
             1. Critical --> 15 oder 31 (maximal)
+            1. ==>  Jeder Thread hat dadurch eine Base Priority
+            1. ==> Die Base Priority wird dynamisch modifiziert --> **CurrentPriority; Wird für das Scheduling verwendet.**
+            1. **keine** dynmaische Anpassung für Realtime-Threads
+        1. Affinity
+            1. Zuordnung von Threads zu CPU
+            1. Jeder Thread hat einen idealen Prozessor ==> Thread läuft meist auf dem gleichen Prozessor (Vorteil: Daten bereits im Cache)
+            1. hard affinity
+                1. Jedem Thread werden fest CPUs zugeordnet
+                1. Thread darf nur auf diesen CPUs laufen
+            1. soft affinity
+                1. Jedem Thread werden bevorzugte CPUs zugeordnet
+                1. Thread sollte, wenn möglich, auf diesen CPUs laufen 
     2. Quantum
         1. 180 ms für Windows Server => längere Zeit ==> weniger context switches
         1. 30 ms für Work Station 
