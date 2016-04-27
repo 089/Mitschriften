@@ -495,5 +495,5 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
         1. diese CPU seine bevorzugte CPU ist, oder
         1. er schon ca. 45 ms ready ist, oder
         1. die Priorität >= 24 ist.
-    1. sonst: Suche nach anderem Thread, der diese Kriterien erfüllt. 
+    1. sonst: Suche nach anderem Thread, der eine dieser Kriterien erfüllt. 
     
