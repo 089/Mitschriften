@@ -482,7 +482,18 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
     1. Einmal pro Sekunde wird geprüft, ob es einen Thread gibt, der schon mindestens 6 Sekunden ready ist. 
     1. Wenn ja, bekommt er Priorität 15 und dreifaches Quantum
     1. Der boost bleibt nur bis zur ersten Unterbrechung erhalten
-1. Priority Inversion
-    1. Thread mit hoher Priorität 
-    
+1. [Priority Inversion](https://de.wikipedia.org/wiki/Priorit%C3%A4tsinversion) (???)
+1. Multimedia Class Scheduler Service
+    1. Applikation kann sich mit dem Service registrieren und wird dann speziell gescheduled
+        1. high --> 23 - 26 (professionelle Multimedia-Software)
+        1. Audio --> 16 - 22
+        1. Normal --> 8 - 15
+        1. Exhausted --> 1 - 7
+1. Wie wählt Windows den nächsten Thread aus, wenn eine CPU frei wird?
+    1. primary candidate: der erste Thread in der ready queue mit der höchsten Priorität. Er bekommt die CPU, wenn 
+        1. er zuletzt auf dieser CPU lief, oder
+        1. diese CPU seine bevorzugte CPU ist, oder
+        1. er schon ca. 45 ms ready ist, oder
+        1. die Priorität >= 24 ist.
+    1. sonst: Suche nach anderem Thread, der diese Kriterien erfüllt. 
     
