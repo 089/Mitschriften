@@ -498,3 +498,20 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
     1. sonst: Suche nach anderem Thread, der eine dieser Kriterien erfüllt. 
     1. wenn keinen anderen gefunden --> primary candidate
     
+## Vorlesung vom 04.05.2016
+
+## Scheduler in Linux: The subroutine weight, Vorlesung vom 11.05.2016
+1. Besprochen wird der Scheduler im Dokument [03_scheduling.pdf](other/03_scheduling.pdf) ab Seite 11
+1. interrupt handler
+    1. Code (Was ist zu tun?) wird in top und bottom half (alles andere) geteilt
+    1. top wird sofort gemacht
+        - schnell
+        - nur das wichtigste enthalten
+        - interrupts aus
+    1. bottom später
+        - kann dauern
+        - alles andere später
+        - interrupts an
+1. Linux: Priorität = Anteil an der CPU-Zeit
+1. `jiffies` ist eine Art interne Uhr und zählt die ticks seit dem letzten Boot. 
+1. Der Linux-Scheduler läuft jedes mal, wenn der interrupt handler fertig ist (setzt ein Flag), sobald der interrupt level wieder 0 ist bzw. am Ende eines system calls. 
