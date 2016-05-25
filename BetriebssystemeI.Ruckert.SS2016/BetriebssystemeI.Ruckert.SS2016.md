@@ -623,11 +623,14 @@ EndeCs      STCO    0,Mutex         // --> frei
     1. Lampert 1987, langsam! Spielt in der Praxis keine Rolle. 
 1. Hardware-Unterstützung
     1. Intel x86, Exchange-Instruktion `XCH6 register, address` tauscht die Werte von Register und Speicher an der gegebenen Adresse
-    1. hat automatisches LOCK-Prefix
-    1. Verwendung als Mutex:
-        1. Setze register auf 1
-        1. `XCH6 register,Mutex`
-        1. Teste, ob `register == 0`
-        1. ja, war frei, ist jetzt besetzt
-        1. enter critical section
-        1. else (fange wieder oben an)
+        1. hat automatisches LOCK-Prefix
+        1. Verwendung als Mutex:
+            1. Setze register auf 1
+            1. `XCH6 register,Mutex`
+            1. Teste, ob `register == 0`
+            1. ja, war frei, ist jetzt besetzt
+            1. enter critical section
+            1. else (fange wieder oben an)
+        1. `CMPXCH6 register,address` vergleicht den Inhalt des Speichers an der gegebenen Adresse mit dem A/AX/EAX register. Wenn beide gleich sind, werden die Inhalte von Register und Speicher getauscht und das Zero-Flag gesetzt, sonst: kein Tausch und Zero-Flag wird gelöscht. 
+        1. Warum ist LOAD und STORE ohne Test ein Problem? Überlastung des Busses. 
+    
