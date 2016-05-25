@@ -591,4 +591,43 @@ return request
             
 ```
 
+1. Fortsetzung: Beispiel Consumer-Producer-Problem 
+    1. Weitere Probleme ohne Synchronisierung können entstehen, wenn ein Thread `delete()` und ein Thread `insert()` ausführt. 
+1. **Begriffe**
+    1. *Race Condition*: Ergebnisse des Programms hängen vom relativen Verlauf der Threads ab. 
+    1. *Critical Section*: Der Codebreich in dem Race Conditions auftreten.
+    1. *Mutal Exclusion*: Methode zum Verhindern von Race Conditions: Es wird sicher gestellt, dass innerhalb einer *Critical Section* immer nur ein Thread aktiv ist. Die anderen Threads müssen warten. 
+    1. *Deadlock*: Zwei Threads warten (unbeschränkt) einer auf den anderen. Beispiel: Threads brauchen beide Ressource A und B. 
+1. Anforderungen an Programme mit parallelen Threads
+    1. Keine Annahmen über die relative Ausführungsgeschwindigkeit von Threads.
+    1. Vermeidung von Dead Locks
+    1. Kein Thread muss unbeschränkt auf eine Critical Section warten.
+    1. Ein Thread, der nicht in einer Critical Section ist, sollte nicht andere Threads blockieren.
+1. Mutex: Variable die Mutal Exclusion impementiert. 
 
+```
+// naive Implementierung: Eine neue Critical Section entsteht zwischen LDO und STCO
+
+MUTEX OCTA 0 // 0 frei, 1 belegt
+
+AnfangCS    1H      LDO $0,Mutex    \  nennt man
+            BNZ     $0, 1B          /  Spinlock
+            STCO    1,Mutex         // --> belegt
+            ...                     // critical section
+EndeCs      STCO    0,Mutex         // --> frei            
+```
+
+1. Software Implementierung
+    1. Dekker 1965, Trickreich!
+    1. Peterson 1981, kompliziert!
+    1. Lampert 1987, langsam! Spielt in der Praxis keine Rolle. 
+1. Hardware-Unterstützung
+    1. Intel x86, Exchange-Instruktion `XCH6 register, address` tauscht die Werte von Register und Speicher an der gegebenen Adresse
+    1. hat automatisches LOCK-Prefix
+    1. Verwendung als Mutex:
+        1. Setze register auf 1
+        1. `XCH6 register,Mutex`
+        1. Teste, ob `register == 0`
+        1. ja, war frei, ist jetzt besetzt
+        1. enter critical section
+        1. else (fange wieder oben an)
