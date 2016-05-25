@@ -543,7 +543,7 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
 ```C
 
 // löscht nächste Anfrage aus der Warteliste
-url  * delete(void) {
+url *delete(void) {
 
     while(First == NULL) sleep();
 
@@ -568,6 +568,27 @@ void insert(url *new) {
     }
 }
 
+```
+
+Bei fehlender Synchronisierung kann es passieren, dass zwei Threads das gleiche Element aus der Warteschlange bekommen:
+
+```C
+
+Thread 1            Thread 2
+
+First == NULL?
+request = Frist;
+            ---->
+                    First == NULL?
+                    request = Frist;
+                    First = request->next;
+                    request->next=NULL
+                    return request;
+            <-----
+First = request->next;
+request->next=NULL // Problem: Speicherbereich ist bereits freigegeben worden
+return request
+            
 ```
 
 
