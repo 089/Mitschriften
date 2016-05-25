@@ -499,6 +499,7 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
     1. wenn keinen anderen gefunden --> primary candidate
     
 ## Vorlesung vom 04.05.2016
+// TDOO
 
 ## Scheduler in Linux: The subroutine weight, Vorlesung vom 11.05.2016
 1. Besprochen wird der Scheduler im Dokument [03_scheduling.pdf](other/03_scheduling.pdf) ab Seite 11
@@ -515,3 +516,58 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
 1. Linux: Priorität = Anteil an der CPU-Zeit
 1. `jiffies` ist eine Art interne Uhr und zählt die ticks seit dem letzten Boot. 
 1. Der Linux-Scheduler läuft jedes mal, wenn der interrupt handler fertig ist (setzt ein Flag), sobald der interrupt level wieder 0 ist bzw. am Ende eines system calls. 
+
+## Synchronisierung von Threads, Vorlesung vom 25.05.2016
+
+1. Problemvoraussetzung
+    1. Multitasking Betriebssystem
+        1. mehrere gleichzeitig aktive Threads
+        1. entweder parallel (mehrere CPUs) oder quasi parallel (single CPU)
+    1. Non-disjoint Threads
+        1. Disjoint Threads haben **keine** gemeinsamen Ressourcen (eher selten)
+        1. Non-disjoint Threads haben gemeinsame Ressourcen (z.B. Memory, IO, devices, ...)
+            1. cooperating Threads
+            1. competing Threads (streiten sich um bestimmte Ressourcen)
+1. Problem: Ohne Synchronisierung sind die Effekte von parallelen non-disjoint Threads weder vorhersehbar noch reproduzierbar. 
+1. Beispiel Consumer-Producer-Problem mit einer verketteten Liste
+    1. Webserver
+        1. Input Thread
+            1. liest Anfragen von Port 80
+            1. Anfragen werden in eine verkettete Warteliste eingefügt 
+        1. mehrere Worker Threads
+            1. Nehmen Anfragen aus der Warteliste heraus
+            1. Bearbeiten die Anfrage
+            1. Schicken eine Antwort
+    1. Beispiel Code in vereinfachtem C
+    
+```C
+
+// löscht nächste Anfrage aus der Warteliste
+url  * delete(void) {
+
+    while(First == NULL) sleep();
+
+    request = First;
+    First = request->next;
+    request->next = NULL;
+
+    return request;
+}
+
+```
+
+```C
+
+void insert(url *new) {
+    
+    if(First == NULL) 
+        First = Last = new;
+    else {
+        Last->next = new;
+        Last = new
+    }
+}
+
+```
+
+
