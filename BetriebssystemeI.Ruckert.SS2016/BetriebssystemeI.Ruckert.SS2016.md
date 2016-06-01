@@ -634,3 +634,64 @@ EndeCs      STCO    0,Mutex         // --> frei
         1. `CMPXCH6 register,address` vergleicht den Inhalt des Speichers an der gegebenen Adresse mit dem A/AX/EAX register. Wenn beide gleich sind, werden die Inhalte von Register und Speicher getauscht und das Zero-Flag gesetzt, sonst: kein Tausch und Zero-Flag wird gelöscht. 
         1. Warum ist LOAD und STORE ohne Test ein Problem? Überlastung des Busses. 
     
+## Synchronisation, Vorlesung vom 01.06.2016
+
+1. Abgabetermin nächste Praktikumsaufgabe, 29.06.2016
+1. Wiederholung letzte Stunde
+	1. Mutex
+	1. Ciritcal Section
+	1. Race Condition
+    1. Hardwareunterstützung
+        1. XCH6, atomarer Lese-/Schreibzugriff
+        1. TSTXCH6, atomares Lesen, Testen, Schreiben
+1. Lock: Warten auf einen Mutex
+    1. Busy waiting/Spin lock: Schleife = aktives Warten auf den Zugang zur critical section
+        1. Nachteil: verbraucht CPU-Zeit
+        1. Vorteil: kaum Overhead
+            1. Nur auf Pages lagern, die nicht ausgelagert werden. 
+            1. Was passiert, wenn der Thread, der den Mutex freigeben soll, das nicht tut?
+    1. Alternative: Sleep/Wake bzw. Signal/Wait Funktionen
+        1. Warteschlange für Threads, die vom BS unterstützt wird.
+            1. `wait(), sleep()`: Thread wird in die Warteschlange eingefügt ==> Zustand geht von "ready" nach "waiting" (ähnlich wie bei abgelaufenenm Quantum)
+            1. `Signal(), wake()`: Der erste Thread in der Warteschlange wird wieder aktiviert. Zustand geht von "waiting" nach "ready"
+        1. Nachteil Overhead:
+            1. Wechsel ins BS
+            1. Kontextswitch
+            1. Warteschlange
+            1. Kontextswitch
+            1. Wechsel in User Space                
+        1. Vorteile: 
+            1. Keine Verschwendung von CPU-Zeit. Lohnt sich bei aufwändigen critical sections
+            1. Mutex kann vom BS freigegeben werden
+
+### Beispiel: Producer Consumer Problem **mit beschränktem Buffer und sleep/wake**
+
+```C
+#define MAX 100
+int count = 0; // leer
+Mutex in, out; 
+
+void producer() {
+    while(1) {
+        produce(item);  
+        if(count == MAX) *1 sleep(in); // Buffer voll ==> warten
+        insert(item);   
+        count++;
+        if(count===1) wake(out); // consumer aufwecken
+    }
+}
+
+void consumer() {
+    while(1) {
+        if(count==0) sleep(out); // Buffer leer ==> warten
+        delete(item);
+        count--;
+        if(count==MAX-1) wake(in); // producer aufwecken
+        consume(item)
+    }
+}
+```
+
+1. Was passiert, wenn bei *1 ein Prozesswechsel auftritt? Es kann zum Deadlock kommen. 
+1. Lösung des Deadlocks: Signal/Wait mit Signal Pending Bit. Das Vorhandensein des Signals wird gespeichert. 
+1. **Semaphore**
