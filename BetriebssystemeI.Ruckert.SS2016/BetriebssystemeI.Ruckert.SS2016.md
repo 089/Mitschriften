@@ -733,3 +733,37 @@ void consumer() {
 
 ```
 
+### Synchronisation in Windows - Die wichtigsten API Calls
+
+1. Low Level Methoden
+    1. **InterlockedAdd** (und viele mehr): atomare addition von zwei Integern
+        1. Compilerunterstützte "Intrinsics"
+        1. wird möglichst im Userspace gemacht
+    1. **Critical Section** (Betriebssystemunterstützung)
+        1. Datenstruktur im User Space 
+            1. `Initialize Critical Section()`
+            1. `EnterCriticalSection()`
+            1. `LeaveCriticalSection()`
+        1. Nur innerhalb eines Prozesses. 
+        1. ==> Vorteil: Sprung ins BS nur, wenn der Thread warten muss.
+        1. flexibel
+        1. fehleranfällig z.B. aufgrund fehlendem `LeaveCriticalSection()`
+        1. effizient
+        1. optionaler *spin count*; Wechsel nur ins BS mit sleep nur, wenn die Schleife abläuft
+    1. **Slim Reader Writer Locks** (**SRW**, später mehr!) 
+1. Higher Level Methoden
+    1. Vorteile: Eignen sich für die Synchonisierung von threads in **verschiedenen Prozessen**.
+    1. Nachteil: Höherer Overhead (Kontextswitch)
+    1. Gemeinsam
+        1. Zugriff über Handles
+        1. Wait for `SingleObject()`
+        1. Wait for `MultipleObjects()` gemeinsame Wartefunktionen
+            1. Mögliche Objekte
+                1. Mutex
+                1. Semaphore
+                1. Events (z.B. Signal/Wait)
+                1. Timer
+                1. IO, Sockets, Console, ...
+                1. Adresse (z.B. Schreibzugriff auf bestimmte Adresse)
+                1. Thread-/Prozessterminierung
+    
