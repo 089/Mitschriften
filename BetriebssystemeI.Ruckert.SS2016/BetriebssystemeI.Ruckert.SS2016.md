@@ -695,3 +695,41 @@ void consumer() {
 1. Was passiert, wenn bei *1 ein Prozesswechsel auftritt? Es kann zum Deadlock kommen. 
 1. Lösung des Deadlocks: Signal/Wait mit Signal Pending Bit. Das Vorhandensein des Signals wird gespeichert. 
 1. **Semaphore**
+    1. Zähler der atomar inkrementiert und dekrementiert wird.
+    1. Minimalwert (0), fester Maximalwert
+    1. Thread wird blockiert, falls das herauf oder herunterzählen nicht möglich ist. 
+    1. Spezialfall: `Maximalwert == 1`, ähnlich wie ein Mutex
+    1. down operation: P-Operation zählt herunter
+    1. up operation: V-Operation zählt hoch
+    
+### Beispiel: Producer/Consumer Problem mit beschränktem Buffer und Semaphoren
+
+```
+semaphore(1)    mutex=1;
+semaphore(MAX)  empty=MAX;  // Anzahl leerer Felder
+semaphore(MAX)  full=0;     // Anzahl voller Felder
+
+void producer() {
+    while(1) {
+        produce(item);  
+        down(empty);
+        down(mutex);
+        insert(item);   
+        up(mutex);
+        up(full);
+    }
+}
+
+void consumer() {
+    while(1) {
+        down(full);
+        down(mutex);
+        delete(item);
+        up(mutex);
+        up(empty);
+        consume(item)
+    }
+}
+
+```
+
