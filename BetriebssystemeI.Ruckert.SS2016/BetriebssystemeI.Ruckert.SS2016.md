@@ -787,4 +787,61 @@ void consumer() {
 1. Highlevel Synchronisation in Windows
     1. Kernel Objekte
     1. Programm bekommt ein [Handle](https://de.wikipedia.org/wiki/Grillhendl)
+    1. Können zwischen verschiedenen Prozessen gemeinsam genutzt werden. 
+    1. Wait for single Object (andle)
+    1. Wait for multiple Objects (Handle[])
+    1. `CloseHandle()` als Gegenstück zum `Createxxx...`
+    
+### Mutex (ist das Einfachste)
+
+``` 
+HANDLE CreateMutex()    // erzeugt den Mutex
+HANDLE OpenMutex        // gibt Handle auf einen existierenden Mutex
+
+Release Mutex()
+     /\
+     ||
+     \/
+WaitForSingleObject(),
+
+    Verwendung
+        .
+        .
+        .
+WaitForSingleObject(MutexHandle),
+        .  \
+        .   |- critical Region
+        .  /
+Release Mutex(MutexHandle)
+        
+``` 
+
+### Events (Reine Warteschlange)
+
+1. Handle CreateEvent()
+1. Handle OpenEvent()
+1. SetEvent() weckt Threads auf, die gerade auf das Event warten. 
+1. ResetEvent() Threads müssen wieder warten
+1. AutoResetEvent ein ResetEvent wird automatisch ausgeführt, sobald ein Thread aufgeweckt wird. 
+1. PulseEvent dient zum Aufwecken einer festen Anzahl von Threads
+
+### Semaphore; Eine Art Zähler der zwischen 0 und MAX herauf- oder heruntergezählt wird. 
+1. CreateSemaphore
+1. OpenSemaphore
+1. WaitForSingle-/MultipleObject = Down Operation
+1. ReleaseSemaphore = Up Operation
+
+### Reader-Writer Problem
+1. Reader Threads liest die Datenstruktur
+1. Writer Threads lesen und schreiben die Datenstruktur
+1. Sehr viel mehr Reader als Writer
+1. Reader kann man gut parallel zulassen
+1. Writer nur exklusiv
+1. Ein Lock für die gesamte Datenstruktur und ein Zähler für die aktuell aktiven Reader
+1. Fine grained locking: Einzelne Records werden gelocked
+1. Lock free methods, z.B. Hazard Pointers
+    1. jeder Thread hat einen oder mehrere davon in lokalen Variablen
+    1. Vor dem Zugriff auf einen Datensatz wird der Zeiger in den Hazard Pointer kopiert. Danach wieder gelöscht. 
+    1. Der Writer liest alle Hazard Pointer und wartet solange bis kein Thread mehr den Datensatz nutzt. 
+    
     
