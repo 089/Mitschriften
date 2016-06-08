@@ -767,3 +767,24 @@ void consumer() {
                 1. Adresse (z.B. Schreibzugriff auf bestimmte Adresse)
                 1. Thread-/Prozessterminierung
     
+## Highlevel Synchronisation in Windows, Vorlesung vom 08.06.2016
+1. Rückmeldung zum Praktikum
+	1. quantitativ
+        1. Nicht "ziemlich viel besser"
+        1. besser:
+            1. 12,3% 
+            1. 40000 statt 30000 Cycles
+    1. Context Switch Delta ist kein Maß für Performance
+        1. ==> IO writes
+        1. CPU Cycles
+    1. zu 1d) Priority Boost
+        1. 8 normal
+        1. 9 normal + 1 (IO Boost)
+        1. 11 normal + 2 + 1 (IO boost und foreground)
+        1. 15 starvation boost 
+        1. CPU-Stress normal 8 + AboveNormal = 9, IO intensiv + 10 boost = 9
+    1. Quantum hat nichts mit Priorität zu tun. 
+1. Highlevel Synchronisation in Windows
+    1. Kernel Objekte
+    1. Programm bekommt ein [Handle](https://de.wikipedia.org/wiki/Grillhendl)
+    
