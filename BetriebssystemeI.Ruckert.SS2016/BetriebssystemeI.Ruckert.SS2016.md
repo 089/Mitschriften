@@ -844,4 +844,3 @@ Release Mutex(MutexHandle)
     1. Vor dem Zugriff auf einen Datensatz wird der Zeiger in den Hazard Pointer kopiert. Danach wieder gelöscht. 
     1. Der Writer liest alle Hazard Pointer und wartet solange bis kein Thread mehr den Datensatz nutzt. 
     
-    
