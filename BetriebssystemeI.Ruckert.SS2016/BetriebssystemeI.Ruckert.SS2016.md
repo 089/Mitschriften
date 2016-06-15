@@ -868,5 +868,91 @@ Release Mutex(MutexHandle)
         1. `id` Handle für das Semaphore Set
         1. `segmet` erzeugt oder öffnet ein Set von Semaphoren
         1. `key` User defined "Name"
+        1. `sem_num` Anzahl im Set
         1. `flag` Create oder Open
+    1. oldval = semop(id, oplist, count);
+        1. `semop`
+        1. `id`
+        1. `oplist` Liste von up/down operationen (sem_num: Nummer der Semaphore, sem_op: < 0 = down, > 0 up, sem_flag)
+        1. `count`
+    1. Alle Operationen in der Liste werden atomar ausgeführt. 
+
+### Memory barriers:
+
+**Beispiel**
+
+```
+int value=0;
+int ready=0;
+
+Thread 1                Thread 2
+    .                       .
+    .                       .
+    .                       .
+value=42;             while(!ready)
+---> release barrier   ---> acquire
+ready=1;              return value;
+    .                       .
+    .                       .
+    .                       .
+    
+```
+In modernen Computersystemen ist die Reihenfolge von Speicherzugriffen in einem Thread unabhängig von der Reihenfolge in dem diese Zugriffe in einem anderen Thread beobachtet werden. Erklärung: Speicherhierarchie. Was passiert bei einem Speicherzugriff:
+
+```
+        TLBlookup                      L1-Cache                  L3-Cache
+|----->|--------->| ----------------->|------>|------------>|------------------------>|---- ... ---->|
+Adressberechnung     Pagetable lookup             L2-Cache                              RAM-Zugrif
+(virtuell)              (optional)                                                      dauert lange!
+
+```
+
+```
+1H  LDO $0,ready
+    BZ  $0,1B
+    -------------- SYNC einfügen für memory barrier
+    LDO $0,value
+    POP 1,0
+```
+
+Es gibt zwei Sorten von Memory Barriers:
+1. aquire, ein load oder store nach der barrier wird erst begonnen, wenn das load vor der barrier abgeschlossen ist. 
+1. release, ein store nach der barrier wird erst ausgeführt nachdem alle loads und stores vor der barrier abgeschlossen sind. 
+1. Beides zusammen nennt man memory fence
+
+```
+ | load/store |                 store
+ -------------- release     -------------- acquire
+     store                  | load/store |
+```
+
+Das wäre zu teuer, da es keine Parallelität mehr gäbe. 
+
+```
+  store
+ -------
+  load
+
+```
+
+### Memory Management
+Konzepte fürs Multiprogramming
+1. Segmentierung/Partitionierung
+    1. Ein Prozess bekommt ein oder mehrere Segmente
+    1. Schutz der Prozesse voreinander
+    1. Auslagern eines Prozesses (swapping)
+    1. zusammenhängende Speicherbereiche im Segment 
+    1. einfach zu implementieren
+    1. Intel x86
+        1. 16 Bit Computer 8086
+        1. 4 Segmentregister a 16 Bit: CS, DS, SS, ES
+        1. Jeder Befehl spezifiziert implizit eines/mehrere dieser Segmentregister
+        1. ` #### SEGMENT #### << 4`
+        1. `+ ____#### OFFSET ####`
+        1. `----------------------`
+        1. `20 Bit = 1 MB`
+        1. heute, ab 386 gibt es 6 Segmentregister ES, FS, GS 
+        1. die Segmentregister sind Indizes in die local/global descriptor table
+        1.
+1. Paging
     
