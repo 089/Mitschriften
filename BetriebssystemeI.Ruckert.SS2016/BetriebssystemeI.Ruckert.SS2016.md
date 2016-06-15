@@ -844,3 +844,29 @@ Release Mutex(MutexHandle)
     1. Vor dem Zugriff auf einen Datensatz wird der Zeiger in den Hazard Pointer kopiert. Danach wieder gelöscht. 
     1. Der Writer liest alle Hazard Pointer und wartet solange bis kein Thread mehr den Datensatz nutzt. 
     
+## Synchronisation in Unix, Vorlesung vom 15.06.2016
+1. Frühes Unix
+	1. sehr prozessorientiert
+	1. Synchronisation kompliziert zu programmieren.
+    1. relativ ineffizient
+1. Späteres Unix repariert die meisten Probleme
+1. Methoden
+    1. MessageQueues, ähnlich zu Windows, aber selten genutzt
+    1. Semaphore, eher typisch
+    1. Signale, wichtig
+    1. Shared Memory (später mehr)
+    1. Pipes (wichtig)
+    1. Sockets
+1. Für Signale gibt es Betriebssystemfunktionen:
+    1. `sigaction()` setzt einen Signalhandler
+    1. `sigprocmask()` maskiert Signale
+    1. `sigsend` senden von Signalen
+    1. `alarm()` setzt einen Timer
+    1. `wait()` warten auf Signale
+1. Semaphore Funktionen
+    1. `id = semget(key, sem_num, flag)`
+        1. `id` Handle für das Semaphore Set
+        1. `segmet` erzeugt oder öffnet ein Set von Semaphoren
+        1. `key` User defined "Name"
+        1. `flag` Create oder Open
+    
