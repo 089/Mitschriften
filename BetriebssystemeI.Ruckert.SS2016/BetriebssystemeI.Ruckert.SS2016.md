@@ -952,7 +952,6 @@ Konzepte fürs Multiprogramming
         1. `----------------------`
         1. `20 Bit = 1 MB`
         1. heute, ab 386 gibt es 6 Segmentregister ES, FS, GS 
-        1. die Segmentregister sind Indizes in die local/global descriptor table
-        1.
+        1. die Segmentregister sind Indizes in die local/global descriptor table: 8K -> `Adresse = Basisadresse (size, flags) + offset <= size`
 1. Paging
     
