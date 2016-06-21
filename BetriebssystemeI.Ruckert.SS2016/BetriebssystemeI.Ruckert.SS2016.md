@@ -573,7 +573,28 @@ Das Scheduling wird über eine dispatcher parameter Tabelle gesteuert:
 | ... | ... | ... | ... | ... | 
 | 59 | 10 | 49 | 59 | 59 | 
 
+**maxtime**: Konstant, die festlegt, wann ein Thread sein Quantum aufgebraucht haben sollte. 
 
+### Beispiel: Realtime Class
+1. Wichtig: Vorhersagbarkeit der Antwortzeit
+1. ganz einfaches Scheduling
+1. Prio höher als im kernel mode
+1. braucht Superuser-Rechte zum Starten
+1. feste Prio, festes Quantum
+1. Kernel Preemption points zur Verringerung der Antwortzeit: 
+
+![Echtzeit](images/2016-04-05_unix-echtzeit.jpg)
+
+1. Viele Varianten
+    1. Solaris (SUN)
+        1. Kernel ist vollständig preemptive
+        1. Nachteil: Die Datenstruktur im Kernel muss an vor simultaner Nutzung schützen (Mutex)
+    1. Linux: anderes Konzept
+        1. Priorität = Anteil der CPU-Zeit, die ein Thread bekommen soll relativ zu allen anderen (Beispiel: Prio 10 -> 20 % Anteil, 20 -> 40%, 3 -> 6%, 17 -> 34%, 50 -> 100%).
+        1. Ein Thread der sein Quantum aufgebraucht hat, kommt so lange nicht mehr zum Laufen, bis alle anderen Threads, die ready sind, auch ihr Quantum aufgebraucht haben.
+        1. nur eine queue für ready
+        1. berechnet einen "goodness" Wert und lässt den besten Thread laufen
+        1. inaktive Threads bekommen immer sofort ein neues Quantum
 
 ## Scheduler in Linux: The subroutine weight, Vorlesung vom 11.05.2016
 1. Besprochen wird der Scheduler im Dokument [03_scheduling.pdf](other/03_scheduling.pdf) ab Seite 11
