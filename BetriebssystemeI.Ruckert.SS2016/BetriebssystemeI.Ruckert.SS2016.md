@@ -562,15 +562,15 @@ Geschwindigkeit hängt hier von der IO ab. Was passiert, wenn alle auf einer CPU
 Das Scheduling wird über eine dispatcher parameter Tabelle gesteuert:
 
 | Prio | Quantum | Prio, wenn das Quantum vor maxtime endet | Prio, wenn das Quantum nicht in maxtime endet | nach Aufwachen aus sleep |
-| ===== | ===== | ===== | ===== | ===== | 
+| --- | --- | --- | --- | --- | 
 | 0 | 100 | 0 | 10 | 10 | 
 | 1 | 100 | 0 | 11 | 11 | 
-| 2 | ... |  |  |  | 
-| ... |  |  |  |  | 
+| 2 | ... | ... |  | ... | 
+| ... | ... |  | ... |  | 
 | 15 | 80 | 7 | 25 | 25 | 
-| ... |  |  |  |  | 
+| ... | ... |  | ... |  | 
 | 40 | 20 | 30 | 50 | 50 | 
-| ... |  |  |  |  | 
+| ... | ... |  | ... |  | 
 | 59 | 10 | 49 | 59 | 59 | 
 
 
