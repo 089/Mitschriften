@@ -498,8 +498,82 @@ Ziel: I/O-Bound-Prozesse bekommen eine höhere Priorität als CPU-Bound, weil di
     1. sonst: Suche nach anderem Thread, der eine dieser Kriterien erfüllt. 
     1. wenn keinen anderen gefunden --> primary candidate
     
-## Vorlesung vom 04.05.2016
-// TDOO
+## Scheduling unter UNIX, Vorlesung vom 04.05.2016
+
+```
+      /   BSD   \ 
+     /           \
+UNIX              ==>POSIX (Spezifikation der API)
+     \           /
+      \ SystemV /
+``` 
+
+1. Wie bei Windows
+    1. Prioritätsgesteuert (Thread mit höchster Priorität bekommt die CPU
+    1. Bei gleicher Priorität: Round Robin
+    1. Dynamische Prio-Anpassung
+1. default scheduling classes 
+    1. 0 - 59 Timesharing Prios
+    1. 60 - 99 Kernel Prios
+    1. 100 - 160 Realtime Prios
+1. Threads, die vom **user mode** in den **kernel mode** wechseln, bekommen eine neue Prio, die davon abhängt, was der Thread im Kernel macht. Wenn der Thread wieder in den **user mode** wechselt, bekommt er die alte Prio.
+1. Threads im **kernel mode** werden nicht vorzeitig abgebrochen (**preemption**)
+1. In modernen Unix-Versionen hat der Kernel **preemtion points**
+1. Es gibt "scheduling classes". Diese definieren 
+    1. eine Scheduling Policy
+    1. einen Bereich von Prios
+    1. das Quantum
+    1. die dynamische Prio-Anpassungen
+
+### Beispiel: Timesharing class hat eine Prio-Erhöhung, wenn ein Thread nach einem IO wieder ready wird. 
+
+#### 2 Threads ohne IO mit einer CPU
+
+```
+---ready-----#running#---------ready---
+                                       . . .
+----------------------#running#--------
+``` 
+
+Bei 1000 Threads ist das für die Interaktivität tödlich: 30ms * 1000 = 30s der gleiche Thread
+
+#### 2 Threads die hauptsächlich IO machen mit einer CPU
+
+```
+---ready-----#running#--waiting-###---waiting-------
+                                                     . . .
+----------------------###----------###---waiting----
+``` 
+
+Geschwindigkeit hängt hier von der IO ab. Was passiert, wenn alle auf einer CPU laufen ohne Prioritätsanpassung?
+
+```
+---#running#-----ready-----#running#
+
+------------#running#---ready-------#running#
+
+---------------------###--waiting--|--ready--###
+                                   ^
+------------------------###--waiting--|--ready--###-
+                                      ^
+                       Problem: Könnte schon, kann aber noch nicht.
+``` 
+
+Das Scheduling wird über eine dispatcher parameter Tabelle gesteuert:
+
+| Prio | Quantum | Prio, wenn das Quantum vor maxtime endet | Prio, wenn das Quantum nicht in maxtime endet | nach Aufwachen aus sleep |
+| ===== | ===== | ===== | ===== | ===== | 
+| 0 | 100 | 0 | 10 | 10 | 
+| 1 | 100 | 0 | 11 | 11 | 
+| 2 | ... |  |  |  | 
+| ... |  |  |  |  | 
+| 15 | 80 | 7 | 25 | 25 | 
+| ... |  |  |  |  | 
+| 40 | 20 | 30 | 50 | 50 | 
+| ... |  |  |  |  | 
+| 59 | 10 | 49 | 59 | 59 | 
+
+
 
 ## Scheduler in Linux: The subroutine weight, Vorlesung vom 11.05.2016
 1. Besprochen wird der Scheduler im Dokument [03_scheduling.pdf](other/03_scheduling.pdf) ab Seite 11
