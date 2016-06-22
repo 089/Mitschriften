@@ -1121,7 +1121,9 @@ Konzepte fürs Multiprogramming
             1. größter Block: 8 GByte = 2^33 Byte
             1. kleinster Block: 16 Byte = 2^4 Byte
         1. Für jede Größe gibt es eine verkettete Liste mit freien Blöcken
-        1. Wenn die gewünschte Größe nicht mehr vorhanden ist, nimmt man den nächst größeren Block und halbiert ihn.
-        1. 
+        1. Wenn die gewünschte Größe nicht mehr vorhanden ist, nimmt man den nächst größeren Block und halbiert ihn. Buddy enstpricht den beiden Hälften. Das oberste Bit des "rechten" Buddies ist 1 und kann daran erkannt werden. 
+        1. Zusammenfügen einfach, weil man den Buddy an der Adresse erkennt. 
+        1. Bei größeren Blöcken Unterstützung durch Bitmaps
+        
             
         
