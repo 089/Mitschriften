@@ -863,6 +863,7 @@ void consumer() {
                 1. Thread-/Prozessterminierung
     
 ## Highlevel Synchronisation in Windows, Vorlesung vom 08.06.2016
+
 1. Rückmeldung zum Praktikum
 	1. quantitativ
         1. Nicht "ziemlich viel besser"
