@@ -1082,19 +1082,27 @@ Konzepte fürs Multiprogramming
     1. Wie groß wird eine Pagetable?
     1. 2^48 Einträge in der page table (s. Abbildung)? 
     1. 2^51 Byte -> 2 PetaByte page table. Das ist zu groß
-    
-```
+    1. ```
 
- ################################################################
- ^^^\______________________________________________/ offset          
- ||              48 Bits page number 
- |Segment (2 Bits)
- Kernel Mode (1 Bit)
- 
-``` 
+     ################################################################
+     ^^^\______________________________________________/ offset          
+     ||              48 Bits page number 
+     |Segment (2 Bits)
+     Kernel Mode (1 Bit)
+     
+    ``` 
 
 1. Lösung MMIX
     1. Mehrstufige page tables
 1. Intel x86
     1. 2 Segmenttabellen (Global Descriptor Table und Local Descriptor Table) mit virtuellen Adressen
     1. 1 Pagetable für alle virtuellen Adressen
+1. Verwaltung des freien Speichers, 3 Methoden:
+    1. Bitmaps
+        1. 0: page ist frei
+        1. 1: page ist belegt
+        1. kleiner Overhead
+        1. Beispiel: 16 GByte Speicher 
+            1. --> 1 Bit pro 2^15 Bit
+            1. 2^34 Byte = 2^22 pages --> 2^22 Bit = 2^19 Byte = 512 kByte Bitmap
+    1. 
