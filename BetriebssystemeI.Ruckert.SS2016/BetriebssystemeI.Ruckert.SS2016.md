@@ -1096,11 +1096,11 @@ Konzepte fürs Multiprogramming
         1. 2 Segmenttabellen (Global Descriptor Table und Local Descriptor Table) mit virtuellen Adressen
         1. 1 Pagetable für alle virtuellen Adressen
 1. Verwaltung des freien Speichers, 3 Methoden:
-        1. Bitmaps
-            1. 0: page ist frei
-            1. 1: page ist belegt
-            1. kleiner Overhead
-            1. Beispiel: 16 GByte Speicher 
-                1. --> 1 Bit pro 2^15 Bit
-                1. 2^34 Byte = 2^22 pages --> 2^22 Bit = 2^19 Byte = 512 kByte Bitmap
-        1. 
+    1. Bitmaps
+        1. 0: page ist frei
+        1. 1: page ist belegt
+        1. kleiner Overhead
+        1. Beispiel: 16 GByte Speicher 
+            1. --> 1 Bit pro 2^15 Bit
+            1. 2^34 Byte = 2^22 pages --> 2^22 Bit = 2^19 Byte = 512 kByte Bitmap
+    1. 
