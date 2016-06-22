@@ -31,6 +31,7 @@
 
 ### Wozu braucht das OS Hardware-Unterstützung?
 Wiederholung: Wozu braucht man ein OS?
+
 1. Schnittstelle für Systemprogramme
 1. Schnittstelle für Anwenderprogramme
 1. UI
@@ -49,6 +50,7 @@ Beschränkte Einsprungpunkte inkl. Rechtekontrolle | Wie kommt man in den Kernel
  | Einschränkungen bei den Instruktionen; x86 in/out (Zugriff auf Ports) `OR AX, 0xFF` und `OUT #21, AX`. `#21` ist das Interrupt Mask Register des PIC (Program Interrupt Controller)
 
 ### Ressourcen
+
 1. CPU-Zeit: Userprozess darf CPU nur für eine bestimmte Zeit nutzen. Das OS hat und holt sich die Kontrolle zurück:
     1. syscall ==> Userprogramm muss warten
     1. timer interrupt; time slice läuft ab ==> Prozesswechsel
@@ -144,8 +146,7 @@ Zustände von Threads (s. Abbildung)
 1. running current: Thread hat CPU und läuft
 1. blocked/waiting: Thread hat nichts zu tun und braucht keine CPU
 1. ready: Thread könnte laufen, hat aber keine CPU
-![Zustände von Threads](images/2016-03-30_thread-zustaende.jpg
-)
+![Zustände von Threads](images/2016-03-30_thread-zustaende.jpg)
 
 Hinweise:
 
@@ -994,6 +995,7 @@ ready=1;              return value;
     .                       .
     
 ```
+
 In modernen Computersystemen ist die Reihenfolge von Speicherzugriffen in einem Thread unabhängig von der Reihenfolge in dem diese Zugriffe in einem anderen Thread beobachtet werden. Erklärung: Speicherhierarchie. Was passiert bei einem Speicherzugriff:
 
 ```
@@ -1013,6 +1015,7 @@ Adressberechnung     Pagetable lookup             L2-Cache                      
 ```
 
 Es gibt zwei Sorten von Memory Barriers:
+
 1. aquire, ein load oder store nach der barrier wird erst begonnen, wenn das load vor der barrier abgeschlossen ist. 
 1. release, ein store nach der barrier wird erst ausgeführt nachdem alle loads und stores vor der barrier abgeschlossen sind. 
 1. Beides zusammen nennt man memory fence
@@ -1030,10 +1033,11 @@ Das wäre zu teuer, da es keine Parallelität mehr gäbe.
  -------
   load
 
-```
+``` 
 
 ### Memory Management
 Konzepte fürs Multiprogramming
+
 1. Segmentierung/Partitionierung
     1. Ein Prozess bekommt ein oder mehrere Segmente
     1. Schutz der Prozesse voreinander
