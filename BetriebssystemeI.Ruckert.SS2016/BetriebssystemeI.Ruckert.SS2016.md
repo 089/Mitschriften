@@ -1095,18 +1095,33 @@ Konzepte fürs Multiprogramming
         1. 1 Pagetable für alle virtuellen Adressen
 1. Verwaltung des freien Speichers, 3 Methoden:
     1. Bitmaps
-        1. 0: page ist frei
-        1. 1: page ist belegt
+        1. 0 = page ist frei
+        1. 1 = page ist belegt
         1. kleiner Overhead
         1. Beispiel: 16 GByte Speicher 
             1. --> 1 Bit pro 2^15 Bit
             1. 2^34 Byte = 2^22 pages --> 2^22 Bit = 2^19 Byte = 512 kByte Bitmap
     1. Verkettete Listen
         1. Strategrie bei der Allokation: 
-            1. First Fit
+            1. First Fit (erster Block)
                 1. Vorteile: schnell
                 1. Nachteil: Fragmentierung
-            1. Best Fit
-                1. Vorteile: 
-                1. Nachteil: 
+            1. Best Fit (kleinster Block)
+                1. Vorteile: bisschen langsamer
+                1. Nachteil: weniger Fragmentierung
+            1. Worst Fit (größter Block)
+                1. Vorteile: maximal große Reste
+            1. Meist nimmt man First Fit mit einem Rover (Stelle mit dem letzten Fit)
+        1. Problem: Freigabe
+            1. Für belegte Blöcke Größe mit abspeichern --> mehr Overhead (normalerweise Promillebereich)
+            1. Zusammenfügen von freien Blöcken --> Suche über freie Blöcke (aufwendig)
+    1. Buddy System
+        1. Blockgrößen sind Potenzen von 2
+        1. Beispiel: 16 GByte
+            1. größter Block: 8 GByte = 2^33 Byte
+            1. kleinster Block: 16 Byte = 2^4 Byte
+        1. Für jede Größe gibt es eine verkettete Liste mit freien Blöcken
+        1. Wenn die gewünschte Größe nicht mehr vorhanden ist, nimmt man den nächst größeren Block und halbiert ihn.
+        1. 
+            
         
