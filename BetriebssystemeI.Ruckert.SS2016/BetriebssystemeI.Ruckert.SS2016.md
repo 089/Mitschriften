@@ -941,6 +941,7 @@ Release Mutex(MutexHandle)
     1. Der Writer liest alle Hazard Pointer und wartet solange bis kein Thread mehr den Datensatz nutzt. 
     
 ## Synchronisation in Unix, Vorlesung vom 15.06.2016
+
 1. Frühes Unix
 	1. sehr prozessorientiert
 	1. Synchronisation kompliziert zu programmieren.
@@ -1049,8 +1050,9 @@ Konzepte fürs Multiprogramming
         1. `20 Bit = 1 MB`
         1. heute, ab 386 gibt es 6 Segmentregister ES, FS, GS 
         1. die Segmentregister sind Indizes in die local/global descriptor table: 8K -> `Adresse = Basisadresse (size, flags) + offset <= size`
-## Paging, Vorlesung vom 08.06.2016 
+## Paging, Vorlesung vom 22.06.2016 
 // TODO BILD
+
 1. Vorteile
     1. flexibel
     1. kaum Fragmentierung
