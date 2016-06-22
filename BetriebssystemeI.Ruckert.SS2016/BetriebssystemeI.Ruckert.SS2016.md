@@ -1080,8 +1080,6 @@ Konzepte fürs Multiprogramming
 1. Paging kann mit Segmentation kombiniert werden. 
 1. Beim MMIX gibt es 4 Segmente (Datensegment, ...) mit jeweils einer eigenen Pagetable
     1. Wie groß wird eine Pagetable?
-    1. 2^48 Einträge in der page table (s. Abbildung)? 
-    1. 2^51 Byte -> 2 PetaByte page table. Das ist zu groß
     1. ```
 
      ################################################################
@@ -1089,9 +1087,9 @@ Konzepte fürs Multiprogramming
      ||              48 Bits page number 
      |Segment (2 Bits)
      Kernel Mode (1 Bit)```  
-    
-    1. Lösung MMIX
-        1. Mehrstufige page tables
+    1. 2^48 Einträge in der page table (s. Abbildung)? 
+    1. 2^51 Byte -> 2 PetaByte page table. Das ist zu groß
+    1. Lösung: Mehrstufige page tables
     1. Intel x86
         1. 2 Segmenttabellen (Global Descriptor Table und Local Descriptor Table) mit virtuellen Adressen
         1. 1 Pagetable für alle virtuellen Adressen
