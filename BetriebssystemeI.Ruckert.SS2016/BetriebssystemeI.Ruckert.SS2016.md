@@ -1089,8 +1089,7 @@ Konzepte fürs Multiprogramming
      ||              48 Bits page number 
      |Segment (2 Bits)
      Kernel Mode (1 Bit)
-     
-    ```  
+```  
     
     1. Lösung MMIX
         1. Mehrstufige page tables
