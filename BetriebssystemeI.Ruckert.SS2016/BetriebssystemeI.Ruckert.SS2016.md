@@ -1048,5 +1048,46 @@ Konzepte fürs Multiprogramming
         1. `20 Bit = 1 MB`
         1. heute, ab 386 gibt es 6 Segmentregister ES, FS, GS 
         1. die Segmentregister sind Indizes in die local/global descriptor table: 8K -> `Adresse = Basisadresse (size, flags) + offset <= size`
-1. Paging
+## Paging, Vorlesung vom 08.06.2016 
+// TODO BILD
+1. Vorteile
+    1. flexibel
+    1. kaum Fragmentierung
+    1. erzeugt keinen Aufwand für den Programmierer
+    1. dynamische Anpassung der Tabelle
+1. Nachteile
+    1. zwei Speicherzugriffe
+    1. braucht Hardwareunterstützung (TLB)
+    1. Pagetables können sehr groß werden
+1. Caches: AMD Opteron
+    1. Level 1 Cache 64 kByte Instruktionen und 64 KByte Daten
+    1. Level 2 Cache 512 kByte
+    1. Level 3 Cache 2 MByte
+    1. TLB (Translation Lookaside Buffer) spezieller Cache für Adressübersetzung
+    1. DataTLB
+        1. Level 1 64 Einträge voll assoziativ 
+        1. Level 2 512 Einträge 4-fach assoziativ
+    1. InstructionTLB
+        1. Level 1 32 Einträge voll assoziativ
+        1. Level 2 512 Einträge 4-fach assoziativ
+1. Paging kann mit Segmentation kombiniert werden. 
+1. Beim MMIX gibt es 4 Segmente (Datensegment, ...) mit jeweils einer eigenen Pagetable
+    1. Wie groß wird eine Pagetable?
+    1. 2^48 Einträge in der page table (s. Abbildung)? 
+    1. 2^51 Byte -> 2 PetaByte page table. Das ist zu groß
     
+```
+
+ ################################################################
+ ^^^\______________________________________________/ offset          
+ ||              48 Bits page number 
+ |Segment (2 Bits)
+ Kernel Mode (1 Bit)
+ 
+``` 
+
+1. Lösung MMIX
+    1. Mehrstufige page tables
+1. Intel x86
+    1. 2 Segmenttabellen (Global Descriptor Table und Local Descriptor Table) mit virtuellen Adressen
+    1. 1 Pagetable für alle virtuellen Adressen
