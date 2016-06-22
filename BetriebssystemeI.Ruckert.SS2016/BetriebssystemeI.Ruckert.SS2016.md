@@ -1101,4 +1101,12 @@ Konzepte fürs Multiprogramming
         1. Beispiel: 16 GByte Speicher 
             1. --> 1 Bit pro 2^15 Bit
             1. 2^34 Byte = 2^22 pages --> 2^22 Bit = 2^19 Byte = 512 kByte Bitmap
-    1. 
+    1. Verkettete Listen
+        1. Strategrie bei der Allokation: 
+            1. First Fit
+                1. Vorteile: schnell
+                1. Nachteil: Fragmentierung
+            1. Best Fit
+                1. Vorteile: 
+                1. Nachteil: 
+        
