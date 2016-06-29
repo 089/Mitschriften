@@ -1161,7 +1161,12 @@ Konzepte fürs Multiprogramming
     1. Global Replacement und local Replacement
         1. local (Windows): wenn Prozess X eine Seite braucht wird auch eine Seite von Prozess X ausgelagert
         2. global: wenn Prozess X eine Seite braucht wird unter allen Seiten von allen prozessen die günstigste zum Auslagern gesucht. 
-    
+    1. Second Chance Algorithmus (Variante des Reference Bit Algorithmus): man nimmt den ersten ohne Reference-Bit. Bei Pages mit Reference-Bit löscht man das Bit und stellt sie ans Ende der Schlange.
+1. Demand Paging
+    1. Seiten werden erst geladen, wenn sie egebraucht werden
+    1. demand zero pages: eine Seite wird mit 0 gefüllt und zugeordnet, z.B. mit 0 initialisierte Datenbereiche wie Stack oder Heap
+    1. pages im backing store (auf der Platte)
+        1. 
     
 
 
