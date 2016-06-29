@@ -1177,4 +1177,7 @@ Konzepte fürs Multiprogramming
     1. fork macht eine Kopie der page table und setzt in beiden page tables/page frame data structures das copy-on-write bit. 
     1. Wenn der erste Prozess einen Schreibzugriff ausführt entsteht ein page fault.
     1. Der page fault handler kopiert die Seite, löscht für beide Prozesse das copy-on-write bit und setzt für beide Seiten das write bit
-    1. 
+1. Prepaging
+    1. Wenn ein page fault eine Seite (z.B. Code) anfordert lädt man gleich ein ganzes working set. 
+    1. Seiten proaktiv in den swap space schreiben
+    
