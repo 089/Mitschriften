@@ -1170,7 +1170,11 @@ Konzepte fürs Multiprogramming
 1. Speicher Schutz
     1. Über page tables und segment tables wird der Speicher vor unberechtigtem Zugriff aus anderen Prozessen geschützt
     1. Mit protections Bits schützt man den Speicher vor unbeabsichtigten Zugriffen
+    1. Der Compiler/Linker organisiert das Programm in verschieden Sections/segments mit verschiedenen Rechten
+1. Eine Anwendung des Speicherschutzes ist Shared Memory: Ein Bereich des RAM wird mehreren Prozessen zugeordnet --> effiziente Methode für interprozess Kommunikation
+1. Implementierung von `fork()` mit copy-on-write
+    1. erzeugt eine komplette Kopie des aufrufenden Prozesses
+    1. fork macht eine Kopie der page table und setzt in beiden page tables/page frame data structures das copy-on-write bit. 
+    1. Wenn der erste Prozess einen Schreibzugriff ausführt entsteht ein page fault.
+    1. Der page fault handler kopiert die Seite, löscht für beide Prozesse das copy-on-write bit und setzt für beide Seiten das write bit
     1. 
-    
-
-
