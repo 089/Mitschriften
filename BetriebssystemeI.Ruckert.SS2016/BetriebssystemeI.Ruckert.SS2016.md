@@ -1125,5 +1125,43 @@ Konzepte fürs Multiprogramming
         1. Zusammenfügen einfach, weil man den Buddy an der Adresse erkennt. 
         1. Bei größeren Blöcken Unterstützung durch Bitmaps
         
-            
-        
+## Memory Management in Unix/Linux, Vorlesung vom 29.06.2016
+
+1. kleiner Teil wird statisch für den Kernel allokiert
+1. dynamisch
+    1. Paged Pool (können ausgelagert werden)
+    1. Nonpaged Pool (werden nicht ausgelagert)
+    1. In beiden dynamischen Bereichen werden die freien Blöcke mit einer der besprochenen Methoden (Bitmaps, Buddy, linked list, ...) verwaltet. 
+1. wichtig für Effizienz
+1. wird häufig genutzt
+1. Abkürzungen
+    1. look aside lists
+    1. eigene Listen für von Kernel häufig gebrauchte Größen
+    1. seperate Listen pro CPU
+1. Datenstrukturen für das Paging
+    1. Kernel braucht zusätzlich zu den page tables noch Datenstrukturen, um Informationen für die Seiten im paged pool zu verwalten (page frame data structure). 
+    1. free/used
+    1. Liste der Prozesse die sie benutzen
+    1. Liste der page tables entries
+    1. backing store
+    1. protection bit: r, w, x
+    1. valid Bit 
+    1. modified Bit 
+    1. referenced Bit 
+    1. Copy on write Bit 
+    1. demand zero Bit 
+1. Page Deamon wird vom Kernel aufgerufen, wenn die Anzahl leerer Seiten unter eine bestimmte Grenze fällt. Versucht freie Seiten zu erzeugen, braucht dafür page replacement Strategie
+    1. least recently used (LRU)
+        1. Variante Load und Store Befehle setzen im TLB das Referenced Bit
+        1. Betriebssystem löscht in regelmäßigen abständen diese Bits
+        1. Dadurch ist feststellbar, welche Seiten in letzter Zeit benutzt wurden
+    1. First in First Out (FIFO, z.B. Windows)
+        1. einfach zu implementieren
+        1. geht ohne Hardwareunterstützung
+    1. Global Replacement und local Replacement
+        1. local (Windows): wenn Prozess X eine Seite braucht wird auch eine Seite von Prozess X ausgelagert
+        2. global: wenn Prozess X eine Seite braucht wird unter allen Seiten von allen prozessen die günstigste zum Auslagern gesucht. 
+    
+    
+
+
