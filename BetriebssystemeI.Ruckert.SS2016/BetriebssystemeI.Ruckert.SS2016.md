@@ -1146,7 +1146,7 @@ Konzepte fürs Multiprogramming
     1. backing store
     1. protection bit: r, w, x
     1. valid Bit 
-    1. modified Bit 
+    1. modified Bit, dirty Bit
     1. referenced Bit 
     1. Copy on write Bit 
     1. demand zero Bit 
@@ -1164,9 +1164,13 @@ Konzepte fürs Multiprogramming
     1. Second Chance Algorithmus (Variante des Reference Bit Algorithmus): man nimmt den ersten ohne Reference-Bit. Bei Pages mit Reference-Bit löscht man das Bit und stellt sie ans Ende der Schlange.
 1. Demand Paging
     1. Seiten werden erst geladen, wenn sie egebraucht werden
-    1. demand zero pages: eine Seite wird mit 0 gefüllt und zugeordnet, z.B. mit 0 initialisierte Datenbereiche wie Stack oder Heap
-    1. pages im backing store (auf der Platte)
-        1. 
+    1. demand zero pages: eine Seite wird mit 0 gefüllt und zugeordnet, z.B. mit 0 initialisierte Datenbereiche wie Stack oder Heap --> soft page fault
+    1. pages im backing store (auf der Platte) --> hard page fault
+    1. pages in Memory --> soft page fault
+1. Speicher Schutz
+    1. Über page tables und segment tables wird der Speicher vor unberechtigtem Zugriff aus anderen Prozessen geschützt
+    1. Mit protections Bits schützt man den Speicher vor unbeabsichtigten Zugriffen
+    1. 
     
 
 
