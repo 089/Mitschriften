@@ -1180,4 +1180,87 @@ Konzepte fürs Multiprogramming
 1. Prepaging
     1. Wenn ein page fault eine Seite (z.B. Code) anfordert lädt man gleich ein ganzes working set. 
     1. Seiten proaktiv in den swap space schreiben
+
+## Zusammenfassung und Klausurhinweise, Vorlesung vom 06.07.2016
+
+### Themen und Stichwörter
+
+1. Aufgaben von Betriebssystemen
+    * Ressourcen (Schutz)
+    * Rechte (Schutz)
+    * User Mode vs. Kernel Mode
+    * System Call
+    * Interrupt/Event
+    * API
+1. Prozesse und Threads
+    * Erzeugung und Terminierung
+    * Prozess/Thread Zustände (ready, running, waiting, ...)
+    * Code, Data, Kontekt (Register), Stack
+    * fork/exec
+    * CreateProcess/CreateThread
+1. Interrupts
+    * Priority
+    * Interrupt Level
+    * Interrupt Number
+    * Handler Table/Handle
+    * synchron (intern)/asynchron (extern)
+    * Markieren
+1. Scheduling
+    * Zuordnung CPU-Thread
+    * Thread-Zustände (nochmal)
+    * Quantum, Preemption
+    * Windows/Linux -> Rechenzeit-Prio-Verhältnis
+    * Prioities: base, dynamic, priority boost
+    * Starvation
+    * Round Robin
+    * Soft Affinity/Hard Affinity
+    * Scheduleraufruf; Wann und von wem?
+1. Synchronisierung
+    * Race Condition
+    * Critical Section
+    * Mutual Exclusion
+    * Fairness
+    * Spinlock/Signal und Wait
+    * Atomic Read/Write: Read/Test-Write
+    * Mutex
+    * Semaphore
+    * Beispiel Consumer/Producer, Reader/Writer   
+1. Memory Management
+    * Segmentation
+        - base, size, permissions
+        - segment table
+        - swapping
+    * page frame data structure (frame number, page, valid, used, free, copy on write, ...)
+    * page fault (soft, hard)
+    * Paging/Virtual Memory
+        - virtuelle/physikalische Adressen
+        - Adressübersetzung
+        - Pagetables
+        - mehrstufige Pagetables
+        - PageNumber; FrameNumber
+        - offset
+        - page size
+        - permissions
+    * TLB Caches
+    * Demand Paging
+    * Page Replacement Strategy (local, global, prepaging, buffering, locking, LRU, second chance, ...)
+
+### Mögliche Fragen und Stichwörter
+
+1. Quantum, Round Robin, Pagetable
+1. Unterschiede: Segmentation, Paging bei Windows und Linux
+1. Was passiert im OS, wenn
+    1. Prozess erzeugt,
+    1. Thread beendet,
+    1. Interrupt oder Page Fault eintritt,
+    1. Quantum abläuft?
+1. Welche Ressourcen braucht das OS, wenn/für ...
+1. Wie groß ist ein ..., Wie misst man ...
+    1. Pagetable, wenn Entry 8 Byte und Index von 10 Bit
+    1. Seitengröße bei 8 Bit Offset
+1. Wie viele Threads kann man starten, wenn jeder 1 MB STack braucht?
+    1. Welche Parameter sind einstellbar?
+    1. Grenzen
+    1. Probleme
+    
     
