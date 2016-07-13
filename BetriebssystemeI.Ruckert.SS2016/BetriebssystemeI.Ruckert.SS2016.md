@@ -27,7 +27,7 @@
     1. Was ist bzw. macht ein OS?
     1. User Mode und Kernel Mode
 
-## Grundlagen Rechnerarchitektur (RA), 23.03.2016
+## Grundlagen Rechnerarchitektur (RA), Vorlesung Betriebssysteme vom 23.03.2016
 
 ### Wozu braucht das OS Hardware-Unterstützung?
 Wiederholung: Wozu braucht man ein OS?
