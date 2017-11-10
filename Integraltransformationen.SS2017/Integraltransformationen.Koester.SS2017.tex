@@ -94,7 +94,7 @@
 \newcommand{\noteProfessor}[1]{\marginpar{\tiny{\textquote{#1}}}}
 
 % Dokumenteneigenschaften
-\newcommand{\pTitle}{Formelsammlung\\Integraltransformationen}
+\newcommand{\pTitle}{Zusammenfassung Integraltransformationen}
 \newcommand{\pVersion}{\date{\today}}
 \newcommand{\pProfessor}{Prof. Dr. Gerta Köster}
 
@@ -129,6 +129,7 @@
 \tableofcontents
 \newpage
 \listoffigures
+\newpage
 
 % Definitionen, Sätze usw. aus asmthm 
 \theoremstyle{definition}
@@ -140,14 +141,13 @@
 \newenvironment{beweis}{\begin{proof}}{\end{proof}} % we love german ;-)
 
 % einzelne Kapitel
-\part{todo
-\include{todo}
+\include{}
 
 
 
 % Stichwortverzeichnis
-% \newpage
-% \renewcommand{\indexname}{Stichwortverzeichnis} % Index soll Stichwortverzeichnis heissen
-% \addcontentsline{toc}{section}{Stichwortverzeichnis} % Stichwortverzeichnis soll im Inhaltsverzeichnis auftauchen
-% \printindex % Stichwortverzeichnis endgueltig anzeigen
+\newpage
+\renewcommand{\indexname}{Stichwortverzeichnis} % Index soll Stichwortverzeichnis heissen
+\addcontentsline{toc}{section}{Stichwortverzeichnis} % Stichwortverzeichnis soll im Inhaltsverzeichnis auftauchen
+\printindex % Stichwortverzeichnis endgueltig anzeigen
 \end{document}
